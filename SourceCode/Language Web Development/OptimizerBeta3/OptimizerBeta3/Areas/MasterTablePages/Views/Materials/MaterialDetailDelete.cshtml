@@ -1,0 +1,167 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.MaterialDetailViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Materials Info for Details Updates</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Code</label>
+            </div>
+            <div class="col-3">
+                @TempData["Code"]
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Category</label>
+            </div>
+            <div class="col-3">
+                @TempData["Category"]
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label class="col-form-label text-danger">Type</label>
+            </div>
+            <div class="col-2">
+                @TempData["Type"]
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">Sub Type</label>
+            </div>
+            <div class="col-2">
+                @TempData["SubType"]
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">UOM</label>
+            </div>
+            <div class="col-2">
+                @TempData["SubType"]
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Description</label>
+            </div>
+            <div class="col-9">
+                @TempData["Description"]
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Material Details - Delete</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="MaterialDetailDelete">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialDetails.FKParty" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialDetails.FKParty" asp-items="Model.FKParty.ToSelectListCompanyName(Model.MaterialDetails.FKParty)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="MaterialDetails.FKCurrency" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialDetails.FKCurrency" asp-items="Model.FKCurrency.ToSelectListItem(Model.MaterialDetails.FKCurrency)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialDetails.Rate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="MaterialDetails.Rate" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="MaterialDetails.Rate" class="text-danger"></span>
+                <div class="col-3">
+                    <label asp-for="MaterialDetails.IsPrimeSupplier" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="MaterialDetails.IsPrimeSupplier" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialDetails.MinimumOrdQty" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="MaterialDetails.MinimumOrdQty" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="MaterialDetails.MinimumTransitDays" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="MaterialDetails.MinimumTransitDays" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialDetails.ApplicableFrom" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="MaterialDetails.ApplicableFrom" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="MaterialDetails.ApplicableTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="MaterialDetails.ApplicableTo" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="MaterialDetails.FKMaterial" readonly class="form-control" value="@TempData["Id"]" type="hidden" />
+            <input asp-for="MaterialDetails.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="MaterialDetails.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-danger form-control" asp-route-id="@Model.MaterialDetails.Id" value="Delete" />
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="MaterialDetailIndex" asp-route-id="@TempData["Id"]">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

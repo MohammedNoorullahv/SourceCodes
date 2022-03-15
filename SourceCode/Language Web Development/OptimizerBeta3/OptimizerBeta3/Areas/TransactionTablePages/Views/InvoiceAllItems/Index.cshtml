@@ -1,0 +1,85 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.Invoice>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Invoice's - Index</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @*@if (Model.Count() > 0)*@
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    @Html.DisplayNameFor(m => m.FKParty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.InvoiceNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.InvoiceDt)
+                </th>
+                <th>
+                    <label>Actions</label>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.FKParty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.InvoiceNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.InvoiceDt)
+                    </td>
+                    <td>
+
+                        <a class="btn btn-warning text-black" asp-action="InvoiceDetailIndex" asp-route-id="@item.Id">
+                            Invoice Dtl
+                        </a>
+                    </td>
+                    <td style="width:150px">
+                        @if (item.IsEntryCompleted == false)
+                        {
+                            <div class="btn-group" role="group">
+                                @*@if (item.ReceivedQuantity <= 0)
+                                    {*@
+                                <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                @*<a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>*@
+                            </div>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Invoice exists.....</p>
+    }
+</div>
+

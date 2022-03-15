@@ -1,0 +1,227 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.GeneralTables.TempInvoiceDtl>
+@using OptimizerBeta3.Models.GeneralTables
+@{
+    ViewData["Title"] = "InvoiceDetailScannedCodes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>InvoiceDetailScannedCodes</h1>
+
+<h6>Total Scanned Barcodes Count</h6>
+<br />
+
+<div>
+    @*<label>Discount Percentage application for all Items Entred</label>
+        <input type="text" />
+        <a class="btn btn-primary text-white  form-control" asp-action="UpdateDiscount" asp-route-Id="@TempData["InvoiceId"]">
+            Update Discount
+        </a>*@
+    @using (Html.BeginForm("UpdateDiscount", "Invoice", FormMethod.Post))
+    {
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Discount Percentage applicable for all Items Entered</label>
+            </div>
+            <div class="col-2">
+                <input id="DiscountPercentage" name="DiscountPercentage" type="text" />
+            </div>
+            <div class="col-1">
+                <input id="submit1" type="submit" value="Update Discount Percentage" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Discount Value applicable for all Items Entered</label>
+            </div>
+            <div class="col-2">
+                <input id="DiscountValue" name="DiscountValue" type="text" />
+            </div>
+            <div class="col-1">
+                <input id="submit1" type="submit" value="Update Discount Value" />
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Others Plus(+) Value applicable for all Items Entered</label>
+            </div>
+            <div class="col-2">
+                <input id="OtherValue" name="OtherValue" type="text" />
+            </div>
+            <div class="col-1">
+                <input id="submit1" type="submit" value="Update Others Value Plus(+)" />
+            </div>
+        </div>
+
+    }
+
+</div>
+
+<h4 class="text-info">Total Correct Barcodes Count</h4>
+<h3>List - Correct Barcodes Count</h3>
+<div>
+    @*@if (Model.Count() > 0)*@
+    @{
+        var TempInvoicedtlsResults = (List<TempInvoiceDtl>)ViewBag.TempInvoiceDtls;
+        var TempEANCodeDtlsResults = (List<TempInvoiceDtlEANCode>)ViewBag.TempEANCodeDtls;
+    }
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    <label>Actions</label>
+                </th>
+                <th> @*@Html.DisplayNameFor(m => m.Id)*@ </th>
+                <th> @*@Html.DisplayNameFor(m => m.IPAddress)*@ </th>
+                <th> @*@Html.DisplayNameFor(m => m.FKInvoiceNo)*@ </th>
+                <th> @Html.DisplayNameFor(m => m.InvoiceNo) </th>
+                <th> @Html.DisplayNameFor(m => m.InvoiceDt) </th>
+                <th> @*@Html.DisplayNameFor(m => m.FKMaterial)*@ </th>
+                <th> @*@Html.DisplayNameFor(m => m.FKArticle)*@ </th>
+                <th> @Html.DisplayNameFor(m => m.Description) </th>
+                <th> @Html.DisplayNameFor(m => m.Colour) </th>
+                <th> @Html.DisplayNameFor(m => m.Size) </th>
+                <th> @Html.DisplayNameFor(m => m.HSNCode) </th>
+                <th> @Html.DisplayNameFor(m => m.Quantity) </th>
+                <th> @*@Html.DisplayNameFor(m => m.IIQuantity)*@ </th>
+                <th> @Html.DisplayNameFor(m => m.Rate) </th>
+                <th> @Html.DisplayNameFor(m => m.Value) </th>
+                <th> @Html.DisplayNameFor(m => m.ValueinINR) </th>
+                <th> @Html.DisplayNameFor(m => m.DiscountPercentage) </th>
+                <th> @Html.DisplayNameFor(m => m.DiscountValue) </th>
+                <th> @Html.DisplayNameFor(m => m.GrossValue) </th>
+                <th> @Html.DisplayNameFor(m => m.SGSTPercentage) </th>
+                <th> @Html.DisplayNameFor(m => m.SGSTValue) </th>
+                <th> @Html.DisplayNameFor(m => m.CGSTPercentage) </th>
+                <th> @Html.DisplayNameFor(m => m.CGSTValue) </th>
+                <th> @Html.DisplayNameFor(m => m.IGSTPercentage) </th>
+                <th> @Html.DisplayNameFor(m => m.IGSTValue) </th>
+                <th> @Html.DisplayNameFor(m => m.GSTTotalValue) </th>
+                <th> @Html.DisplayNameFor(m => m.OthersValuePlus) </th>
+                <th> @Html.DisplayNameFor(m => m.ItemNettValue) </th>
+                <th> @Html.DisplayNameFor(m => m.EANCode) </th>
+                <th> @Html.DisplayNameFor(m => m.ReadyforImport) </th>
+                <th> @Html.DisplayNameFor(m => m.Reason) </th>
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width:150px" class="text-center">
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-primary text-white" asp-action="EditTempInvoiceDetail" asp-route-Id="@item.Id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a class="btn btn-danger text-white" asp-action="DeleteTempInvoiceDetail" asp-route-Id="@item.Id">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+
+                    <td> @*@Html.DisplayFor(m => item.IPAddress)*@ </td>
+                    <td> @*@Html.DisplayFor(m => item.FKInvoiceNo)*@ </td>
+                    <td> @Html.DisplayFor(m => item.InvoiceNo) </td>
+                    <td> @Html.DisplayFor(m => item.InvoiceDt) </td>
+                    <td> @*@Html.DisplayFor(m => item.FKMaterial)*@ </td>
+                    <td> @*@Html.DisplayFor(m => item.FKArticle)*@ </td>
+                    <td> @Html.DisplayFor(m => item.Description) </td>
+                    <td> @Html.DisplayFor(m => item.Colour) </td>
+                    <td> @Html.DisplayFor(m => item.Size) </td>
+                    <td> @Html.DisplayFor(m => item.HSNCode) </td>
+                    <td> @Html.DisplayFor(m => item.Quantity) </td>
+                    <td> @*@Html.DisplayFor(m => item.IIQuantity)*@ </td>
+                    <td> @Html.DisplayFor(m => item.Rate) </td>
+                    <td> @Html.DisplayFor(m => item.Value) </td>
+                    <td> @Html.DisplayFor(m => item.ValueinINR) </td>
+                    <td> @Html.DisplayFor(m => item.DiscountPercentage) </td>
+                    <td> @Html.DisplayFor(m => item.DiscountValue) </td>
+                    <td> @Html.DisplayFor(m => item.GrossValue) </td>
+                    @*@if (item.DiscountPercentage != 0)
+                        {
+                            var discountvalue = item.ValueinINR * item.DiscountPercentage / 100;
+                            <td> @Html.Raw(discountvalue) </td>
+                            var grossValue = item.ValueinINR - discountvalue;
+                            <td> @Html.Raw(grossValue) </td>
+                        }
+                        else
+                        {
+                            <td> @Html.Raw(item.DiscountPercentage) </td>
+                            <td> @Html.Raw(item.GrossValue) </td>
+                        }*@
+                    <td> @Html.DisplayFor(m => item.SGSTPercentage) </td>
+                    <td> @Html.DisplayFor(m => item.SGSTValue) </td>
+                    <td> @Html.DisplayFor(m => item.CGSTPercentage) </td>
+                    <td> @Html.DisplayFor(m => item.CGSTValue) </td>
+                    <td> @Html.DisplayFor(m => item.IGSTPercentage) </td>
+                    <td> @Html.DisplayFor(m => item.IGSTValue) </td>
+                    <td> @Html.DisplayFor(m => item.GSTTotalValue) </td>
+                    <td> @Html.DisplayFor(m => item.OthersValuePlus) </td>
+                    <td> @Html.DisplayFor(m => item.ItemNettValue) </td>
+                    <td> @Html.DisplayFor(m => item.EANCode) </td>
+                    <td> @Html.DisplayFor(m => item.ReadyforImport) </td>
+                    <td> @Html.DisplayFor(m => item.Reason) </td>
+
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Invoice Details's exists.....</p>
+    }
+</div>
+
+<h4 class="text-danger">Total Wrong Barcodes Count</h4>
+<h3>List - Wrong Barcodes Count</h3>
+@if (TempEANCodeDtlsResults.Count > 0)
+{
+    <table class="table table-striped border">
+        <tr class="table-secondary">
+
+            <th> @Html.Display("Id") </th>
+            <th> @Html.Display("IPAddress") </th>
+            <th> @Html.Display("EANCode") </th>
+            <th> @Html.Display("IsMatching") </th>
+            <th> @Html.Display("Quantity") </th>
+            <th> @Html.Display("Reason") </th>
+
+        </tr>
+
+        @foreach (var item in TempEANCodeDtlsResults)
+        {
+            <tr>
+                <td> @Html.DisplayFor(m => item.Id) </td>
+                <td> @Html.DisplayFor(m => item.IPAddress) </td>
+                <td> @Html.DisplayFor(m => item.EANCode) </td>
+                <td> @Html.DisplayFor(m => item.IsMatching) </td>
+                <td> @Html.DisplayFor(m => item.Quantity) </td>
+                <td> @Html.DisplayFor(m => item.Reason) </td>
+            </tr>
+        }
+    </table>
+}
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        @*<form method="post" asp-action="CreateInvoiceDetail">*@
+        <div class="form-group row">
+            <div class="col-3">
+                @*<input type="submit" value="Proceed With Correct Barcodes" class="btn btn-success" />*@
+                <a class="btn btn-success text-white  form-control" asp-action="InsertInvoiceDetail">
+                    Proceed With Correct Barcodes
+                </a>
+                @*InsertInvoiceDetail*@
+            </div>
+            <div class="col-3">
+                <a class="btn btn-primary text-white  form-control" asp-action="CreateInvoiceDetailForReScanning" asp-route-Id="@TempData["InvoiceId"]">
+                    Go Back & Re Scan
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

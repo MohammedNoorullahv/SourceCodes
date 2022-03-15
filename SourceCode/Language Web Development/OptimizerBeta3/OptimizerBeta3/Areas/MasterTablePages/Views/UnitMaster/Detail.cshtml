@@ -1,0 +1,250 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.UnitMasterViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Company Info for Editing Unit Information</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Code</label>
+            </div>
+            <div class="col-3">
+                @TempData["CICode"]
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">GST Code</label>
+            </div>
+            <div class="col-3">
+                @TempData["CIGST"]
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Name</label>
+            </div>
+            <div class="col-3">
+                @TempData["CICompanyName"]
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Address</label>
+            </div>
+            <div class="col-3">
+                @TempData["CIAddress"]
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Unit Master - Detail</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Detail">
+            <input type="hidden" asp-for="UnitMaster.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.FKUnitType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.UnitMaster.FKUnitType" id="FKArea" asp-items="Model.FKUnitType.ToSelectListItem(Model.UnitMaster.FKUnitType)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UnitMaster.Code" class="form-control" />
+                </div>
+                <span asp-validation-for="UnitMaster.Code" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.CompanyName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UnitMaster.CompanyName" class="form-control" />
+                </div>
+                <span asp-validation-for="UnitMaster.CompanyName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.ShortName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UnitMaster.ShortName" class="form-control" />
+                </div>
+                <span asp-validation-for="UnitMaster.ShortName" class="text-danger text-info"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.Address1" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UnitMaster.Address1" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.Address2" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UnitMaster.Address2" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.FKArea" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.UnitMaster.FKArea" id="FKArea" asp-items="Model.FKArea.ToSelectListItem(Model.UnitMaster.FKArea)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.FKCity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.UnitMaster.FKCity" id="FKCity" asp-items="Model.FKCity.ToSelectListItem(Model.UnitMaster.FKCity)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.FKPincode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.UnitMaster.FKPincode" id="FKPincode" asp-items="Model.FKPincode.ToSelectListItem(Model.UnitMaster.FKPincode)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.FKState" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.UnitMaster.FKState" id="FKArea" asp-items="Model.FKState.ToSelectListStateName(Model.UnitMaster.FKState)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.ContactPersonName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UnitMaster.ContactPersonName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.ContactNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UnitMaster.ContactNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.MailId" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UnitMaster.MailId" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UnitMaster.PANNumber" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UnitMaster.PANNumber" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="UnitMaster.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="UnitMaster.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    @*<partial name="_DetailandBacktoListButtonPartialView" model="Model.UnitMaster.Id" />*@
+                    <div class="row">
+                        <div class="col-6">
+                            @*<input type="submit" class="btn btn-info form-control" asp-route-id="@Model" value="Update" />*@
+                            <a asp-action="Edit" class="btn btn-info" asp-route-id="@Model.UnitMaster.Id"><i class="fas fa-list-alt"></i> &nbsp; Edit</a>
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="UnitIndex" asp-route-id="@TempData["CIId"]">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/UnitMaster/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

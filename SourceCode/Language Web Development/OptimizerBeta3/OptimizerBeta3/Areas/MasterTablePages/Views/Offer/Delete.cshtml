@@ -1,0 +1,149 @@
+﻿@model OptimizerBeta3.Models.MasterTables.Offers
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Offers - Delete</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<form method="post" asp-action="Delete" class="border backgroudColor">
+    <div class="border backgroudWhite">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="OfferName" class="col-form-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="OfferName" class="form-control" />
+            </div>
+            <span asp-validation-for="OfferName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="FromDate" class="col-form-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="FromDate" class="form-control" />
+            </div>
+            <div class="col-3">
+                <label asp-for="ToDate" class="col-form-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="ToDate" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="IsExtendable" class="col-form-label"></label>
+            </div>
+            <div class="col-1">
+                <input asp-for="IsExtendable" class="form-control" />
+            </div>
+            <div class="col-2">
+            </div>
+            <div class="col-3">
+                <label asp-for="IsAnniverseryBased" class="col-form-label"></label>
+            </div>
+            <div class="col-1">
+                <input asp-for="IsAnniverseryBased" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="IsRangeOffer" class="col-form-label"></label>
+            </div>
+            <div class="col-1">
+                <input asp-for="IsRangeOffer" class="form-control" />
+            </div>
+            <div class="col-2">
+            </div>
+            <div class="col-3">
+                <label asp-for="RangeSlNo" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="RangeSlNo" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="ApplicableForItem" class="col-form-label"></label>
+            </div>
+            <div class="col-1">
+                <input asp-for="ApplicableForItem" class="form-control" />
+            </div>
+            <div class="col-2">
+            </div>
+            <div class="col-3">
+                <label asp-for="ApplicableForInvoice" class="col-form-label"></label>
+            </div>
+            <div class="col-1">
+                <input asp-for="ApplicableForInvoice" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="DiscountPercentage" class="col-form-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="DiscountPercentage" class="form-control" />
+            </div>
+            <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="MinimumBillValue" class="col-form-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="MinimumBillValue" class="form-control" />
+            </div>
+            <div class="col-3">
+                <label asp-for="MaximumDiscountValue" class="col-form-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="MaximumDiscountValue" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="IsActive" class="col-form-label"></label>
+            </div>
+            <div class="col-1">
+                <input asp-for="IsActive" readonly ="readonly" class="form-control" value="@false" />
+            </div>
+            @*<span asp-validation-for="IsActive"  class="text-danger"></span>*@
+        </div>
+
+        <input asp-for="ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+        <input asp-for="ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_DeleteandBacktoListButtonPartialView" model="Model.Id" />
+            </div>
+        </div>
+    </div>
+</form>

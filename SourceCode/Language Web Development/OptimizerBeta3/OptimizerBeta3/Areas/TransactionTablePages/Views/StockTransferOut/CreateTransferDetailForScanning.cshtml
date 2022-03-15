@@ -1,0 +1,199 @@
+﻿@{
+    ViewData["Title"] = "CreateTransferDetailForScanning";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrapMateria.css" />
+<script src="https://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.6.2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+@{
+    var Transfer = (OptimizerBeta3.Models.TransactionTables.StockTransfer)TempData["Transfer"];
+}
+
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Transfer Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Transfer No</label>
+            </div>
+            <div class="col-3">
+                @Transfer.STNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Transfer Date</label>
+            </div>
+            <div class="col-3">
+                @Transfer.STDt;
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        @*<form method="post" asp-action="CreateInwardDetail">*@
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label class="col-form-label text-info">Scanning Mode</label>
+            </div>
+            <div class="col-3">
+                <input class="form-control" readonly value="@TempData["ScanningMode"]" name="ScanningMode" />
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label class="col-form-label text-info">Enter EAN Code</label>
+            </div>
+            <div class="col-3">
+                <input id="EANCode" class="form-control" onkeypress="addEleNew()" />
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label class="col-form-label text-info">Total Quantity</label>
+            </div>
+            <div class="col-1">
+                @*<input id="TotalQty" class="form-control" readonly value="@inward.DocumentQuantity" />*@
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-info">Previous Quantity</label>
+            </div>
+            <div class="col-1">
+                <input id="PreviousCount" class="form-control" readonly value="@TempData["PreviousCount"]" />
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-info">Scanned Quantity</label>
+            </div>
+            <div class="col-1">
+                <label id="EANCount" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-info">Balance Quantity</label>
+            </div>
+            <div class="col-1">
+                <input id="BalQty" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label id="lblXsQty" class="col-form-label text-info" hidden="hidden">Excess Quantity</label>
+            </div>
+            <div class="col-1">
+                <input id="XsQty" type="text" class="form-control" hidden="hidden" value="0" />
+            </div>
+            <div class="col-2">
+                <label id="lblXsQtyAllow" class="col-form-label text-info" hidden="hidden">Allow Excess Quantity</label>
+            </div>
+            <div class="col-1">
+                <input id="cbxXsQty" type="checkbox" class="form-control" hidden="hidden" onchange="enableXsQty()" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label class="col-form-label text-info">Scanned EAN Code</label>
+            </div>
+            <div class="col-6">
+                <ol style="list-style-type:none" id="cntr_list" name="EANList"></ol>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("TransferDetailScannedCodes", "StockTransferOut"))
+        {
+            <ol id="cntr_list1" data-role="listview" data-inset="true" data-filter="false" name="list">
+            </ol>
+            TempData["TransferId"] = @Transfer.Id;
+            <br />
+            <div class="form-group row">
+                <div class="col-3">
+                    <input type="submit" value="Proceed" class="btn btn-primary" />
+
+                </div>
+                <div class="col-3">
+                    <a class="btn btn-success text-white  form-control" asp-action="STDetailsIndex" asp-route-Id="@Transfer.Id">
+                        Back to Transfer
+                    </a>
+                </div>
+            </div>
+
+        }
+        @*</form>*@
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function addEleNew() {
+        if (event.key === 'Enter') {
+                $("#cntr_list1").prepend('<li> <input type="hidden" name="liContent" value="' + $('#EANCode').val() + '">' + ' ' + $('#EANCode').val() + '</li>');
+                document.getElementById("EANCode").value = "";
+                document.getElementById("EANCount").innerHTML = document.getElementById("cntr_list1").childElementCount;
+            //if ($('#BalQty').val() > 0 || $('#BalQty').val() == "") {
+            //    $("#cntr_list1").prepend('<li> <input type="hidden" name="liContent" value="' + $('#EANCode').val() + '">' + ' ' + $('#EANCode').val() + '</li>');
+            //    document.getElementById("EANCode").value = "";
+            //    document.getElementById("EANCount").innerHTML = document.getElementById("cntr_list1").childElementCount;
+
+            //    var nTotalQty = $("#TotalQty").val();
+            //    var nXsQty = $("#XsQty").val();
+            //    var nPreviousQty = $('#PreviousCount').val()
+            //    var nCurrentQty = document.getElementById("cntr_list1").childElementCount;
+            //    document.getElementById("BalQty").value = (parseInt(nTotalQty) + parseInt(nXsQty)) - (parseInt(nPreviousQty) + parseInt(nCurrentQty));
+            //    //document.getElementById("BalQty").value = $("#TotalQty").val() - $('#PreviousCount').val() - (document.getElementById("cntr_list1").childElementCount);
+            //    if ($('#BalQty').val() == 0) {
+            //        document.getElementById("EANCode").disabled = true;
+            //        if ($('#lblXsQtyAllow').val() == false) {
+            //            document.getElementById("XsQty").hidden = false;
+            //            document.getElementById("lblXsQty").hidden = false;
+            //            document.getElementById("lblXsQtyAllow").hidden = false;
+            //            document.getElementById("cbxXsQty").hidden = false;
+            //        }
+            //    }
+
+
+            //}
+            //else {
+            //    document.getElementById("EANCode").disabled = true;
+            //}
+        }
+    }
+
+    //function enableXsQty() {
+    //    if ($('#XsQty').val() > 0) {
+    //        document.getElementById("EANCode").disabled = false;
+    //        document.getElementById("XsQty").disabled = true;
+    //        document.getElementById("lblXsQty").disabled = true;
+    //        document.getElementById("lblXsQtyAllow").disabled = true;
+    //        document.getElementById("cbxXsQty").disabled = true;
+
+    //        var nTotalQty = $("#TotalQty").val();
+
+    //        var nXsQty = $("#XsQty").val();
+
+    //        var nPreviousQty = $('#PreviousCount').val()
+
+    //        var nCurrentQty = document.getElementById("cntr_list1").childElementCount;
+
+    //        document.getElementById("BalQty").value = (parseInt(nTotalQty) + parseInt(nXsQty)) - (parseInt(nPreviousQty) + parseInt(nCurrentQty));
+    //    }
+    //}
+
+</script>

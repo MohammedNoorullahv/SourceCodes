@@ -1,0 +1,120 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.SalesPromotionOffer>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var party = (OptimizerBeta3.Models.MasterTables.PartyInfo)TempData["party"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Party Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Party Name</label>
+            </div>
+            <div class="col-3">
+                @party.CompanyName;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Address</label>
+            </div>
+            <div class="col-3">
+                @party.Address1;
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-4">
+            <h2 class="text-info">Sales Promotion Offer - Index'</h2>
+        </div>
+        <div class="col-4 text-center">
+            <a class="btn btn-info text-white" asp-action="SalesPromotionCreate" asp-route-id=@party.Id>
+                <i class="fas fa-plus"></i>
+                Create
+            </a>
+        </div>
+        <div class="col-4 text-center">
+            <a class="btn btn-success text-white  form-control" asp-action="Index">
+                Back to Party Info
+            </a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    @Html.DisplayNameFor(m => m.OfferName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.FromDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.ToDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.DiscountPercentage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.DiscountValue)
+                </th>
+                <th>
+                    <label>Actions</label>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.OfferName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.FromDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.ToDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DiscountPercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DiscountValue)
+                    </td>
+                    <td style="width:150px">
+                        @if (item.IsActive == true)
+                        {
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary text-white" asp-action="SalesPromotionEdit" asp-route-Id="@item.Id">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Sales Promotion Offer's exists.....</p>
+    }
+</div>
+

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.Offers>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Offers - Index</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+    <div>
+        <form asp-action="IndexFilter" asp-controller="Offer">
+            <div class="row">
+                <div class="col-2">
+                    <h3 class="text-success">From Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="fromDate" name="fromDate" value="@(((DateTime)ViewBag.FromDate).Date.ToString("yyyy-MM-dd"))" />
+                </div>
+                <div class="col-2">
+                    <h3 class="text-success">To Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="toDate" name="toDate" value="@(((DateTime)ViewBag.ToDate).Date.ToString("yyyy-MM-dd"))" />
+
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-2 text-right">
+                    @*<a class="btn btn-success"><i class="fas fa-sync-alt"></i> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Refresh</a>*@
+                    <input type="submit" value="&nbsp; &nbsp; &nbsp; Refresh &nbsp;&nbsp; &nbsp; &nbsp;" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <br />
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-success table-striped table-hover table-bordered">
+                <tr class="table-success text-info text-center">
+                    <th> @Html.DisplayNameFor(m => m.OfferName) </th>
+                    <th> @Html.DisplayNameFor(m => m.FromDate) </th>
+                    <th> @Html.DisplayNameFor(m => m.ToDate) </th>
+                    <th> @Html.DisplayNameFor(m => m.IsActive) </th>
+                    <th class="text-center"><label>Actions</label></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td> @Html.DisplayFor(m => item.OfferName) </td>
+                        <td> @item.FromDate.ToString("dd-MMM-yyyy") </td>
+                        <td> @item.ToDate.ToString("dd-MMM-yyyy") </td>
+                        <td> @Html.DisplayFor(m => item.IsActive) </td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                @if (item.IsActive == true)
+                                {
+                                    @if (item.IsVenueBased == true)
+                                    {
+                                        <a class="btn btn-info text-black" asp-action="OfferDtlVenueMapping" asp-route-id="@item.Id">
+                                            VM
+                                        </a>
+                                    }
+                                    @*<a class="btn btn-warning text-black" asp-action="OfferMapping" asp-route-id="@item.Id">
+                                            SM
+                                        </a>*@
+                                    <a class="btn btn-warning text-black" asp-action="OfferDtlStockMapping" asp-route-id="@item.Id">
+                                        SM
+                                    </a>
+
+                                    <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                                    <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+
+                                }
+                                <a class="btn btn-success text-white" asp-action="Detail" asp-route-Id="@item.Id">
+                                    <i class="fas fa-list-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                        @*<td>
+                                    @if(item.IsActive == true)
+                            {
+                                    <a class="btn btn-warning text-black" asp-action="OfferMapping" asp-route-id="@item.Id">
+                                        Stock Mapping
+                                    </a>
+                            }
+
+                                    <partial name="_TableButtonPartial" model="item.Id" />
+                                </td>*@
+                        @*<td style="width:150px">
+                                <partial name="_TableButtonPartial" model="item.Id" />
+                            </td>*@
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p> No Offer's exists.....</p>
+        }
+    </div>
+</div>

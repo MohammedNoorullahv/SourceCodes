@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace OptimizerBeta3.Models.GeneralTables
+{
+    public class ComplaintLookUpMaster
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        public int FKCategory { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        [Column(TypeName = "varchar(30)")]
+        public string Description { get; set; }
+
+        [StringLength(6)]
+        [Column(TypeName = "varchar(6)")]
+        public string? ShortCode { get; set; }
+        
+        [DefaultValue(true)]
+        public Boolean IsActive { get; set; } = true;
+
+        [StringLength(5)]
+        [Column(TypeName = "varchar(5)")]
+        public string? EnteredSystemId { get; set; }
+
+        [Required]
+        public int CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public int? ModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public int? DeleteBy { get; set; }
+        public DateTime? DeletedDate { get; set; }
+    }
+}

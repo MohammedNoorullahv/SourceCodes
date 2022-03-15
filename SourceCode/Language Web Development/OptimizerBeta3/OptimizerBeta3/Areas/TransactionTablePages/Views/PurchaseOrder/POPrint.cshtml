@@ -1,0 +1,169 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.ViewModels.ReportsViewModel.PurchaseOrderReportViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th> @Html.DisplayNameFor(m => m.POPurchaseOrderNo) </th>
+                <th> @Html.DisplayNameFor(m => m.POPurchaseOrderDt) </th>
+                <th> @Html.DisplayNameFor(m => m.PODPurchaseOrderDtlNo) </th>
+                <th> @Html.DisplayNameFor(m => m.POSeason) </th>
+                <th> @Html.DisplayNameFor(m => m.POSource) </th>
+                <th> @Html.DisplayNameFor(m => m.POUnitName) </th>
+                <th> @Html.DisplayNameFor(m => m.POSupplierName) </th>
+                <th> @Html.DisplayNameFor(m => m.POOrderStatus) </th>
+                <th> @Html.DisplayNameFor(m => m.POPaymentTerms) </th>
+
+                <th> @Html.DisplayNameFor(m => m.POMArticleGroup) </th>
+                <th> @Html.DisplayNameFor(m => m.POMArticle) </th>
+
+                <th> @Html.DisplayNameFor(m => m.PODArticleDescription) </th>
+                <th> @Html.DisplayNameFor(m => m.PODArticleColor) </th>
+                <th> @Html.DisplayNameFor(m => m.PODOrderReferenceNo) </th>
+                <th> @Html.DisplayNameFor(m => m.PODTotalOrderQuantity) </th>
+
+                <th> @Html.DisplayNameFor(m => m.PODSize01) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity01) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize02) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity02) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize03) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity03) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize04) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity04) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize05) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity05) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize06) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity06) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize07) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity07) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize08) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity08) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize09) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity09) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize10) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity10) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize11) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity11) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize12) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity12) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize13) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity13) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize14) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity14) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize15) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity15) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize16) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity16) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize17) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity17) </th>
+                <th> @Html.DisplayNameFor(m => m.PODSize18) </th>
+                <th> @Html.DisplayNameFor(m => m.PODQuantity18) </th>
+                <th> @Html.DisplayNameFor(m => m.PODPurchaseOrderDtlNo) </th>
+
+                <th> @Html.DisplayNameFor(m => m.ARTDescription) </th>
+
+                <th> @Html.DisplayNameFor(m => m.CMLiningColourName) </th>
+                <th> @Html.DisplayNameFor(m => m.CMSocksColourName) </th>
+                <th> @Html.DisplayNameFor(m => m.CMSoleColourName) </th>
+                <th> @Html.DisplayNameFor(m => m.CMShoeColourName) </th>
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(m => item.POPurchaseOrderNo) </td>
+                    <td> @Html.DisplayFor(m => item.POPurchaseOrderDt) </td>
+                    <th> @Html.DisplayFor(m => item.PODPurchaseOrderDtlNo) </th>
+                    <td> @Html.DisplayFor(m => item.POSeason) </td>
+                    <td> @Html.DisplayFor(m => item.POSource) </td>
+                    <td> @Html.DisplayFor(m => item.POUnitName) </td>
+                    <td> @Html.DisplayFor(m => item.POSupplierName) </td>
+                    <td> @Html.DisplayFor(m => item.POOrderStatus) </td>
+                    <td> @Html.DisplayFor(m => item.POPaymentTerms) </td>
+
+                    <td> @Html.DisplayFor(m => item.POMArticleGroup) </td>
+                    <td> @Html.DisplayFor(m => item.POMArticle) </td>
+
+                    <td> @Html.DisplayFor(m => item.PODArticleDescription) </td>
+                    <td> @Html.DisplayFor(m => item.PODArticleColor) </td>
+                    <td> @Html.DisplayFor(m => item.PODOrderReferenceNo) </td>
+                    <td> @Html.DisplayFor(m => item.PODTotalOrderQuantity) </td>
+
+                    <td> @Html.DisplayFor(m => item.PODSize01) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity01) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize02) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity02) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize03) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity03) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize04) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity04) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize05) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity05) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize06) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity06) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize07) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity07) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize08) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity08) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize09) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity09) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize10) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity10) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize11) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity11) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize12) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity12) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize13) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity13) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize14) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity14) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize15) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity15) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize16) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity16) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize17) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity17) </td>
+                    <td> @Html.DisplayFor(m => item.PODSize18) </td>
+                    <td> @Html.DisplayFor(m => item.PODQuantity18) </td>
+                    <td> @Html.DisplayFor(m => item.PODPurchaseOrderDtlNo) </td>
+
+                    <td> @Html.DisplayFor(m => item.ARTDescription) </td>
+
+                    <td> @Html.DisplayFor(m => item.CMLiningColourName) </td>
+                    <td> @Html.DisplayFor(m => item.CMSocksColourName) </td>
+                    <td> @Html.DisplayFor(m => item.CMSoleColourName) </td>
+                    <td> @Html.DisplayFor(m => item.CMShoeColourName) </td>
+
+
+
+                </tr>
+            }
+        </table>
+
+        <div class="form-group row">
+            <div class="col-6 offset-3">
+                <div class="row">
+                    <div class="col-4">
+                        <a class="btn btn-dark text-white  form-control" asp-action="Index">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p> No Purchase Order's exists.....</p>
+    }
+</div>
+
+

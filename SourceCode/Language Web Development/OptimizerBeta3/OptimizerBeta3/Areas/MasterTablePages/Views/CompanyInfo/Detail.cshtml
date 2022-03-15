@@ -1,0 +1,173 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.CompanyInfoViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Company Info - Detail</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form asp-action="Detail">
+            <input type="hidden" asp-for="CompanyInfo.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.Code" class="form-control" />
+                </div>
+                <span asp-validation-for="CompanyInfo.Code" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.CompanyName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.CompanyName" class="form-control" />
+                </div>
+                <span asp-validation-for="CompanyInfo.CompanyName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.ShortName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.ShortName" class="form-control" />
+                </div>
+                <span asp-validation-for="CompanyInfo.ShortName" class="text-danger text-info"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.Address1" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.Address1" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.Address2" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.Address2" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.FKArea" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.CompanyInfo.FKArea" id="FKArea" asp-items="Model.FKArea.ToSelectListItem(Model.CompanyInfo.FKArea)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.FKCity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.CompanyInfo.FKCity" id="FKCity" asp-items="Model.FKCity.ToSelectListItem(Model.CompanyInfo.FKCity)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.FKPincode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.CompanyInfo.FKPincode" id="FKPincode" asp-items="Model.FKPincode.ToSelectListItem(Model.CompanyInfo.FKPincode)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.FKState" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.CompanyInfo.FKState" id="FKArea" asp-items="Model.FKState.ToSelectListStateName(Model.CompanyInfo.FKState)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.ContactPersonName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.ContactPersonName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.ContactNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.ContactNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.MailId" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.MailId" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.PANNumber" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.PANNumber" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CompanyInfo.GSTNumber" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="CompanyInfo.GSTNumber" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="CompanyInfo.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="CompanyInfo.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_DetailandBacktoListButtonPartialView" model="@Model.CompanyInfo.Id" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,258 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.PartyInfoDtlsViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Party Info for Editing Unit's</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Code</label>
+            </div>
+            <div class="col-3">
+                @TempData["PICode"]
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Party Type</label>
+            </div>
+            <div class="col-3">
+                @TempData["PIGST"]
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Name</label>
+            </div>
+            <div class="col-3">
+                @TempData["PICompanyName"]
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Address</label>
+            </div>
+            <div class="col-3">
+                @TempData["PIAddress"]
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Party Info Details - Detail</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Detail">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.FKUnitType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.PartyInfoDtls.FKUnitType" id="FKArea" asp-items="Model.FKUnitType.ToSelectListItem(Model.PartyInfoDtls.FKUnitType)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="PartyInfoDtls.Code" class="form-control" />
+                </div>
+                <span asp-validation-for="PartyInfoDtls.Code" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.CompanyName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="PartyInfoDtls.CompanyName" class="form-control" />
+                </div>
+                <span asp-validation-for="PartyInfoDtls.CompanyName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.ShortName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="PartyInfoDtls.ShortName" class="form-control" />
+                </div>
+                <span asp-validation-for="PartyInfoDtls.ShortName" class="text-danger text-info"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.Address1" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="PartyInfoDtls.Address1" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.Address2" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="PartyInfoDtls.Address2" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.FKArea" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.PartyInfoDtls.FKArea" id="FKArea" asp-items="Model.FKArea.ToSelectListItem(Model.PartyInfoDtls.FKArea)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.FKCity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.PartyInfoDtls.FKCity" id="FKCity" asp-items="Model.FKCity.ToSelectListItem(Model.PartyInfoDtls.FKCity)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.FKPincode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.PartyInfoDtls.FKPincode" id="FKPincode" asp-items="Model.FKPincode.ToSelectListItem(Model.PartyInfoDtls.FKPincode)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.FKState" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.PartyInfoDtls.FKState" id="FKState" asp-items="Model.FKState.ToSelectListStateName(Model.PartyInfoDtls.FKState)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.FKCountry" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.PartyInfoDtls.FKCountry" id="FKCountry" asp-items="Model.FKCountry.ToSelectListItem(Model.PartyInfoDtls.FKCountry)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.ContactPersonName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="PartyInfoDtls.ContactPersonName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.ContactNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="PartyInfoDtls.ContactNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.MailId" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="PartyInfoDtls.MailId" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PartyInfoDtls.PANNumber" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="PartyInfoDtls.PANNumber" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="PartyInfoDtls.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PartyInfoDtls.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    @*<partial name="_CreateandBacktoListButton" />*@
+                    <div class="row">
+                        <div class="col-6">
+                            <a asp-action="Edit" class="btn btn-info" asp-route-id="@Model.PartyInfoDtls.Id"><i class="fas fa-list-alt"></i> &nbsp; Edit</a>
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="PartyDtlsIndex" asp-route-id="@TempData["PIId"]">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/PartyInfoDtls/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

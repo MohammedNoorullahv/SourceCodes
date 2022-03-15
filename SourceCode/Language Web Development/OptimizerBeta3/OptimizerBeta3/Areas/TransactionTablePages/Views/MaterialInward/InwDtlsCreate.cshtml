@@ -1,0 +1,262 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.InwardDetailViewModel
+@using OptimizerBeta3.Models.TransactionTables
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var InwardInfo = (Inward)TempData["Inward"];
+    var PODetails = (MaterialPurchaseOrderDetails)ViewBag.PODtls;
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Inward Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Inward No</label>
+            </div>
+            <div class="col-3">
+                @InwardInfo.InwardNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Inward Date</label>
+            </div>
+            <div class="col-3">
+                @InwardInfo.InwardDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Offers - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<form method="post" asp-action="InwDtlsCreate" class="border backgroudColor">
+    <div class="border backgroudWhite">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="InwardDetails.Description" class="col-form-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="InwardDetails.Description" readonly value="@PODetails.Material" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="InwardDetails.EANCode" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.EANCode" id="EANCode" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label asp-for="InwardDetails.StockNo" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.StockNo" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="InwardDetails.Quantity" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.Quantity" id="Quantity" oninput="CalculateValue()" class="form-control" />
+            </div>
+            <span asp-validation-for="InwardDetails.Quantity" class="text-danger"></span>
+            <div class="col-2">
+                <label asp-for="InwardDetails.Rate" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.Rate" readonly id="Rate" value="@PODetails.Rate" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label asp-for="InwardDetails.Value" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.Value" id="Value" readonly class="form-control" />
+                <input asp-for="InwardDetails.ValueinINR" id="ValueinINR" readonly class="form-control" hidden="hidden" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="InwardDetails.DiscountPercentage" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.DiscountPercentage" id="DiscountPercentage" oninput="CalculateValue()" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label asp-for="InwardDetails.DiscountValue" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.DiscountValue" readonly id="DiscountValue" oninput="CalculateValue()" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label asp-for="InwardDetails.GrossValue" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.GrossValue" id="GrossValue" readonly class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="InwardDetails.SGSTPercentage" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.SGSTPercentage" id="SGSTPercentage" oninput="CalculateValue()" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label asp-for="InwardDetails.SGSTValue" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.SGSTValue" readonly id="SGSTValue" oninput="CalculateValue()" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="InwardDetails.CGSTPercentage" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.CGSTPercentage" id="CGSTPercentage" oninput="CalculateValue()" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label asp-for="InwardDetails.CGSTValue" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.CGSTValue" readonly id="CGSTValue" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="InwardDetails.IGSTPercentage" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.IGSTPercentage" id="IGSTPercentage" oninput="CalculateValue()" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label asp-for="InwardDetails.IGSTValue" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.IGSTValue" readonly id="IGSTValue" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="InwardDetails.GSTTotalValue" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.GSTTotalValue" id="GSTTotalValue" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label asp-for="InwardDetails.OthersValuePlus" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.OthersValuePlus" id="OthersValuePlus" oninput="CalculateValue()" class="form-control" />
+            </div>
+            <div class="col-2">
+                <label asp-for="InwardDetails.ItemNettValue" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="InwardDetails.ItemNettValue" id="ItemNettValue" class="form-control" />
+            </div>
+        </div>
+
+        <input asp-for="InwardDetails.InwardNo" readonly value="@InwardInfo.InwardNo" />
+        <input asp-for="InwardDetails.FKSupplier" readonly value="@InwardInfo.FKParty" />
+        <input asp-for="InwardDetails.FLAM" readonly value="@InwardInfo.FLAM" />
+        <input asp-for="InwardDetails.FKPurchaseOrder" readonly value="@PODetails.FKPurchaseOrder" type="hidden" />
+        <input asp-for="InwardDetails.FKPurchaseOrderMain" readonly value="0" type="hidden" />
+        <input asp-for="InwardDetails.FKPurchaseOrderDetail" readonly value="@PODetails.Id" type="hidden" />
+
+        <input asp-for="InwardDetails.FKInwardNo" readonly value="@InwardInfo.Id" type="hidden" />
+        <input asp-for="InwardDetails.FKMaterial" readonly value="@PODetails.FKMaterial" type="hidden" />
+        <input asp-for="InwardDetails.FKArticle" readonly value="0" type="hidden" />
+        <input asp-for="InwardDetails.StockNo" readonly value="Mat" type="hidden" />
+        <input asp-for="InwardDetails.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+        <input asp-for="InwardDetails.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+        <input asp-for="InwardDetails.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+        <input asp-for="InwardDetails.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+        <input asp-for="InwardDetails.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+        <input asp-for="InwardDetails.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+        <input asp-for="InwardDetails.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+
+        <div class="form-group row">
+            <div class="col-6 offset-3">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="submit" class="btn btn-info form-control" value="Save & Continue" />
+                    </div>
+                    <div class="col-4">
+                        <a class="btn btn-dark text-white  form-control" asp-action="POMainIndex" asp-route-id="@InwardInfo.Id">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script type="text/javascript">
+
+    function CalculateValue() {
+        var Quantity = parseFloat($("#Quantity").val());
+        var Rate = parseFloat($("#Rate").val());
+        var Value = parseFloat(Quantity) * parseFloat(Rate);
+        var nValueinINR = parseFloat(Quantity) * parseFloat(Rate);
+        document.getElementById("Value").value = parseFloat(Value);
+        document.getElementById("ValueinINR").value = parseFloat(nValueinINR);
+        var nDiscountValue;
+        if ($('#DiscountPercentage').val() > 0) {
+            nDiscountValue = parseFloat(nValueinINR) * parseFloat($("#DiscountPercentage").val()) / 100;
+            document.getElementById("DiscountValue").value = nDiscountValue;
+        } else {
+            nDiscountValue = $('#DiscountValue').val()
+        }
+        
+        var nGrossValue = parseFloat(nValueinINR) - parseFloat(nDiscountValue);
+        document.getElementById("GrossValue").value = parseFloat(nGrossValue);
+        var nSGSTValue = parseFloat(nGrossValue) * parseFloat($("#SGSTPercentage").val()) / 100;
+        var nCGSTValue = parseFloat(nGrossValue) * parseFloat($("#CGSTPercentage").val()) / 100;
+        var nIGSTValue = parseFloat(nGrossValue) * parseFloat($("#IGSTPercentage").val()) / 100;
+        var nGSTTotalValue = parseFloat(nSGSTValue) + parseFloat(nCGSTValue) + parseFloat(nIGSTValue);
+
+        document.getElementById("SGSTValue").value = parseFloat(nSGSTValue);
+        document.getElementById("CGSTValue").value = parseFloat(nCGSTValue);
+        document.getElementById("IGSTValue").value = parseFloat(nIGSTValue);
+        document.getElementById("GSTTotalValue").value = parseFloat(nGSTTotalValue);
+
+        var nItemNettValue = parseFloat(nGrossValue) + parseFloat(nGSTTotalValue) + parseFloat($("#OthersValuePlus").val())
+        document.getElementById("ItemNettValue").value = parseFloat(nItemNettValue);
+
+    }
+
+</script>

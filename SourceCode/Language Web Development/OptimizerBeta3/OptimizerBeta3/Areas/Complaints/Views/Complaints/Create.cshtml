@@ -1,0 +1,166 @@
+﻿@model OptimizerBeta3.Models.ViewModels.GeneralTables.ComplaintsViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Complaint's - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.ComplaintDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="Complaint.ComplaintDt" id="ComplaintDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.FKMenuCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Complaint.FKMenuCategory" asp-items="Model.FKMenuCategory.ToSelectListItem(Model.Complaint.FKMenuCategory)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.FKMenuName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Complaint.FKMenuName" asp-items="Model.FKMenuName.ToSelectListItem(Model.Complaint.FKMenuName)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.FKLocation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Complaint.FKLocation" asp-items="Model.FKLocation.ToSelectListItem(Model.Complaint.FKLocation)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.FKAdminName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Complaint.FKAdminName" asp-items="Model.FKAdminName.ToSelectListItem(Model.Complaint.FKAdminName)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.FKUserName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Complaint.FKUserName" asp-items="Model.FKUserName.ToSelectListItem(Model.Complaint.FKUserName)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.Comments" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    @*<input asp-for="Complaint.Comments" class="form-control" />*@
+                    @*@Html.EditorFor(m => m.Complaint.Comments)*@
+                    @*@Html.TextAreaFor(model => model.Complaint.Comments, new { @class = "form-control", @rows = 5 })*@
+                    
+                    <textarea asp-for="Complaint.Comments" class="form-control" text-wrap:normal" type="text" placeholder="Please add your Complaints in Dtl here"></textarea>
+        <span asp-validation-for="Complaint.Comments" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.AddressLink" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <input asp-for="Complaint.AddressLink" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.CommentBySupportTeam" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <input asp-for="Complaint.CommentBySupportTeam" readonly class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.FKStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Complaint.FKStatus" asp-items="Model.FKStatus.ToSelectListItem(Model.Complaint.FKStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.PlannedDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="Complaint.PlannedDt" id="PlannedDt" readonly class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+
+                <div class="col-sm-2">
+                    <label asp-for="Complaint.CompletedDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="Complaint.CompletedDt" id="CompletedDt" readonly class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <input asp-for="Complaint.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Complaint.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="Complaint.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Complaint.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="Complaint.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Complaint.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-9 offset-3">
+                    <partial name="_CreateandBacktoListButton" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        $('#ComplaintDt').attr('min', minDate);
+        $('#ComplaintDt').attr('max', minDate);
+    });
+   
+</script>
+
+

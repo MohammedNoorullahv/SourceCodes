@@ -1,0 +1,63 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.AllTransaction>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var invoice = (OptimizerBeta3.Models.TransactionTables.InvoiceToPerson)TempData["Invoice"];
+}
+<br />
+
+<div>
+    @using (Html.BeginForm("Index", "AllTransaction", FormMethod.Post))
+    {
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Stock No / EAN Code</label>
+            </div>
+            <div class="col-2">
+                <input id="EANCode" name="EANCode" type="text" autofocus="autofocus" />
+            </div>
+            <div class="col-1">
+                <input id="submit1" type="submit" value="Insert" />
+            </div>
+        </div>
+    }
+</div>
+
+<h3>Item Transaction Details</h3>
+@if (Model.Count() > 0)
+{
+<table class="table table-success table-striped table-hover table-bordered">
+    <tr class="table-success text-info">
+        <th> @Html.DisplayNameFor(m => m.TranDate) </th>
+        <th> @Html.DisplayNameFor(m => m.TranRefNo)</th>
+        <th> @Html.DisplayNameFor(m => m.TransactionType)</th>
+        <th> @Html.DisplayNameFor(m => m.InwardQuantity)</th>
+        <th> @Html.DisplayNameFor(m => m.OutwardQuantity)</th>
+        <th> @Html.DisplayNameFor(m => m.BalanceQuantity)</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td> @item.TranDate.ToString("dd-MMM-yyyy")  </td>
+    <td> @Html.DisplayFor(m => item.TranRefNo) </td>
+    <td> @Html.DisplayFor(m => item.TransactionType) </td>
+    <td> @Html.DisplayFor(m => item.InwardQuantity) </td>
+    <td> @Html.DisplayFor(m => item.OutwardQuantity) </td>
+    <td> @Html.DisplayFor(m => item.BalanceQuantity) </td>
+</tr>
+    }
+</table>
+}
+else
+{
+    <p> No Stock Transfer Details exists.....</p>
+}
+
+
+
+
+

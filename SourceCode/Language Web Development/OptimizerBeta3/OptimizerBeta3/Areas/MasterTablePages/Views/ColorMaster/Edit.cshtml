@@ -1,0 +1,115 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.ColorMasterViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Color Master - Edit</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Edit">
+            <input type="hidden" asp-for="colorMaster.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="FKColour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.colorMaster.FKColour" id="FKArea" asp-items="Model.FKColour.ToSelectListItem(Model.colorMaster.FKColour)" class="form-control"></select>
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="colorMaster.ColourCode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="colorMaster.ColourCode" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="colorMaster.ColourName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="colorMaster.ColourName" class="form-control" />
+                </div>
+                <span asp-validation-for="colorMaster.ColourName" class="text-danger"></span>
+
+                <div class="col-3">
+                    <label asp-for="colorMaster.CustomerColourName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="colorMaster.CustomerColourName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="colorMaster.Combination" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="colorMaster.Combination" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="colorMaster.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="colorMaster.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_EditandBacktoListButtonPartialView" model="Model.colorMaster.Id" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/CompanyInfo/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

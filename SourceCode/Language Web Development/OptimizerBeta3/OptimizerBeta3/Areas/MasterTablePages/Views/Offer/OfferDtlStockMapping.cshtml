@@ -1,0 +1,100 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.OfferDtlStockMapping>
+@using OptimizerBeta3.Extensions
+@{
+    ViewData["Title"] = "OfferDtlStockMapping";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var Offer = (OptimizerBeta3.Models.MasterTables.Offers)ViewBag.Offer;
+}
+
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Offer Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="col-form-label text-danger">Offer Name</label>
+            </div>
+            <div class="col-sm-2">
+                <input value="@Offer.OfferName" class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-12">
+    <div class="btn-group" role="group">
+        <div class="col-sm-2">
+            <a class="btn btn-info text-black form-control" asp-action="OfferSMAGWise" asp-route-id="@Offer.Id">
+                Article Group
+            </a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-warning text-black form-control" asp-action="OfferSMARTWise" asp-route-id="@Offer.Id">
+                Article
+            </a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-primary text-white form-control" asp-action="OfferSMARTCOLORWise" asp-route-Id="@Offer.Id">
+                Article Colour
+            </a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-success text-white form-control" asp-action="OfferSMStockAndEANCode" asp-route-Id="@Offer.Id">
+                Stock No & EAN Code
+            </a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-danger text-white form-control" asp-action="OfferSMEANCode" asp-route-Id="@Offer.Id">
+                Ageing Stock
+            </a>
+        </div>
+        <div class="col-sm-2">
+            <a class="btn btn-dark text-white  form-control" asp-action="Index">
+                Back to Offer
+            </a>
+        </div>
+    </div>
+</div>
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info text-center">
+                @*<th> @Html.DisplayName("Id") </th>*@
+                <th> @Html.DisplayName("Group") </th>
+                <th> @Html.DisplayName("Article") </th>
+                <th> @Html.DisplayName("Color") </th>
+                <th> @Html.DisplayName("StockNo") </th>
+                <th> @Html.DisplayName("EANCode") </th>
+                <th> @Html.DisplayName("OfferAddMode") </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+        <tr>
+            @*<td> @Html.DisplayFor(m => item.Id) </td>*@
+            <td> @Html.DisplayFor(m => item.ArticleGroup) </td>
+            <td> @Html.DisplayFor(m => item.ArticleName) </td>
+            <td> @Html.DisplayFor(m => item.ArticleColor) </td>
+            <td> @Html.DisplayFor(m => item.StockNo) </td>
+            <td> @Html.DisplayFor(m => item.EANCode) </td>
+            <td> @Html.DisplayFor(m => item.OfferAddMode) </td>
+        </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <h4 class="text-primary"> No Stocks Mapped for this Offer </h4>
+    }
+</div>
+<br />
+

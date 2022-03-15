@@ -1,0 +1,440 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.AreaMasterViewModel
+@using OptimizerBeta3.Extensions
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="border backgroudColor10px">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Area Master - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+@if (@TempData["ErrorMessage"] != null)
+{
+    <div class="border-danger" style="background-color:lightsalmon">
+        <h1 class="text-center">
+            <span style="color: red;">
+                @Html.Raw("<pre>" + Html.Encode(@TempData["ErrorMessage"].ToString()) + "</pre>")
+            </span>
+        </h1>
+    </div>
+}
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="AreaMaster.FKCountry" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select id="Countrylist" asp-for="@Model.AreaMaster.FKCountry" asp-items="Model.FKCountry.ToSelectListItem(Model.AreaMaster.FKCountry)" class="form-control" onchange="updateStateList()" onclick="updateStateList()"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col-form-label text-danger" style="color">Add New Country</label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="NewCountry" type="checkbox" class="form-control" Onchange="enable_chkbox(this.id)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="AreaMaster.FKState" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select id="Statelist" asp-for="AreaMaster.FKState" class="form-control" onchange="updateCityList()" onclick="updateCityList()"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col-form-label text-danger" style="color">Add New State</label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="NewState" type="checkbox" class="form-control" Onchange="enable_chkbox(this.id)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="AreaMaster.FKCity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select id="Citylist" asp-for="AreaMaster.FKCity" class="form-control" onchange="updateAreaList()" onclick="updateAreaList()"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col-form-label text-danger" style="color">Add New City</label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="NewCity" type="checkbox" class="form-control" Onchange="enable_chkbox(this.id)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="AreaMaster.FKArea" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select id="Arealist" asp-for="AreaMaster.FKArea" class="form-control" onchange="updatePincodeList()" onclick="updatePincodeList()"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col-form-label text-danger" style="color">Add New Area</label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="NewArea" type="checkbox" class="form-control" Onchange="enable_chkbox(this.id)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="AreaMaster.FKPincode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select id="Pincodelist" asp-for="AreaMaster.FKPincode" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col-form-label text-danger" style="color">Add New Pincode</label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="NewPincode" type="checkbox" class="form-control" Onchange="enable_chkbox(this.id)" />
+                </div>
+            </div>
+
+            <input asp-for="AreaMaster.Country" readonly class="form-control" value="C" type="hidden" />
+            <input asp-for="AreaMaster.State" readonly class="form-control" value="S" type="hidden" />
+            <input asp-for="AreaMaster.City" readonly class="form-control" value="C" type="hidden" />
+            <input asp-for="AreaMaster.Area" readonly class="form-control" value="A" type="hidden" />
+            <input asp-for="AreaMaster.Pincode" readonly class="form-control" value="P" type="hidden" />
+            <input asp-for="AreaMaster.Code" readonly class="form-control" value="C" type="hidden" />
+
+            <input asp-for="AreaMaster.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="AreaMaster.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="AreaMaster.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="AreaMaster.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="AreaMaster.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="AreaMaster.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="AreaMaster.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="AreaMaster.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            @*<div class="form-group row" id="AddNew" hidden="hidden">
+                <div class="col-sm-1">
+                    <label class="col-form-label text-info">Category</label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="Category" class="form-control" readonly="readonly" />
+                </div>
+                <div class="col-sm-1">
+                    <label class="col-form-label text-info" style="color">Code</label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="Code" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                    <label class="col-form-label text-info" style="color">Description</label>
+                </div>
+                <div class="col-sm-2">
+                    <input id="Description" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                    <label class="col-form-label text-info" style="color">SetDefault</label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="SetDefault" type="checkbox" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <input id="SaveAreaMaster" type="submit" class="btn btn-dark form-control" value="InsertAreaLookUpMaster" name="Save" />
+                </div>
+                <div class="col-sm-2">
+                    <input id="FKLookUpHdr" class="form-control" readonly />
+                </div>
+            </div>*@
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-info form-control" value="Save" name="Save" />
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="Index">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    @using (Html.BeginForm("InsertAreaLookUpMaster", "AreaMaster"))
+    {
+        <div class="form-group row" id="AddNew" hidden="hidden">
+            <div class="col-sm-1">
+                <label class="col-form-label text-info">Category</label>
+            </div>
+            <div class="col-sm-1">
+                <input id="Category" class="form-control" readonly="readonly" name="Category" />
+            </div>
+            <div class="col-sm-1">
+                <label class="col-form-label text-info" style="color">Code</label>
+            </div>
+            <div class="col-sm-1">
+                <input id="Code" class="form-control" name="Code"/>
+            </div>
+            <div class="col-sm-1">
+                <label class="col-form-label text-info" style="color">Description</label>
+            </div>
+            <div class="col-sm-2">
+                <input id="Description" class="form-control" name="Description"/>
+            </div>
+            <div class="col-sm-1">
+                <label class="col-form-label text-info" style="color">SetDefault</label>
+            </div>
+            <div class="col-sm-1">
+                <input id="SetDefault" type="checkbox" class="form-control" name="SetDefault"/>
+            </div>
+            <div class="col-sm-2">
+                @*<input id="SaveAreaMaster" type="submit" class="btn btn-dark form-control" value="InsertAreaLookUpMaster" name="Save" />*@
+                <input type="submit" id="SaveAreaMaster" value="Save Area Master" class="btn btn-primary" />
+            </div>
+            <div class="col-sm-2">
+                <input id="FKLookUpHdr" class="form-control" readonly name="FKLookUpHdr" />
+            </div>
+        </div>
+
+        <!--<div class="form-group row">
+            <div class="col-3">
+                <input type="submit" value="Proceed" class="btn btn-primary" />
+
+            </div>
+            <div class="col-3">-->
+                @*<a class="btn btn-success text-white  form-control" asp-action="InvoiceDetailIndex" asp-route-Id="@invoice.Id">
+                    Back to Invoice
+                </a>*@
+            <!--</div>
+        </div>-->
+
+    }
+    @*<div class="col-sm-6 backgroudWhite border-right" style="background-color :white">
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label class="col-form-label text-info">Code</label>
+                </div>
+                <div class="col-sm-2">
+                    <input id="CountryCode" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label class="col-form-label text-info">Name</label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="CountryName" class="form-control" />
+                </div>
+                <div class="col-sm-3">
+                    <input type="submit" class="btn btn-dark form-control" value="Create" />
+                </div>
+            </div>
+        </div>*@
+</div>
+
+<script type="text/javascript">
+
+    function updateStateList() {
+        var lookUpMasterSelected = document.getElementById("Countrylist").value;
+        var Category = "ST";
+        @*var url = '@Url.Action("Categories", "Appt")'; // don't hard code your urls!
+$.getJSON(url, { id: $('#Business').val(), otherProperty: anotherValue },*@
+        var url = "/MasterTablePages/AreaMaster/GetStatesList/";
+        $.getJSON(url, { id: parseInt(lookUpMasterSelected), sCategory: Category},
+        //$.getJSON("/MasterTablePages/AreaMaster/GetStatesList/" + lookUpMasterSelected, "CO",
+            function (data) {
+                var select = $("#Statelist");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+        //var sCountry = $('#Statelist').val();
+        //alert(sCountry);
+        //updateCityList();
+    }
+
+    $(document).ready(function () {
+        updateStateList();
+        updateCityList();
+        updateAreaList();
+        updatePincodeList();
+    });
+
+    //$("#Countrylist").on("change", function () {
+    //    updateStateList();
+    //    //updateCityList();
+    //    //updateAreaList();
+    //    //updatePincodeList();
+    //});
+
+    function updateCityList() {
+        var lookUpMasterSelected = document.getElementById("Statelist").value;
+        var Category = "CI";
+        var url = "/MasterTablePages/AreaMaster/GetStatesList/";
+        $.getJSON(url, { id: parseInt(lookUpMasterSelected), sCategory: Category },
+            function (data) {
+                var select = $("#Citylist");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+
+    }
+
+    //$("#Statelist").on("change", function () {
+    //    //updateCityList();
+    //    //updateAreaList();
+    //    //updatePincodeList()
+    //});
+
+    function updateAreaList() {
+        var lookUpMasterSelected = document.getElementById("Citylist").value;
+        var Category = "AR";
+        var url = "/MasterTablePages/AreaMaster/GetStatesList/";
+        $.getJSON(url, { id: parseInt(lookUpMasterSelected), sCategory: Category },
+            function (data) {
+                var select = $("#Arealist");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    //$("#Citylist").on("change", function () {
+    //    updateAreaList();
+    //    //updatePincodeList();
+    //});
+
+    function updatePincodeList() {
+        var lookUpMasterSelected = document.getElementById("Arealist").value;
+        var Category = "PI";
+        var url = "/MasterTablePages/AreaMaster/GetStatesList/";
+        $.getJSON(url, { id: parseInt(lookUpMasterSelected), sCategory: Category },
+            function (data) {
+                var select = $("#Pincodelist");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    //$("#Arealist").on("change", function () {
+    //    updatePincodeList();
+    //});
+
+    function enable_chkbox(id) {
+        var nFKLookUpHdr = 0;
+        $("#Category").val();
+        //alert('1 ' + id);
+        if (id = "NewCountry" && document.getElementById("NewCountry").checked) {
+            document.getElementById("AddNew").hidden = false;
+            document.getElementById("NewState").checked = false;
+            document.getElementById("NewCity").checked = false;
+            document.getElementById("NewArea").checked = false;
+            document.getElementById("NewPincode").checked = false;
+            $("#Category").val("CO");
+        } else if (id = "NewState" && document.getElementById("NewState").checked) {
+            nFKLookUpHdr = parseInt($("#Countrylist").val());
+            $("#FKLookUpHdr").val(nFKLookUpHdr);
+            document.getElementById("AddNew").hidden = false;
+            document.getElementById("NewCountry").checked = false;
+            document.getElementById("NewCity").checked = false;
+            document.getElementById("NewArea").checked = false;
+            document.getElementById("NewPincode").checked = false;
+            if (parseInt(nFKLookUpHdr) > 0) {
+                document.getElementById("SaveAreaMaster").disabled = false;
+            } else {
+                alert("Country Not Selected Properly. New State Cannot be Saved")
+                document.getElementById("SaveAreaMaster").disabled = true;
+            }
+            $("#Category").val("ST");
+        } else if (id = "NewCity" && document.getElementById("NewCity").checked) {
+            nFKLookUpHdr = parseInt($("#Statelist").val());
+            $("#FKLookUpHdr").val(nFKLookUpHdr);
+            document.getElementById("AddNew").hidden = false;
+            document.getElementById("NewCountry").checked = false;
+            document.getElementById("NewState").checked = false;
+            document.getElementById("NewArea").checked = false;
+            document.getElementById("NewPincode").checked = false;
+            if (parseInt(nFKLookUpHdr) > 0) {
+                document.getElementById("SaveAreaMaster").disabled = false;
+            } else {
+                alert("State Not Selected Properly. New City Cannot be Saved")
+                document.getElementById("SaveAreaMaster").disabled = true;
+            }
+            $("#Category").val("CI");
+        } else if (id = "NewArea" && document.getElementById("NewArea").checked) {
+            nFKLookUpHdr = parseInt($("#Citylist").val());
+            $("#FKLookUpHdr").val(nFKLookUpHdr);
+            document.getElementById("AddNew").hidden = false;
+            document.getElementById("NewCountry").checked = false;
+            document.getElementById("NewState").checked = false;
+            document.getElementById("NewCity").checked = false;
+            document.getElementById("NewPincode").checked = false;
+            if ($("#Citylist").val() > 0) {
+                document.getElementById("SaveAreaMaster").disabled = false;
+            } else {
+                alert("City Not Selected Properly. New Area Cannot be Saved")
+                document.getElementById("SaveAreaMaster").disabled = true;
+            }
+            $("#Category").val("AR");
+        } else if (id = "NewPincode" && document.getElementById("NewPincode").checked) {
+            nFKLookUpHdr = parseInt($("#Arealist").val());
+            $("#FKLookUpHdr").val(nFKLookUpHdr);
+            document.getElementById("AddNew").hidden = false;
+            document.getElementById("NewCountry").checked = false;
+            document.getElementById("NewState").checked = false;
+            document.getElementById("NewCity").checked = false;
+            document.getElementById("NewArea").checked = false;
+            if (parseInt(nFKLookUpHdr) > 0) {
+                document.getElementById("SaveAreaMaster").disabled = false;
+            } else {
+                alert("Area Not Selected Properly. New Pincode Cannot be Saved")
+                document.getElementById("SaveAreaMaster").disabled = true;
+            }
+            $("#Category").val("PI");
+        } else {
+            document.getElementById("AddNew").hidden = true;
+        }
+    }
+
+
+</script>

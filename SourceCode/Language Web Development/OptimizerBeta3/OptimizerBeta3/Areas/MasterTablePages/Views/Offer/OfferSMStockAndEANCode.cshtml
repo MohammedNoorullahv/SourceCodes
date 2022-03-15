@@ -1,0 +1,137 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.OfferDtlStockMapping>
+@using OptimizerBeta3.Extensions
+@{
+    ViewData["Title"] = "OfferSMStockAndEANCode";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var Offer = (OptimizerBeta3.Models.MasterTables.Offers)ViewBag.Offer;
+}
+
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Offer Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="col-form-label text-danger">Offer Name</label>
+            </div>
+            <div class="col-sm-2">
+                <input value="@Offer.OfferName" class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (@TempData["ErrorMessage"] != null)
+{
+    <div class="border-danger" style="background-color:lightsalmon">
+        <h1 class="text-center">
+            <span style="color: red;">
+                @Html.Raw("<pre>" + Html.Encode(@TempData["ErrorMessage"].ToString()) + "</pre>")
+            </span>
+        </h1>
+    </div>
+
+}
+
+@*<div class="col-3">
+        <a class="btn btn-success text-white  form-control" asp-action="Index">
+            Back to Offer
+        </a>
+    </div>*@
+<br />
+
+@using (Html.BeginForm("OfferSMStockAndEANCode", "Offer", FormMethod.Post))
+{
+    <input id="OfferId" name="OfferId" value="@Offer.Id" readonly type="hidden" />
+    <div>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label class="col-form-label text-info">Stock No</label>
+            </div>
+            <div class="col-sm-2">
+                <input id="StockNo" name="StockNo" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" class="btn btn-info form-control" value="Stock No" name="Save" />
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-2">
+                @*<a class="btn btn-dark text-white  form-control" asp-action="Index">*@
+                <a class="btn btn-dark text-white" asp-action="OfferDtlStockMapping" asp-route-id="@Offer.Id">
+                    Back to Offer Dtl Stock Mapping
+                </a>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label class="col-form-label text-info">EAN Code</label>
+            </div>
+            <div class="col-sm-2">
+                <input id="EANCode" name="EANCode" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" class="btn btn-success form-control" value="All EAN Code" name="Save" />
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" class="btn btn-warning form-control" value="Single Order" name="Save" />
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" class="btn btn-primary form-control" value="Single EAN Code" name="Save" />
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-success table-striped table-hover table-bordered">
+                <tr class="table-success text-info text-center">
+                    @*<th> @Html.DisplayName("Id") </th>*@
+                    <th> @Html.DisplayName("Group") </th>
+                    <th> @Html.DisplayName("Article") </th>
+                    <th> @Html.DisplayName("Color") </th>
+                    <th> @Html.DisplayName("StockNo") </th>
+                    <th> @Html.DisplayName("EANCode") </th>
+                    <th> <label>Actions</label> </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @*<td> @Html.DisplayFor(m => item.Id) </td>*@
+                        <td> @Html.DisplayFor(m => item.ArticleGroup) </td>
+                        <td> @Html.DisplayFor(m => item.ArticleName) </td>
+                        <td> @Html.DisplayFor(m => item.ArticleColor) </td>
+                        <td> @Html.DisplayFor(m => item.StockNo) </td>
+                        <td> @Html.DisplayFor(m => item.EANCode) </td>
+                        <td style="width:150px" class="text-center">
+                            @if (item.OfferAddMode == "STKNO" || item.OfferAddMode == "EAN" || item.OfferAddMode == "EANSO" || item.OfferAddMode == "SIEAN")
+                            {
+                                <div class="btn-group" role="group">
+                                    <input type="submit" class="btn btn-danger form-control" value="Release" name="Save" asp-route-id="@item.Id" />
+                                </div>
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+        else
+        {
+            <h4 class="text-primary"> No Stocks Mapped for this Offer </h4>
+        }
+    </div>
+}
+
+
+
+

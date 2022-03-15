@@ -1,0 +1,163 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.SalesPromotionViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    var party = (OptimizerBeta3.Models.MasterTables.PartyInfo)TempData["party"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Party Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Party Name</label>
+            </div>
+            <div class="col-3">
+                @party.CompanyName;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Address</label>
+            </div>
+            <div class="col-3">
+                @party.Address1;
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Sales Promotion Offer - Edit</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="SalesPromotionEdit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SalesPromotionOffer.FKOffer" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.SalesPromotionOffer.FKOffer" id="FKMaterial" asp-items="Model.FKOffer.ToSelectListItem(Model.SalesPromotionOffer.FKOffer)" class="form-control" onchange="InsertMaterialName()"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SalesPromotionOffer.FromDate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SalesPromotionOffer.FromDate" type="date" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="SalesPromotionOffer.ToDate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SalesPromotionOffer.ToDate" type="date" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SalesPromotionOffer.DiscountPercentage" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SalesPromotionOffer.DiscountPercentage" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="SalesPromotionOffer.DiscountValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SalesPromotionOffer.DiscountValue" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SalesPromotionOffer.MinimumBillValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SalesPromotionOffer.MinimumBillValue" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="SalesPromotionOffer.MaximumDiscountValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SalesPromotionOffer.MaximumDiscountValue" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SalesPromotionOffer.IsExtendable" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="SalesPromotionOffer.IsExtendable" class="form-control" />
+                </div>
+                <div class="col-2"></div>
+                <div class="col-3">
+                    <label asp-for="SalesPromotionOffer.IsActive" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="SalesPromotionOffer.IsActive" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="SalesPromotionOffer.FKParty" readonly class="form-control" value="@party.Id" type="hidden" />
+            <input asp-for="SalesPromotionOffer.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="SalesPromotionOffer.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="submit" class="btn btn-info form-control" value="Save" />
+                            @*<input type="submit" class="btn btn-info form-control" asp-route-id="@Model" value="Update" />*@
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-dark text-white  form-control" asp-action="SalesPromotionIndex" asp-route-id="@party.Id">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+</script>

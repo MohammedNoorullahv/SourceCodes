@@ -1,0 +1,162 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.ArticleDetailViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Article Group for Editing Articles</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Article No</label>
+            </div>
+            <div class="col-3">
+                @TempData["AGArticleNo"]
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Article Name</label>
+            </div>
+            <div class="col-3">
+                @TempData["AGArticleName"]
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Description</label>
+            </div>
+            <div class="col-9">
+                @TempData["AGDescription"]
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Article - Detail</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="ArticleDetailDetail">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKEntryType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKEntryType" asp-items="Model.FKEntryType.ToSelectListItem(Model.ArticleDetail.FKEntryType)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.ArticleDetail.FKCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKLeather" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKLeather" asp-items="Model.FKLeather.ToSelectListItem(Model.ArticleDetail.FKLeather)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKColour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKColour" asp-items="Model.FKColour.ToSelectListColourName(Model.ArticleDetail.FKColour)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.StockNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="ArticleDetail.StockNo" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="ArticleDetail.StockNo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.Description" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6" style="background-color:  lightpink">
+                    <input asp-for="ArticleDetail.Description" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="ArticleDetail.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKFeatures" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKFeatures" asp-items="Model.FKFeatures.ToSelectListItem(Model.ArticleDetail.FKFeatures)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.VersionNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="ArticleDetail.VersionNo" class="form-control" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.AdditionalInfo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="ArticleDetail.AdditionalInfo" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="ArticleDetail.FKArticleGroup" readonly class="form-control" value="@TempData["AGId"]" type="hidden" />
+            <input asp-for="ArticleDetail.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="ArticleDetail.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            @*<input type="submit" class="btn btn-info form-control" asp-route-id="@Model.ArticleDetail.Id" value="Update" />*@
+                            <a asp-action="ArticleDetailEdit" class="btn btn-info" asp-route-id="@Model.ArticleDetail.Id"><i class="fas fa-list-alt"></i> &nbsp; Edit</a>
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="ArticleDetailIndex" asp-route-id="@TempData["AGId"]">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

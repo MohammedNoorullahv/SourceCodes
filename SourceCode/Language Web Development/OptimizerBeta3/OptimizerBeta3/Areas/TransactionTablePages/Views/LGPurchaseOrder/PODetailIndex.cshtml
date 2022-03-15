@@ -1,0 +1,155 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.LGPurchaseOrderDetails>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+@{
+    var purchaseOrder = (OptimizerBeta3.Models.TransactionTables.LGPurchaseOrder)TempData["LGPurchaseOrder"];
+    var purchaseOrderMain = (OptimizerBeta3.Models.TransactionTables.LGPurchaseOrderMain)TempData["LGPurchaseOrderMain"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Purchase Order Info [Leather Good's]</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order No</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order Date</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderDt;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label class="col-form-label text-danger">PO Main No</label>
+            </div>
+            <div class="col-2">
+                @purchaseOrderMain.PurchaseOrderMainNo;
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">Article Group</label>
+            </div>
+            <div class="col-2">
+                @purchaseOrderMain.LeatherGoodsGroup;
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">Quantity</label>
+            </div>
+            <div class="col-2">
+                @purchaseOrderMain.TotalOrderQuantity;
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">PO Detail [Leather Good's] - Index</h2>
+        </div>
+        <div class="col-3 text-center">
+
+            @if (Convert.ToInt32(purchaseOrderMain.EnteredQuantity) < purchaseOrderMain.TotalOrderQuantity)
+            {
+                <a class="btn btn-info text-white" asp-action="PODtlCreate" asp-route-id="@purchaseOrderMain.Id">
+                    <i class="fas fa-plus"></i>
+                    Create
+                </a>
+            }
+
+
+        </div>
+        <div class="col-3 text-center">
+            <a class="btn btn-success text-white  form-control" asp-action="POMainIndex" asp-route-id="@purchaseOrder.Id">
+                Back to Purchase Order Main
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<br />
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    @Html.DisplayNameFor(m => m.PurchaseOrderDtlNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.LeatherGoodsGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.LeatherGoodsDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Quantity)
+                </th>
+                <th>
+                    <label>Actions</label>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.PurchaseOrderDtlNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.LeatherGoodsGroup)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.LeatherGoodsDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Quantity)
+                    </td>
+                    <td style="width:150px">
+
+                        <div class="btn-group" role="group">
+                            @if (item.OrderStatus != "Cancel")
+                            {
+                                @if (item.ReceivedQuantity <= 0)
+                                {
+                                    <a class="btn btn-primary text-white" asp-action="PODtlEdit" asp-route-Id="@item.Id">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                }
+
+
+                                <a class="btn btn-success text-white" asp-action="PODtlCancel" asp-route-Id="@item.Id">
+                                    <i class="far fa-times-circle"></i>
+                                </a>
+                            }
+                            <a class="btn btn-info text-white" asp-action="PODtlDetail" asp-route-Id="@item.Id">
+                                <i class="fas fa-list-alt"></i>
+                            </a>
+                        </div>
+
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Purchase Order's exists.....</p>
+    }
+</div>
+

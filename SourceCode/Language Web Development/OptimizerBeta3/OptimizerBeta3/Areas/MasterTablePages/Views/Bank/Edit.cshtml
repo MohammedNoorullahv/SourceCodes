@@ -1,0 +1,109 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.BankViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Bank - Edit</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Edit">
+            <input type="hidden" asp-for="bank.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="FKBankName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.bank.FKBankName" id="FKArea" asp-items="Model.FKBankName.ToSelectListItem(Model.bank.FKBankName)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="bank.BranchName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="bank.BranchName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="bank.BranchCode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="bank.BranchCode" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="bank.IFSCCode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="bank.IFSCCode" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="bank.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="bank.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_EditandBacktoListButtonPartialView" model="Model.bank.Id" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/CompanyInfo/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

@@ -1,0 +1,174 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.MaterialsViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Materials - Delete</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Delete">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="materials.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.materials.FKCategory" id="FKArea" asp-items="Model.FKCategory.ToSelectListItem(Model.materials.FKCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="materials.FKType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.materials.FKType" id="FKArea" asp-items="Model.FKType.ToSelectListItem(Model.materials.FKType)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="materials.FKSubType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.materials.FKSubType" id="FKArea" asp-items="Model.FKSubType.ToSelectListItem(Model.materials.FKSubType)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="materials.FKBrand" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.materials.FKBrand" id="FKArea" asp-items="Model.FKBrand.ToSelectListItem(Model.materials.FKBrand)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="materials.FKSource" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.materials.FKSource" id="FKArea" asp-items="Model.FKSource.ToSelectListItem(Model.materials.FKSource)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="materials.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="materials.Code" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="materials.Code" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="materials.Description" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6" style="background-color:  lightpink">
+                    <input asp-for="materials.Description" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="materials.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="materials.ShortDescription" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="materials.ShortDescription" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="materials.PrintDescription" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="materials.PrintDescription" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="materials.FKUom" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.materials.FKUom" id="FKArea" asp-items="Model.FKUom.ToSelectListItem(Model.materials.FKUom)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="materials.FKColour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.materials.FKColour" id="FKArea" asp-items="Model.FKColour.ToSelectListItem(Model.materials.FKColour)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="materials.IsExpirable" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-1">
+                    <input asp-for="materials.IsExpirable" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="materials.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="materials.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_DeleteandBacktoListButtonPartialView" model="Model.materials.Id" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/materials/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

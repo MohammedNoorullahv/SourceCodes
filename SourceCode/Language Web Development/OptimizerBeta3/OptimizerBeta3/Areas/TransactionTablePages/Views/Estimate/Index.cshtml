@@ -1,0 +1,93 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.Estimate>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Estimate  - Index</h2>
+        </div>
+        <div class="col-3 text-right">
+            <a asp-action="GotoInvoice" class="btn btn-dark">Go 2 Invoice</a>
+            @*<a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i> &nbsp; Create New</a>*@
+        </div>
+        <div class="col-3 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+    <div>
+        <form asp-action="IndexFilter" asp-controller="Estimate">
+            <div class="row">
+                <div class="col-2">
+                    <h3 class="text-success">From Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="fromDate" name="fromDate" value="@(((DateTime)ViewBag.FromDate).Date.ToString("yyyy-MM-dd"))" />
+                </div>
+                <div class="col-2">
+                    <h3 class="text-success">To Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="toDate" name="toDate" value="@(((DateTime)ViewBag.ToDate).Date.ToString("yyyy-MM-dd"))" />
+
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-2 text-right">
+                    <input type="submit" value="&nbsp; &nbsp; &nbsp; Refresh &nbsp;&nbsp; &nbsp; &nbsp;" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @*@if (Model.Count() > 0)*@
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info text-center">
+                <th> @Html.DisplayNameFor(m => m.LocationName) </th>
+                <th> @Html.DisplayNameFor(m => m.EstimateNo) </th>
+                <th> @Html.DisplayNameFor(m => m.EstimateDt) </th>
+                <th> @Html.DisplayNameFor(m => m.ItemsCount) </th>
+                <th> @Html.DisplayNameFor(m => m.Quantity) </th>
+                <th> @Html.DisplayNameFor(m => m.NettValue) </th>
+                <th> @Html.DisplayNameFor(m => m.InvoiceNo) </th>
+                <th class="text-center"> <label>Actions</label> </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td> @Html.DisplayFor(m => item.LocationName) </td>
+            <td> @Html.DisplayFor(m => item.EstimateNo) </td>
+            <td> @item.EstimateDt.ToString("dd-MMM-yyyy")  </td>
+            <td> @Html.DisplayFor(m => item.ItemsCount) </td>
+            <td> @Html.DisplayFor(m => item.Quantity) </td>
+            <td> @Html.DisplayFor(m => item.NettValue) </td>
+            <td> @Html.DisplayFor(m => item.InvoiceNo) </td>
+            <td>
+                @*var estimate = await _db.Estimates.Where(x => x.EstimateNo == EstimateVM.Estimate.EstimateNo).FirstOrDefaultAsync();
+            return RedirectToAction("CreateEstimateDtl", "Estimate", new { Id = estimate.Id });*@
+                <a class="btn btn-warning text-black" asp-action="CreateEstimateDtl" asp-route-id="@item.Id">
+                    Dtl
+                </a>
+            </td>
+
+        </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Estimate's exists.....</p>
+    }
+</div>
+

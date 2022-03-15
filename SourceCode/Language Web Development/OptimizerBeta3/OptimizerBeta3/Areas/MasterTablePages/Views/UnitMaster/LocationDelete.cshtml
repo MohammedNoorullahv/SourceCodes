@@ -1,0 +1,148 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.LocationViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var unitInfo = (OptimizerBeta3.Models.MasterTables.UnitMaster)TempData["UnitInfo"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Unit Master for Deleting Locations's</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Code</label>
+            </div>
+            <div class="col-3">
+                @unitInfo.Code;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Name</label>
+            </div>
+            <div class="col-3">
+                @unitInfo.CompanyName;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Address</label>
+            </div>
+            <div class="col-3">
+                @unitInfo.Address1;
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Locations - Delete</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="LocationDelete">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Locations.FKLocationType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.Locations.FKLocationType" id="FKArea" asp-items="Model.FKLocationType.ToSelectListItem(Model.Locations.FKLocationType)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Locations.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5" style="background-color:  lightpink">
+                    <input asp-for="Locations.Code" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="Locations.Code" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Locations.LocationName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5" style="background-color:  lightpink">
+                    <input asp-for="Locations.LocationName" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="Locations.LocationName" class="text-danger"></span>
+            </div>
+
+
+
+            <input asp-for="Locations.FKUnitDtls" readonly class="form-control" value="@unitInfo.Id" type="hidden" />
+            <input asp-for="Locations.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Locations.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-danger form-control" asp-route-id="@Model.Locations.Id" value="Delete" />
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="LocationIndex" asp-route-id="@unitInfo.Id">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/UnitMaster/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

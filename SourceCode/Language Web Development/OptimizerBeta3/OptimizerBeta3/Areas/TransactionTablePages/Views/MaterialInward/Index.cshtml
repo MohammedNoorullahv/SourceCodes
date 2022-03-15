@@ -1,0 +1,100 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.Inward>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Inwards's - Index</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+    <div>
+        <form asp-action="IndexFilter" asp-controller="Inward">
+            <div class="row">
+                <div class="col-2">
+                    <h3 class="text-success">From Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="fromDate" name="fromDate" value="@(((DateTime)ViewBag.FromDate).Date.ToString("yyyy-MM-dd"))" />
+                </div>
+                <div class="col-2">
+                    <h3 class="text-success">To Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="toDate" name="toDate" value="@(((DateTime)ViewBag.ToDate).Date.ToString("yyyy-MM-dd"))" />
+                </div>
+                <div class="col-2"></div>
+                <div class="col-2 text-right">
+                    <input type="submit" value="&nbsp; &nbsp; &nbsp; Refresh &nbsp;&nbsp; &nbsp; &nbsp;" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @*@if (Model.Count() > 0)*@
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info">
+                <th> @Html.DisplayNameFor(m => m.DocumentType) </th>
+                <th> @Html.DisplayNameFor(m => m.Season) </th>
+                <th> @Html.DisplayNameFor(m => m.Location) </th>
+                <th> @Html.DisplayNameFor(m => m.SupplierName) </th>
+                <th> @Html.DisplayNameFor(m => m.SupplierDocumentDt) </th>
+                <th> @Html.DisplayNameFor(m => m.InwardNo) </th>
+                <th> @Html.DisplayNameFor(m => m.InwardDt) </th>
+                <th> @Html.DisplayNameFor(m => m.DocumentQuantity) </th>
+                <th> @Html.DisplayNameFor(m => m.ArrivedQuantity) </th>
+                <th class="text-center"> <label>Actions</label> </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td> @Html.DisplayFor(m => item.DocumentType) </td>
+            <td> @Html.DisplayFor(m => item.Season) </td>
+            <td> @Html.DisplayFor(m => item.Location) </td>
+            <td> @Html.DisplayFor(m => item.SupplierName) </td>
+            <td> @item.SupplierDocumentDt.ToString("dd-MMM-yyyy")  </td>
+            <td> @Html.DisplayFor(m => item.InwardNo) </td>
+            <td> @item.InwardDt.ToString("dd-MMM-yyyy")  </td>
+            <td> @Html.DisplayFor(m => item.DocumentQuantity) </td>
+            <td> @Html.DisplayFor(m => item.ArrivedQuantity) </td>
+            <td>
+
+                <a class="btn btn-warning text-black" asp-action="InwardDetailIndex" asp-route-id="@item.Id">
+                    Dtl
+                </a>
+                @if (item.IsEntryCompleted == false)
+                {
+                    <div class="btn-group" role="group">
+                        @if (item.ArrivedQuantity <= 0)
+                        {
+                        <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        }
+
+                    </div>
+                }
+            </td>
+        </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Inward's exists.....</p>
+    }
+</div>
+

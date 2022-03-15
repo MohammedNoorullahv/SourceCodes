@@ -1,0 +1,128 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.EstimateViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<div>
+    <div class="row border-bottom border-danger">
+        <div class="col-6">
+            <h2 class="text-info">Estimate  - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+</div>
+
+<div class="row border-bottom border-dark">
+    <div class="col-12">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Estimate.FKStore" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <select id="ddlUnitlist" asp-for="@Model.Estimate.FKStore" asp-items="Model.FKStore.ToSelectListCompanyName(Model.Estimate.FKStore)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Estimate.FKLocation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    @*<select asp-for="@Model.Estimate.FKLocation" asp-items="Model.FKLocation.ToSelectListLocationName(Model.Estimate.FKLocation)" class="form-control"></select>*@
+                    <select asp-for="Estimate.FKLocation" id="updatelocationList" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Estimate.EstimateNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Estimate.EstimateNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Estimate.EstimateDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="Estimate.EstimateDt" id="EstimateDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <input asp-for="Estimate.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="Estimate.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Estimate.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Estimate.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="Estimate.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Estimate.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="Estimate.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Estimate.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-8 offset-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <input type="submit" class="btn btn-info form-control" value="Save" name="Save" />
+                        </div>
+                        <div class="col-3">
+                            <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + month + '-' + day;
+        $('#EstimateDt').attr('min', minDate);
+        $('#EstimateDt').attr('max', maxDate);
+    });
+
+    function updatelocationList() {
+        var lookUpMasterSelected = document.getElementById("ddlUnitlist").value;
+        $.getJSON("/MasterTablePages/UnitMaster/GetUnitsLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updatelocationList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    $(document).ready(function () {
+        updatelocationList();
+    });
+
+    $("#ddlUnitlist").on("change", function () {
+        updatelocationList();
+    });
+
+</script>

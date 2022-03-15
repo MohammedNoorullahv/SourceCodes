@@ -1,0 +1,143 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.OfferDtlStockMapping>
+@using OptimizerBeta3.Extensions
+@{
+    ViewData["Title"] = "OfferDtlStockMapping";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    //var UnAssignedStock = (List<OptimizerBeta3.Models.GeneralTables.TempOfferStockMapping>)ViewBag.UnAssignedStock;
+    //var AssignedStock = (List<OptimizerBeta3.Models.GeneralTables.TempOfferStockMapping>)ViewBag.AssignedStock;
+    var TempStock = (List<OptimizerBeta3.Models.GeneralTables.TempOfferStockMapping>)ViewBag.TempStock;
+    var Offer = (OptimizerBeta3.Models.MasterTables.Offers)ViewBag.Offer;
+}
+
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Offer Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="col-form-label text-danger">Offer Name</label>
+            </div>
+            <div class="col-sm-2">
+                <input value="@Offer.OfferName" class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-3">
+    <a class="btn btn-dark text-white" asp-action="OfferDtlStockMapping" asp-route-id="@Offer.Id">
+        Back to Offer Dtl Stock Mapping
+    </a>
+</div>
+<br />
+
+@using (Html.BeginForm("OfferSMAGWise", "Offer", FormMethod.Post))
+{
+    <input id="OfferId" name="OfferId" value="@Offer.Id" readonly type="hidden" />
+    <h3 class="text-info">Article Groups Mapped</h3>
+    <div>
+        @if (TempStock.Count() > 0)
+        {
+            <table class="table table-success table-striped table-hover table-bordered">
+                <tr class="table-success text-info text-center">
+                    <th> @Html.DisplayName("ArtId") </th>
+                    <th> @Html.DisplayName("ArticleGroup") </th>
+                    <th> @Html.DisplayName("Stock") </th>
+                    <th> <label>Actions</label> </th>
+                </tr>
+                @foreach (var item in TempStock)
+                {
+                    @if (item.OfferId == Offer.Id)
+                    {
+                        <tr>
+                            <td> @Html.DisplayFor(m => item.ArtId) </td>
+                            <td> @Html.DisplayFor(m => item.ArticleGroup) </td>
+                            <td> @Html.DisplayFor(m => item.Stock) </td>
+                            <td style="width:150px" class="text-center">
+                                <div class="btn-group" role="group">
+                                    @if (item.OfferId == Offer.Id)
+                                    {
+                                        if (item.OfferAddMode == "AG")
+                                        {
+                                            <input type="submit" class="btn btn-danger form-control" value="Release" name="Save" asp-route-id="@item.ArtId" />
+                                        }
+                                    }
+                                    @if (item.OfferId != Offer.Id)
+                                    {
+                                        <input type="submit" class="btn btn-success form-control" value="Assign" name="Save" asp-route-id="@item.ArtId" />
+                                    }
+                                    @*<input id="OfferId" name="OfferId" value="@Offer.Id" readonly type="hidden" />
+                                        <input id="FKCompany" name="FKCompany" value="@item.FKUnitId" readonly type="hidden" />
+                                        <input id="submit1" class="btn btn-danger text-white fas fa-plus-square" type="submit" value="UnAssign" />*@
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                }
+
+            </table>
+        }
+        else
+        {
+            <h4 class="text-primary"> { -- No Venues Mapped for this Offer -- } </h4>
+        }
+    </div>
+
+    <h3 class="text-info">Available for Mapping</h3>
+    <div>
+        @if (TempStock.Count() > 0)
+        {
+            <table class="table table-success table-striped table-hover table-bordered">
+                <tr class="table-success text-info text-center">
+                    <th> @Html.DisplayName("ArtId") </th>
+                    <th> @Html.DisplayName("ArticleGroup") </th>
+                    <th> @Html.DisplayName("Stock") </th>
+                    <th> <label>Actions</label> </th>
+                </tr>
+                @foreach (var item in TempStock)
+                {
+                    @if (item.OfferId == 0)
+                    {
+                        <tr>
+                            <td> @Html.DisplayFor(m => item.ArtId) </td>
+                            <td> @Html.DisplayFor(m => item.ArticleGroup) </td>
+                            <td> @Html.DisplayFor(m => item.Stock) </td>
+                            <td style="width:150px" class="text-center">
+                                <div class="btn-group" role="group">
+                                    @if (item.OfferId == Offer.Id)
+                                    {
+                                        if (item.OfferAddMode == "AG")
+                                        {
+                                            <input type="submit" class="btn btn-danger form-control" value="Release" name="Save" asp-route-id="@item.ArtId" />
+                                        }
+                                    }
+                                    @if (item.OfferId != Offer.Id)
+                                    {
+                                        <input type="submit" class="btn btn-success form-control" value="Assign" name="Save" asp-route-id="@item.ArtId" />
+                                    }
+                                    @*<input id="OfferId" name="OfferId" value="@Offer.Id" readonly type="hidden" />
+                                        <input id="FKCompany" name="FKCompany" value="@item.FKUnitId" readonly type="hidden" />
+                                        <input id="submit1" class="btn btn-danger text-white fas fa-plus-square" type="submit" value="UnAssign" />*@
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                }
+
+            </table>
+        }
+        else
+        {
+            <h4 class="text-primary"> { -- No Venues Mapped for this Offer -- } </h4>
+        }
+    </div>
+}
+

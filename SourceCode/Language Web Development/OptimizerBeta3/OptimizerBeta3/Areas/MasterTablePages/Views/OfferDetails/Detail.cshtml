@@ -1,0 +1,158 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.OfferDetailsViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Offer for Editing Range Offers</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label class="col-form-label text-danger">Offer Name</label>
+            </div>
+            <div class="col-2">
+                @TempData["SOfferName"]
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">From Date</label>
+            </div>
+            <div class="col-2">
+                @TempData["DFromDate"]
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">To Date</label>
+            </div>
+            <div class="col-2">
+                @TempData["DToDate"]
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Range Offer's - Detail</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Detail">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="offerDetails.FKAnniverseryInfo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.offerDetails.FKAnniverseryInfo" id="FKArea" asp-items="Model.FKAnniverseryInfo.ToSelectListItem(Model.offerDetails.FKAnniverseryInfo)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="offerDetails.RangeSubSlNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="offerDetails.RangeSubSlNo" class="form-control" />
+                </div>
+                <span asp-validation-for="offerDetails.RangeSubSlNo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="offerDetails.DiscountPercentage" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="offerDetails.DiscountPercentage" class="form-control" />
+                </div>
+                <span asp-validation-for="offerDetails.DiscountPercentage" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="offerDetails.ValueFrom" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="offerDetails.ValueFrom" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="offerDetails.ValueTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="offerDetails.ValueTo" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="offerDetails.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="offerDetails.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <a asp-action="Edit" class="btn btn-info" asp-route-id="@Model.offerDetails.Id"><i class="fas fa-list-alt"></i> &nbsp; Edit</a>
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="OfferDtlsIndex" asp-route-id="@TempData["OfferId"]">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/offerDetails/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

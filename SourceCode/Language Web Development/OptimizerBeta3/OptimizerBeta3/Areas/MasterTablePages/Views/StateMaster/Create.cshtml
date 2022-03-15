@@ -1,0 +1,63 @@
+﻿@model OptimizerBeta3.Models.MasterTables.MdlStateMaster
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">State Master - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<form method="post" asp-action="Create" class="border backgroudColor">
+    <div class="border backgroudWhite">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="StateCode" class="col-form-label"></label>
+            </div>
+            <div class="col-2" style="background-color:  lightpink">
+                <input asp-for="StateCode" class="form-control" />
+            </div>
+            <span asp-validation-for="StateCode" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="StateName" class="col-form-label"></label>
+            </div>
+            <div class="col-5" style="background-color:  lightpink">
+                <input asp-for="StateName" class="form-control" />
+            </div>
+            <span asp-validation-for="StateName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ShortName" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="ShortName" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_CreateandBacktoListButton" />
+            </div>
+        </div>
+    </div>
+</form>

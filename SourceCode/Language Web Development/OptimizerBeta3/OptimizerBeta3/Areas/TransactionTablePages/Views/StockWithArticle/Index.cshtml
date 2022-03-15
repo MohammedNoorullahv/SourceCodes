@@ -1,0 +1,69 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.StockWithArticle>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Html.BeginForm("Index", "StockWithArticle", FormMethod.Post))
+    {
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Stock No / EAN Code</label>
+            </div>
+            <div class="col-2">
+                <input id="EANCode" name="EANCode" type="text" autofocus="autofocus" />
+            </div>
+            <div class="col-1">
+                <input id="submit1" type="submit" value="Load Data" />
+            </div>
+        </div>
+    }
+</div>
+
+<h3>Stock Details</h3>
+@if (Model.Count() > 0)
+{
+    <table class="table table-success table-striped table-hover table-bordered">
+        <tr class="table-success text-info">
+            <th> @Html.DisplayNameFor(m => m.StockNo) </th>
+            <th> @Html.DisplayNameFor(m => m.EANCode) </th>
+            <th> @Html.DisplayNameFor(m => m.ArticleName) </th>
+            <th> @Html.DisplayNameFor(m => m.ItemDescription) </th>
+            <th> @Html.DisplayNameFor(m => m.ColorDescription) </th>
+            <th> @Html.DisplayNameFor(m => m.Size) </th>
+            <th> @Html.DisplayNameFor(m => m.Quantity) </th>
+            <th> @Html.DisplayNameFor(m => m.MRP) </th>
+            <th> @Html.DisplayNameFor(m => m.ArrivedQty) </th>
+            <th> @Html.DisplayNameFor(m => m.SoldQty) </th>
+            <th> @Html.DisplayNameFor(m => m.BalQty) </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td> @Html.DisplayFor(m => item.StockNo) </td>
+        <td> @Html.DisplayFor(m => item.EANCode) </td>
+        <td> @Html.DisplayFor(m => item.ArticleName) </td>
+        <td> @Html.DisplayFor(m => item.ItemDescription) </td>
+        <td> @Html.DisplayFor(m => item.ColorDescription) </td>
+        <td> @Html.DisplayFor(m => item.Size) </td>
+        <td> @Html.DisplayFor(m => item.Quantity) </td>
+        <td> @Html.DisplayFor(m => item.MRP) </td>
+        <td> @Html.DisplayFor(m => item.ArrivedQty) </td>
+        <td> @Html.DisplayFor(m => item.SoldQty) </td>
+        <td> @Html.DisplayFor(m => item.BalQty) </td>
+
+    </tr>
+        }
+    </table>
+}
+else
+{
+    <p> No Stock Transfer Details exists.....</p>
+}
+
+
+
+
+

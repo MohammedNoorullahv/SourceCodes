@@ -1,0 +1,131 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.FilterViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Filter - Delete</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Delete">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Filter.ControllerName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="Filter.ControllerName" class="form-control" />
+                </div>
+                <span asp-validation-for="Filter.ControllerName" class="text-danger"></span>
+                <div class="col-3">
+                    <label asp-for="Filter.ActionMethod" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="Filter.ActionMethod" class="form-control" />
+                </div>
+                <span asp-validation-for="Filter.ActionMethod" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Filter.TableName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    @*<select asp-for="Filter.TableName" asp-items="new SelectList((List<string>)ViewBag.TableNames)" class="form-control"></select>*@
+                    <input asp-for="Filter.ActionMethod" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Filter.FKLookUpCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    @*<select asp-for="@Model.Filter.FKLookUpCategory" asp-items="Model.FKLookUpCategoryId.ToSelectListItem(Model.Filter.FKLookUpCategory)" class="form-control"></select>*@
+                    <input asp-for="Filter.LookUPCategory" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="Filter.FKLookUpMaster" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    @*<select asp-for="@Model.Filter.FKLookUpMaster" asp-items="Model.FKLookUpMasterId.ToSelectListItem(Model.Filter.FKLookUpMaster)" class="form-control"></select>*@
+                    <input asp-for="Filter.LookUPMaster" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Filter.ConditionIn" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="Filter.ConditionIn" type="checkbox" id="ConditionIn" checked="checked" Onchange="enable_ConditionIn(this.id)" class="form-control" />
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-3">
+                    <label asp-for="Filter.ConditionNotIn" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="Filter.ConditionNotIn" type="checkbox" id="ConditionNotIn" Onchange="enable_ConditionNotIn(this.id)" class="form-control" />
+                </div>
+                <div class="col-2">
+                </div>
+            </div>
+
+            <input asp-for="Filter.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Filter.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_DeleteandBacktoListButtonPartialView" model="Model.Filter.Id" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function enable_ConditionIn(id) {
+        if (id = "ConditionIn" && document.getElementById("ConditionIn").checked) {
+            document.getElementById("ConditionIn").disabled = true;
+            document.getElementById("ConditionIn").checked = false;
+        } else {
+            document.getElementById("ConditionNotIn").disabled = false;
+            document.getElementById("ConditionIn").disabled = true;
+            document.getElementById("ConditionNotIn").checked = true;
+        }
+
+    }
+
+    function enable_ConditionNotIn(id) {
+        if (id = "ConditionNotIn" && document.getElementById("ConditionNotIn").checked) {
+            document.getElementById("ConditionNotIn").disabled = true;
+            document.getElementById("ConditionNotIn").checked = false;
+        } else {
+            document.getElementById("ConditionIn").disabled = false;
+            document.getElementById("ConditionNotIn").disabled = true;
+            document.getElementById("ConditionIn").checked = true;
+        }
+    }
+</script>
+
+
+}

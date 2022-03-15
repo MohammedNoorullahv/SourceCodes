@@ -1,0 +1,397 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.PurchaseOrderDetailViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    var purchaseOrder = (OptimizerBeta3.Models.TransactionTables.PurchaseOrder)TempData["PurchaseOrder"];
+    var PurchaseOrderMain = (OptimizerBeta3.Models.TransactionTables.PurchaseOrderMain)TempData["PurchaseOrderMain"];
+    var sizemaster = (OptimizerBeta3.Models.MasterTables.SizeMaster)TempData["sizemaster"];
+    var PurchaseOrderDetail = (OptimizerBeta3.Models.TransactionTables.PurchaseOrderDetails)TempData["PurchaseOrderDetail"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Purchase Order Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order No</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order Date</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderDt;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label class="col-form-label text-danger">PO Main No</label>
+            </div>
+            <div class="col-2">
+                @PurchaseOrderMain.PurchaseOrderMainNo;
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">Article Group</label>
+            </div>
+            <div class="col-2">
+                @PurchaseOrderMain.ArticleGroup;
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">Quantity</label>
+            </div>
+            <div class="col-2">
+                @PurchaseOrderMain.TotalOrderQuantity;
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Purchase Order Detail - Detail</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="PODtlDetail">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderDetail.PurchaseOrderDtlNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderDetail.PurchaseOrderDtlNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderDetail.OrderReferenceNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderDetail.OrderReferenceNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderDetail.ArticleGroup" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderDetail.ArticleGroup" readonly value="@PurchaseOrderMain.ArticleGroup" class="form-control text-danger" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderDetail.ArticleDescription" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderDetail.ArticleDescription" readonly class="text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="PurchaseOrderDetail.TotalOrderQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input type="text" asp-for="PurchaseOrderDetail.TotalOrderQuantity" id="TotalOrderQuantity" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="PurchaseOrderDetail.Rate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input type="text" asp-for="PurchaseOrderDetail.Rate" id="Rate" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="PurchaseOrderDetail.Value" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input type="text" asp-for="PurchaseOrderDetail.Value" readonly id="Value" class="form-control text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size01" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity01" id="Quantity01" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size02" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity02" id="Quantity02" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size03" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity03" id="Quantity03" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size04" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity04" id="Quantity04" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size05" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity05" id="Quantity05" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size06" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity06" id="Quantity06" oninput="generateOrderValue()" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size07" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity07" id="Quantity07" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size08" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity08" id="Quantity08" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size09" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity09" id="Quantity09" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="@sizemaster.Size10" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="PurchaseOrderDetail.Quantity10" id="Quantity10" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="@sizemaster.Size11" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="PurchaseOrderDetail.Quantity11" id="Quantity11" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="@sizemaster.Size12" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="PurchaseOrderDetail.Quantity12" id="Quantity12" oninput="generateOrderValue()" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size13" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity13" id="Quantity13" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size14" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity14" id="Quantity14" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size15" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity15" id="Quantity15" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size16" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity16" id="Quantity16" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size17" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity17" id="Quantity17" oninput="generateOrderValue()" class="form-control" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizemaster.Size18" readonly class="form-control text-center" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input type="text" asp-for="PurchaseOrderDetail.Quantity18" id="Quantity18" oninput="generateOrderValue()" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderDetail.DeliveryDate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="date" asp-for="PurchaseOrderDetail.DeliveryDate" id="DeliveryDate" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderDetail.IsPartDeliveryAllowed" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="checkbox" asp-for="PurchaseOrderDetail.IsPartDeliveryAllowed" class="form-control" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderDetail.FKOrderStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrderDetail.FKOrderStatus" asp-items="Model.FKOrderStatus.ToSelectListItem(Model.PurchaseOrderDetail.FKOrderStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+            <input asp-for="PurchaseOrderDetail.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PurchaseOrderDetail.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-4">
+                            <a class="btn btn-dark text-white  form-control" asp-action="PODetailIndex" asp-route-id="@PurchaseOrderMain.Id">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+
+    function generateOrderValue() {
+        $("#Value").val($("#TotalOrderQuantity").val() * $("#Rate").val());
+
+        var nTotalQty = $("#TotalOrderQuantity").val();
+        var nBalQty = ((parseInt(document.getElementById("POMainTotalOrderQuantity").value) || 0) - (parseInt(document.getElementById("POMainEnteredQuantity").value) || 0) + (parseInt(document.getElementById("PODtlTotalOrderQuantity").value) || 0));
+
+        if (nTotalQty < (parseInt(document.getElementById("PODtlReceivedQuantity").value) || 0)) {
+            $('#save').prop('hidden', true);
+            alert("Entered Quantity should not be below Received Quantity")
+        }
+        else {
+
+            if (nTotalQty > nBalQty) {
+                $('#save').prop('hidden', true);
+                alert("Entered Quantity exceeds Total Order Quantity - 1")
+            }
+            else {
+                var nSizeQty = (parseInt(document.getElementById("Quantity01").value) || 0) + (parseInt(document.getElementById("Quantity02").value) || 0)
+                    + (parseInt(document.getElementById("Quantity03").value) || 0) + (parseInt(document.getElementById("Quantity04").value) || 0)
+                    + (parseInt(document.getElementById("Quantity05").value) || 0) + (parseInt(document.getElementById("Quantity06").value) || 0)
+                    + (parseInt(document.getElementById("Quantity07").value) || 0) + (parseInt(document.getElementById("Quantity08").value) || 0)
+                    + (parseInt(document.getElementById("Quantity09").value) || 0) + (parseInt(document.getElementById("Quantity10").value) || 0)
+                    + (parseInt(document.getElementById("Quantity11").value) || 0) + (parseInt(document.getElementById("Quantity12").value) || 0)
+                    + (parseInt(document.getElementById("Quantity13").value) || 0) + (parseInt(document.getElementById("Quantity14").value) || 0)
+                    + (parseInt(document.getElementById("Quantity15").value) || 0) + (parseInt(document.getElementById("Quantity16").value) || 0)
+                    + (parseInt(document.getElementById("Quantity17").value) || 0) + (parseInt(document.getElementById("Quantity18").value) || 0);
+
+                if (nTotalQty != nSizeQty) {
+                    $('#save').prop('hidden', true);
+                    if (nSizeQty > nTotalQty) {
+                        alert("Size Break Up Quantity exceeds Total Quantity - 2")
+                    }
+                }
+                else {
+                    $('#save').prop('hidden', false);
+                }
+            }
+
+        }
+
+        if ((parseInt(document.getElementById("Size03").value) || 0) == 0 && (parseInt(document.getElementById("Quantity03").value) || 0) > 0) {
+            $("#Quantity03").val(0)
+        }
+        if ((parseInt(document.getElementById("Size04").value) || 0) == 0 && (parseInt(document.getElementById("Quantity04").value) || 0) > 0) {
+            $("#Quantity04").val(0)
+        }
+        if ((parseInt(document.getElementById("Size05").value) || 0) == 0 && (parseInt(document.getElementById("Quantity05").value) || 0) > 0) {
+            $("#Quantity05").val(0)
+        }
+        if ((parseInt(document.getElementById("Size06").value) || 0) == 0 && (parseInt(document.getElementById("Quantity06").value) || 0) > 0) {
+            $("#Quantity06").val(0)
+        }
+        if ((parseInt(document.getElementById("Size07").value) || 0) == 0 && (parseInt(document.getElementById("Quantity07").value) || 0) > 0) {
+            $("#Quantity07").val(0)
+        }
+        if ((parseInt(document.getElementById("Size08").value) || 0) == 0 && (parseInt(document.getElementById("Quantity08").value) || 0) > 0) {
+            $("#Quantity08").val(0)
+        }
+        if ((parseInt(document.getElementById("Size09").value) || 0) == 0 && (parseInt(document.getElementById("Quantity09").value) || 0) > 0) {
+            $("#Quantity09").val(0)
+        }
+        if ((parseInt(document.getElementById("Size10").value) || 0) == 0 && (parseInt(document.getElementById("Quantity10").value) || 0) > 0) {
+            $("#Quantity10").val(0)
+        }
+        if ((parseInt(document.getElementById("Size11").value) || 0) == 0 && (parseInt(document.getElementById("Quantity11").value) || 0) > 0) {
+            $("#Quantity11").val(0)
+        }
+        if ((parseInt(document.getElementById("Size12").value) || 0) == 0 && (parseInt(document.getElementById("Quantity12").value) || 0) > 0) {
+            $("#Quantity12").val(0)
+        }
+        if ((parseInt(document.getElementById("Size13").value) || 0) == 0 && (parseInt(document.getElementById("Quantity13").value) || 0) > 0) {
+            $("#Quantity13").val(0)
+        }
+        if ((parseInt(document.getElementById("Size14").value) || 0) == 0 && (parseInt(document.getElementById("Quantity14").value) || 0) > 0) {
+            $("#Quantity14").val(0)
+        }
+        if ((parseInt(document.getElementById("Size15").value) || 0) == 0 && (parseInt(document.getElementById("Quantity15").value) || 0) > 0) {
+            $("#Quantity15").val(0)
+        }
+        if ((parseInt(document.getElementById("Size16").value) || 0) == 0 && (parseInt(document.getElementById("Quantity16").value) || 0) != 0) {
+            $("#Quantity16").val(0)
+        }
+        if ((parseInt(document.getElementById("Size17").value) || 0) == 0 && (parseInt(document.getElementById("Quantity17").value) || 0) > 0) {
+            $("#Quantity17").val(0)
+        }
+        if ((parseInt(document.getElementById("Size18").value) || 0) == 0 && (parseInt(document.getElementById("Quantity18").value) || 0) > 0) {
+            $("#Quantity18").val(0)
+        }
+
+    }
+
+
+</script>
+
+

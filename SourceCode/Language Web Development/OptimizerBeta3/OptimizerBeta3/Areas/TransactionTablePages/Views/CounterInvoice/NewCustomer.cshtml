@@ -1,0 +1,205 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.CustomerPersonViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Customer Person - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="NewCustomer">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CustomerPerson.PersonName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6" style="background-color:  lightpink">
+                    <input asp-for="CustomerPerson.PersonName" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="CustomerPerson.PersonName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="CustomerPerson.Address" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="CustomerPerson.Address" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.FKArea" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.CustomerPerson.FKArea" id="FKArea" asp-items="Model.FKArea.ToSelectListItem(Model.CustomerPerson.FKArea)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.FKCity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.CustomerPerson.FKCity" id="FKCity" asp-items="Model.FKCity.ToSelectListItem(Model.CustomerPerson.FKCity)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.FKPincode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.CustomerPerson.FKPincode" id="FKPincode" asp-items="Model.FKPincode.ToSelectListItem(Model.CustomerPerson.FKPincode)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.FKState" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.CustomerPerson.FKState" id="FKArea" asp-items="Model.FKState.ToSelectListStateName(Model.CustomerPerson.FKState)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.MobileNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="CustomerPerson.MobileNo" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.EMailId" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="CustomerPerson.EMailId" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.OfficePhoneNo" class="col-form-label text-info">Off Ph#</label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="CustomerPerson.OfficePhoneNo" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.HomePhoneNo" class="col-form-label text-info">HomePh#</label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="CustomerPerson.HomePhoneNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.FKGender" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.CustomerPerson.FKGender" asp-items="Model.FKGender.ToSelectListItem(Model.CustomerPerson.FKGender)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.BirthDate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="CustomerPerson.BirthDate" type="date" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.FKMaritalStatus" class="col-form-label text-info">IsMarried?</label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.CustomerPerson.FKMaritalStatus" asp-items="Model.FKMaritalStatus.ToSelectListItem(Model.CustomerPerson.FKMaritalStatus)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="CustomerPerson.WeddingDate" class="col-form-label text-info">Wed Dt</label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="CustomerPerson.WeddingDate" type="date" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label asp-for="CustomerPerson.FKCountry" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.CustomerPerson.FKCountry" id="FKArea" asp-items="Model.FKCountry.ToSelectListItem(Model.CustomerPerson.FKCountry)" class="form-control"></select>
+                </div>
+                <div class="col-sm-3">
+                    <label asp-for="CustomerPerson.FKCustomerOf" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.CustomerPerson.FKCustomerOf" id="FKArea" asp-items="Model.FKCustomerOf.ToSelectListItem(Model.CustomerPerson.FKCustomerOf)" class="form-control"></select>
+                </div>
+            </div>
+
+            <input asp-for="CustomerPerson.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="CustomerPerson.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="CustomerPerson.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="CustomerPerson.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="CustomerPerson.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="CustomerPerson.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="CustomerPerson.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="CustomerPerson.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-info form-control" value="Create" />
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Create" class="btn btn-success form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/CustomerPerson/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

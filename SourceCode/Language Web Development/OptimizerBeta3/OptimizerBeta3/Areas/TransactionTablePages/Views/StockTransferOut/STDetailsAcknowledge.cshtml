@@ -1,0 +1,91 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.StockTransferDetail>
+@{
+    ViewData["Title"] = "STDetailsAcknowledge";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var stocktransfer = (OptimizerBeta3.Models.TransactionTables.StockTransfer)TempData["StockTransfer"];
+}
+
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Stock Transfer [ In ] - Acknowledge</h2>
+        </div>
+    </div>
+</div>
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info text-center">
+                <th> @Html.DisplayNameFor(m => m.EANCode) </th>
+                <th> @Html.DisplayNameFor(m => m.StockNo) </th>
+                <th> @Html.DisplayNameFor(m => m.Description) </th>
+                <th> @Html.DisplayNameFor(m => m.Colour) </th>
+                <th> @Html.DisplayNameFor(m => m.Size) </th>
+                <th> @Html.DisplayNameFor(m => m.DispatchedQuantity) </th>
+                <th> @Html.DisplayNameFor(m => m.ReceivedQuantity) </th>
+                <th> <label>Actions</label> </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(m => item.EANCode) </td>
+                    <td> @Html.DisplayFor(m => item.StockNo) </td>
+                    <td> @Html.DisplayFor(m => item.Description) </td>
+                    <td> @Html.DisplayFor(m => item.Colour) </td>
+                    <td> @Html.DisplayFor(m => item.Size) </td>
+                    <td> @Html.DisplayFor(m => item.DispatchedQuantity) </td>
+                    <td> @Html.DisplayFor(m => item.ReceivedQuantity) </td>
+
+                    <td style="width:150px">
+                        <div class="btn-group" role="group">
+                            @if (item.ReceivedQuantity == 0)
+                            {
+
+                                <a class="btn btn-info text-white" asp-action="STDAcknowledgeTotalQty" asp-route-Id="@item.Id">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                            }
+                            @if (item.ReceivedQuantity < item.DispatchedQuantity)
+                            {
+                                <a class="btn btn-success text-white" asp-action="STDAcknowledge" asp-route-Id="@item.Id">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            }
+                        </div>
+
+
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="form-group row">
+            <div class="col-6 offset-3">
+
+                <div class="row">
+                    <div class="col-4">
+                        @*<input type="submit" class="btn btn-info form-control" value="Save" />*@
+                        <a class="btn btn-info text-white" asp-action="UpdateStockTransferIn" asp-route-Id="@stocktransfer.Id">
+                            <i class="far fa-times-circle"></i>
+                            Save
+                        </a>
+                    </div>
+                    <div class="col-4">
+                        <a asp-action="Pending" class="btn btn-success form-control">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p> No Stock Transfer exists.....</p>
+    }
+</div>
+

@@ -1,0 +1,211 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.PurchaseOrderViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Cancel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Purchase Order - Cancel</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Cancel">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.FKTypeOfOrder" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="text" asp-for="PurchaseOrder.TypeofOrder" readonly class="form-control text-danger" />
+                    <input asp-for="PurchaseOrder.FKTypeOfOrder" readonly type="hidden" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.FKSeason" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="text" asp-for="PurchaseOrder.Season" readonly class="form-control text-danger" />
+                    <input asp-for="PurchaseOrder.FKSeason" readonly type="hidden" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.FKSource" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="text" asp-for="PurchaseOrder.Source" readonly class="form-control text-danger" />
+                    <input asp-for="PurchaseOrder.FKSource" readonly type="hidden" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.FKCurrency" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="text" asp-for="PurchaseOrder.Currency" readonly class="form-control text-danger" />
+                    <input asp-for="PurchaseOrder.FKCurrency" readonly type="hidden" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.FKUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input type="text" asp-for="PurchaseOrder.UnitName" readonly class="form-control text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.FKParty" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input type="text" asp-for="PurchaseOrder.SupplierName" readonly class="form-control text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.PurchaseOrderNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrder.PurchaseOrderNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.PurchaseOrderDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="date" asp-for="PurchaseOrder.PurchaseOrderDt" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                @*<div class="col-3">
+                    <label asp-for="PurchaseOrder.FKSizeMaster" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrder.FKSizeMaster" asp-items="Model.FKSizeMaster.ToSelectListItem(Model.PurchaseOrder.FKSizeMaster)" class="form-control"></select>
+                </div>*@
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.IsAssortmentOrder" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input type="checkbox" asp-for="PurchaseOrder.IsAssortmentOrder" value="0" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.FKPaymentTerms" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrder.FKPaymentTerms" asp-items="Model.FKPaymentTerms.ToSelectListItem(Model.PurchaseOrder.FKPaymentTerms)" class="form-control"></select>
+                </div>
+                @*<div class="col-3">
+                    <label asp-for="PurchaseOrder.FKModeofTransport" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrder.FKModeofTransport" asp-items="Model.FKModeofTransport.ToSelectListItem(Model.PurchaseOrder.FKModeofTransport)" class="form-control"></select>
+                </div>*@
+            </div>
+
+            <div class="form-group row">
+                @*<div class="col-3">
+                    <label asp-for="PurchaseOrder.FKDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-9">
+                    <select asp-for="@Model.PurchaseOrder.FKDeliveryTo" asp-items="Model.FKDeliveryTo.ToSelectListCompanyName(Model.PurchaseOrder.FKDeliveryTo)" class="form-control"></select>
+                </div>*@
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="PurchaseOrder.POValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="PurchaseOrder.POValue" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="PurchaseOrder.ExchangeRate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="PurchaseOrder.ExchangeRate" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="PurchaseOrder.POValueinINR" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="PurchaseOrder.POValueinINR" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.Remarks" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="PurchaseOrder.Remarks" id="Remarks" oninput="enableUpdate()" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrder.FKOrderStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrder.FKOrderStatus" asp-items="Model.FKOrderStatus.ToSelectListItem(Model.PurchaseOrder.FKOrderStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+
+
+            <input asp-for="PurchaseOrder.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PurchaseOrder.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-warning form-control" id="cancel" hidden="hidden" asp-route-id="@Model.PurchaseOrder.Id" value="cancel" />
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function enableUpdate() {
+        var myLength = $("#Remarks").val().replace(/\s+/g, '').length;
+        if (myLength > 0) {
+            $('#cancel').prop('hidden', false);
+            }
+            else {
+            $('#cancel').prop('hidden', true);
+            }
+        }
+</script>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.Filter>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Filter - Index</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+    <div></div>
+    <br />
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.ControllerName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ActionMethod)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.LookUPCategory)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.LookUPMaster)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ConditionIn)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ConditionNotIn)
+                    </th>
+                    <th class="text-center"><label>Actions</label></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.ControllerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.ActionMethod)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.LookUPCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.LookUPMaster)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.ConditionIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.ConditionNotIn)
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+                @*<td style="width:150px">*@
+                <td>
+                    @*<partial name="_TableButtonPartial" model="item.Id" />*@
+                </td>
+            </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p> No Filter's exists.....</p>
+        }
+    </div>
+</div>
+
+
+
+

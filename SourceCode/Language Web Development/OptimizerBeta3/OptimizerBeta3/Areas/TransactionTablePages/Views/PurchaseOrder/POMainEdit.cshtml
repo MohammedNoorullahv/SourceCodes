@@ -1,0 +1,245 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.PurchaseOrderMainViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    var purchaseOrder = (OptimizerBeta3.Models.TransactionTables.PurchaseOrder)TempData["PurchaseOrder"];
+    var purchaseOrderMain = (OptimizerBeta3.Models.TransactionTables.PurchaseOrderMain)TempData["PurchaseOrderMain"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Purchase Order Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order No</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order Date</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderDt;
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Purchase Order Main - Edit</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="POMainEdit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.PurchaseOrderMainNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.PurchaseOrderMainNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.OrderReferenceNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.OrderReferenceNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.ArticleGroup" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrderMain.FKArticleGroup" asp-items="Model.GetArticleGroup.ToSelectListArticleName(Model.PurchaseOrderMain.FKArticleGroup)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.TotalOrderQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.TotalOrderQuantity" id="TotalOrderQuantity" oninput="generateOrderValue()" class="form-control" />
+                    <input value="@purchaseOrder.TotalOrderQuantity" readonly id="POMainTotalOrderQuantity" />
+                    <input value="@purchaseOrder.EnteredQuantity" readonly id="POMainEnteredQuantity" />
+                    <input value="@purchaseOrderMain.TotalOrderQuantity" readonly id="POMainTblTotalOrderQuantity" />
+                    <input value="@purchaseOrderMain.EnteredQuantity" readonly id="POMainTblEnteredQuantity" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.DeliveryDate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="date" asp-for="PurchaseOrderMain.DeliveryDate" id="DeliveryDate" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.IsPartDeliveryAllowed" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="checkbox" asp-for="PurchaseOrderMain.IsPartDeliveryAllowed" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKSizeMaster" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrderMain.FKSizeMaster" asp-items="Model.FKSizeMaster.ToSelectListItem(Model.PurchaseOrderMain.FKSizeMaster)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKDestination" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrderMain.FKDestination" asp-items="Model.FKDestination.ToSelectListItem(Model.PurchaseOrderMain.FKDestination)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrderMain.FKDeliveryTo" asp-items="Model.FKDeliveryTo.ToSelectListItem(Model.PurchaseOrderMain.FKDeliveryTo)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKModeofTransport" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrderMain.FKModeofTransport" asp-items="Model.FKModeofTransport.ToSelectListItem(Model.PurchaseOrderMain.FKModeofTransport)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKOrderStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrderMain.FKOrderStatus" asp-items="Model.FKOrderStatus.ToSelectListItem(Model.PurchaseOrderMain.FKOrderStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+
+            <input asp-for="PurchaseOrderMain.ReceivedQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="PurchaseOrderMain.CancelledQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="PurchaseOrderMain.BalanceQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="PurchaseOrderMain.DeliveryTo" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="PurchaseOrderMain.ModeofTransport" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="PurchaseOrderMain.OrderStatus" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="PurchaseOrderMain.PurchaseOrderNo" readonly class="form-control" value="@purchaseOrder.PurchaseOrderNo" type="hidden" />
+            <input asp-for="PurchaseOrderMain.FKPurchaseOrder" readonly class="form-control" value="@purchaseOrder.Id" type="hidden" />
+
+            <input asp-for=" PurchaseOrderMain.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="PurchaseOrderMain.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="PurchaseOrderMain.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PurchaseOrderMain.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="PurchaseOrderMain.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PurchaseOrderMain.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="PurchaseOrderMain.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PurchaseOrderMain.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    @*<partial name="_CreateandBacktoListButton" />*@
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="submit" id="save" class="btn btn-info form-control" value="Save & Continue" />
+                        </div>
+                        <div class="col-4">
+                            <a asp-action="CreateMPODetail" class="btn btn-success form-control">Save & Insert Dtl</a>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-dark text-white  form-control" asp-action="POMainIndex" asp-route-id="@purchaseOrder.Id">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        $('#DeliveryDate').attr('min', minDate);
+        $('#DeliveryDate').attr('max', maxDate);
+    });
+
+    function generateOrderValue() {
+
+        var nTotalQty = $("#TotalOrderQuantity").val();
+        var nBalQty = (parseInt(document.getElementById("POMainTotalOrderQuantity").value) || 0) - (parseInt(document.getElementById("POMainEnteredQuantity").value) || 0);
+        //alert(nBalQty)
+        if ((parseInt(document.getElementById("TotalOrderQuantity").value) || 0) < (parseInt(document.getElementById("POMainTblEnteredQuantity").value) || 0)) {
+            $('#save').prop('hidden', true);
+            alert("Entered Quantity should not be lesser than the Dtl entered Quantity")
+        }
+        else {
+            if ((parseInt(document.getElementById("TotalOrderQuantity").value) || 0) > (parseInt(document.getElementById("POMainTblTotalOrderQuantity").value) || 0)) {
+                if ((parseInt(document.getElementById("TotalOrderQuantity").value) || 0) > (parseInt(document.getElementById("POMainTblTotalOrderQuantity").value) || 0) + nBalQty) {
+                    if (nTotalQty > nBalQty) {
+                        $('#save').prop('hidden', true);
+                        alert("Entered Quantity exceeds Total Order Quantity")
+                    }
+                    else {
+                        $('#save').prop('hidden', false);
+                    }
+                } else {
+                    $('#save').prop('hidden', false);
+                }
+            }
+            else {
+                if ((parseInt(document.getElementById("TotalOrderQuantity").value) || 0) <= (parseInt(document.getElementById("POMainTblTotalOrderQuantity").value) || 0)) {
+                    $('#save').prop('hidden', false);
+                }
+            }
+        }
+        
+
+    }
+</script>
+

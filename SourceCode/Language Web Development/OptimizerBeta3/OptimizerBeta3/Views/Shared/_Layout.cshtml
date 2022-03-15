@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OptimizerBeta3</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrapMateria.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/all.min.css" integrity="sha256-nkysZcel7gvQdDr+/KvdPnOFThKErJrEM4E9YjH1UPI=" crossorigin="anonymous" />  `1.MBX`
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-W border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/Language_square_logo_300x80.png" class="w-10" alt="Lng-1" width="75" height="25"></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OptimizerBeta3</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        <li class="nav-item dropdown text-black-50">
+                            <a class="nav-link dropdown-toggle href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Master
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                <a class="dropdown-item" asp-action="Index" asp-controller="LookUpCategory" asp-area="MasterTablePages">Look Up Category</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="LookUpMaster" asp-area="MasterTablePages">Look Up Master</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="CompanyInfo" asp-area="MasterTablePages">Company Info</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="UnitMaster" asp-area="MasterTablePages">Unit Master</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="PartyInfo" asp-area="MasterTablePages">Party Info</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="PartyInfoDtls" asp-area="MasterTablePages">Party Info Dtls</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="CustomerPerson" asp-area="MasterTablePages">Cust Person Info</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Season" asp-area="MasterTablePages">Season</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="SizeMaster" asp-area="MasterTablePages">Size Master</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="SizeMasterforLeatherGoods" asp-area="MasterTablePages">Size Master For Leather Goods</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Offer" asp-area="MasterTablePages">Offer</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="OfferDetails" asp-area="MasterTablePages">Offer Details</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="PaymentOption" asp-area="MasterTablePages">Payment Option</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Bank" asp-area="MasterTablePages">Bank</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="ColorMaster" asp-area="MasterTablePages">Color Master</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Materials" asp-area="MasterTablePages">Materials</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="ArticleGroup" asp-area="MasterTablePages">Article Group</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="LeatherGoodsGroup" asp-area="MasterTablePages">Leather Goods Group</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="HSNCode" asp-area="MasterTablePages">HSN Code</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="StateMaster" asp-area="MasterTablePages">State Master</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Filter" asp-area="MasterTablePages">Filter</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown text-black-50">
+                            <a class="nav-link dropdown-toggle href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Transaction
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+
+                                <a class="dropdown-item" asp-action="Index" asp-controller="PurchaseOrder" asp-area="TransactionTablePages">Purchase Order - Footwears </a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="LGPurchaseOrder" asp-area="TransactionTablePages">Purchase Order - Leather Goods </a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="MaterialPurchaseOrder" asp-area="TransactionTablePages">Purchase Order - Material & Accessories </a>
+                                <a class="dropdown-item" asp-action="" asp-controller="" asp-area="">-------------------------- </a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Inward" asp-area="TransactionTablePages">Inward - Footwear</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="LGInward" asp-area="TransactionTablePages">Inward - Leather Goods</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="MaterialInward" asp-area="TransactionTablePages">Inward - Materials & Accessories </a>
+                                <a class="dropdown-item" asp-action="" asp-controller="" asp-area="">-------------------------- </a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Invoice" asp-area="TransactionTablePages">Invoice - Partner's Location</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="InvoiceToOwnStores" asp-area="TransactionTablePages">Invoice - Language Show Rooms</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="InvoiceToOnlineSites" asp-area="TransactionTablePages">Invoice - Market Place</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="CounterInvoiceOnlineCustomer" asp-area="TransactionTablePages">Invoice - E.Com Customer</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Estimate" asp-area="TransactionTablePages">Estimate</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="CounterInvoice" asp-area="TransactionTablePages">Invoice - EBO Customer</a>
+                                @*<a class="dropdown-item" asp-action="" asp-controller="" asp-area="">-------------------------- </a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="CounterInvoice" asp-area="TransactionTablePages">Invoice - Counter Sales - []</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="Invoice" asp-area="TransactionTablePages">Invoice - Footwear Only [ Bulk ] - []</a>
+                <a class="dropdown-item" asp-action="Index" asp-controller="InvoiceAllItems" asp-area="TransactionTablePages">Invoice </a>*@
+                                <a class="dropdown-item" asp-action="" asp-controller="" asp-area="">-------------------------- </a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="StockTransferOut" asp-area="TransactionTablePages">Stock Transfer - Out</a>
+                                <a class="dropdown-item" asp-action="Pending" asp-controller="StockTransferOut" asp-area="TransactionTablePages">Stock Transfer - In</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="DeliveryChallan" asp-area="TransactionTablePages">Delivery Challan - Own Show Rooms</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="DeliveryChallan" asp-area="TransactionTablePages">Delivery Challan - Partner Stores</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="DeliveryChallanOther" asp-area="TransactionTablePages">Delivery Challan - Others</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="DeliveryChallan" asp-area="TransactionTablePages">Material Issues</a>
+                                <a class="dropdown-item" asp-action="" asp-controller="" asp-area="">-------------------------- </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown text-black-50">
+                            <a class="nav-link dropdown-toggle href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Inventory
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Stock" asp-area="TransactionTablePages">Stock</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="AllTransaction" asp-area="TransactionTablePages">Transaction</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="StockWithArticle" asp-area="TransactionTablePages">Stock Status</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown text-black-50">
+                            <a class="nav-link dropdown-toggle href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Settings
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                <a class="dropdown-item" asp-action="Index" asp-controller="POMainDefault" asp-area="DfltSettings">PO Main Defaults</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown text-black-50">
+                            <a class="nav-link dropdown-toggle href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Complaints
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                <a class="dropdown-item" asp-action="Index" asp-controller="ComplaintLookUpMaster" asp-area="Complaints">Complaint Look Up Masters</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Complaints" asp-area="Complaints">Complaint's</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown text-black-50">
+                            <a class="nav-link dropdown-toggle href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                HR
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Employee" asp-area="HRPages">Employee</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown text-black-50">
+                            <a class="nav-link dropdown-toggle href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Area
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                <a class="dropdown-item" asp-action="Index" asp-controller="AreaLookUpMaster" asp-area="MasterTablePages">Area Look Up Master</a>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="AreaMaster" asp-area="MasterTablePages">Area Master</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - OptimizerBeta3 [Development Edition - v36.publish date {31-Jan-22}] - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

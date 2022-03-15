@@ -1,0 +1,209 @@
+﻿@model OptimizerBeta3.Models.MasterTables.Offers
+@using OptimizerBeta3.Extensions
+@{
+    ViewData["Title"] = "OfferMapping";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var unassignedstock = (List<OptimizerBeta3.Models.TransactionTables.Stock>)ViewBag.UnAssignedStock;
+    var stockwithoffer = (List<OptimizerBeta3.Models.TransactionTables.Stock>)ViewBag.StockWithOffer;
+    var unAssignedStockGroupdBy = (List<OptimizerBeta3.Models.GeneralTables.TempStockForOfferMapping>)ViewBag.UnAssignedStockGroupdBy;
+}
+
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Offer Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Offer Name</label>
+            </div>
+            <div class="col-3">
+                @Model.OfferName
+
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Discount Percentage</label>
+            </div>
+            <div class="col-3">
+                @Model.DiscountPercentage
+
+                @*@TempData["OfferId"] = @Model.Id*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-3">
+    <a class="btn btn-success text-white  form-control" asp-action="Index">
+        Back to Offer
+    </a>
+</div>
+<br />
+
+<h3>Offer Mapping Using Barcode Scanning</h3>
+<div>
+    @using (Html.BeginForm("AssignOfferSingle", "Offer", FormMethod.Post))
+    {
+        <div class="form-group row">
+            <div class="col-4">
+                <label class="text-info">Stock No / EAN Code</label>
+            </div>
+            <div class="col-2">
+                <input id="EANCode" name="EANCode" type="text" autofocus="autofocus" />
+                @*<input id="OfferId" name="OfferId" type="text" readonly value="@TempData["OfferId"]" />*@
+            </div>
+            <div class="col-1">
+                <input class="btn btn-info text-white" id="submit" type="submit" value="Update Offer" />
+            </div>
+        </div>
+    }
+</div>
+
+<h3>Offer Mapping By Article Group Wise</h3>
+<div>
+    @if (unAssignedStockGroupdBy.Count() > 0)
+    {
+    <table class="table table-striped border">
+        <tr class="table-secondary">
+            <th> @Html.DisplayName("Id") </th>
+            <th> @Html.DisplayName("Description") </th>
+            <th> @Html.DisplayName("ArticleGroupName") </th>
+            <th> @Html.DisplayName("ArticleDescription") </th>
+            <th> @Html.DisplayName("Colour") </th>
+            <th> @Html.DisplayName("Quantity") </th>
+            <th> @Html.DisplayName("MRP") </th>
+            <th> <label>Actions</label> </th>
+        </tr>
+        @foreach (var item in unAssignedStockGroupdBy)
+        {
+    <tr>
+        <td> @Html.DisplayFor(m => item.Id) </td>
+        <td> @Html.DisplayFor(m => item.Description) </td>
+        <td> @Html.DisplayFor(m => item.ArticleGroupName) </td>
+        <td> @Html.DisplayFor(m => item.ArticleDescription) </td>
+        <td> @Html.DisplayFor(m => item.Colour) </td>
+        <td> @Html.DisplayFor(m => item.Quantity) </td>
+        <td> @Html.DisplayFor(m => item.MRP) </td>
+        <td style="width:150px">
+            <div class="btn-group" role="group">
+                <a class="btn btn-primary text-white fas fa-plus-square" asp-action="AssignOffer" asp-route-Id="@item.Id">
+                </a>
+            </div>
+        </td>
+    </tr>
+        }
+
+    </table>
+    }
+</div>
+<h3>UnAssigned Stock's List</h3>
+<div>
+    @if (unassignedstock.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th> @Html.Name("Id") </th>
+                <th> @Html.DisplayName("StockNo") </th>
+                <th> @Html.DisplayName("EANCode") </th>
+                <th> @Html.DisplayName("Description") </th>
+                <th> @Html.DisplayName("Colour") </th>
+                <th> @Html.DisplayName("Quantity") </th>
+                <th> @Html.DisplayName("Value") </th>
+                <th>
+                    <label>Actions</label>
+                </th>
+            </tr>
+
+            @foreach (var item in unassignedstock)
+            {
+                <tr>
+
+
+                    <td> @Html.DisplayFor(m => item.Id) </td>
+                    <td> @Html.DisplayFor(m => item.StockNo) </td>
+                    <td> @Html.DisplayFor(m => item.EANCode) </td>
+                    <td> @Html.DisplayFor(m => item.Description) </td>
+                    <td> @Html.DisplayFor(m => item.Colour) </td>
+                    <td> @Html.DisplayFor(m => item.Quantity) </td>
+                    <td> @Html.DisplayFor(m => item.Value) </td>
+
+                    <td style="width:150px">
+
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-primary text-white fas fa-plus-square" asp-action="AssignOffer" asp-route-Id="@item.Id">
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+
+    }
+    else
+    {
+        <p> No Unassigned exists.....</p>
+    }
+</div>
+
+
+<h3>Offer Stock's List</h3>
+<div>
+    @if (stockwithoffer.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th> @Html.DisplayName("Id") </th>
+                <th> @Html.DisplayName("StockNo") </th>
+                <th> @Html.DisplayName("EANCode") </th>
+                <th> @Html.DisplayName("Description") </th>
+                <th> @Html.DisplayName("Colour") </th>
+                <th> @Html.DisplayName("Quantity") </th>
+                <th> @Html.DisplayName("Value") </th>
+                <th>
+                    <label>Actions</label>
+                </th>
+            </tr>
+
+            @foreach (var item in stockwithoffer)
+            {
+                <tr>
+
+
+                    <td> @Html.DisplayFor(m => item.Id) </td>
+                    <td> @Html.DisplayFor(m => item.StockNo) </td>
+                    <td> @Html.DisplayFor(m => item.EANCode) </td>
+                    <td> @Html.DisplayFor(m => item.Description) </td>
+                    <td> @Html.DisplayFor(m => item.Colour) </td>
+                    <td> @Html.DisplayFor(m => item.Quantity) </td>
+                    <td> @Html.DisplayFor(m => item.Value) </td>
+
+                    <td style="width:150px">
+
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-danger text-white fas fa-minus-square" asp-action="UnAssignOffer" asp-route-Id="@item.Id">
+                                @*<a class="btn btn-primary text-white" id="EnableDtl" onclick="loaddataforInwardDtl()">
+                                        <i class="fas fa-save"></i>
+                                    </a>*@
+                            </a>
+                            @*<div class="col-1">
+                                    <input type="checkbox" asp-for="IsRangeOffer" id="IsRangeOffer" onchange="displayRangeSlNo()" class="form-control" />
+                                </div>*@
+                        </div>
+
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Offer Stock exists.....</p>
+    }
+</div>

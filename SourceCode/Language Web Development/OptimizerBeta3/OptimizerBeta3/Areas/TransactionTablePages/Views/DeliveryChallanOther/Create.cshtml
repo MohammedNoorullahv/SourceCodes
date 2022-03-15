@@ -1,0 +1,265 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.DeliveryChallanViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Delivery Challan - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.DCNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="DeliveryChallan.DCNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.DCDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="DeliveryChallan.DCDt" id="DeliveryChallanDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.FKDCType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.DeliveryChallan.FKDCType" asp-items="Model.FKDCType.ToSelectListItem(Model.DeliveryChallan.FKDCType)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.FKSeason" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.DeliveryChallan.FKSeason" asp-items="Model.FKSeason.ToSelectListItem(Model.DeliveryChallan.FKSeason)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.DeliveryChallan.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.DeliveryChallan.FKCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.FKFromUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <select id="ddlUnitlist" asp-for="@Model.DeliveryChallan.FKFromUnit" asp-items="Model.FKFromUnit.ToSelectListCompanyName(@Model.DeliveryChallan.FKFromUnit)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.FKFromLocation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <!--<select asp-for="@Model.DeliveryChallan.FKFromLocation" asp-items="Model.FKFromLocation.ToSelectListLocationName(Model.DeliveryChallan.FKFromLocation)" class="form-control"></select>-->
+                    <select asp-for="DeliveryChallan.FKFromLocation" id="updatelocationList" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.FKToUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <select id="ddlToUnitlist" asp-for="@Model.DeliveryChallan.FKToUnit" asp-items="Model.FKToParty.ToSelectListCompanyName(Model.DeliveryChallan.FKToUnit)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.ToUnitName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <input id="ToUnitName" asp-for="DeliveryChallan.ToUnitName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row" id="Address" hidden="hidden">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.Address" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <input id="Address" asp-for="DeliveryChallan.Address" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row" id="AreaCityAndPincode" hidden="hidden">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.Area" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input id="Area" asp-for="DeliveryChallan.Area" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.City" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="DeliveryChallan.City" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.GSTNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="DeliveryChallan.GSTNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row" id="StatePincode" hidden="hidden">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.FKToState" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select id="FKToState" asp-for="@Model.DeliveryChallan.FKToState" asp-items="Model.FKToState.ToSelectListStateName(Model.DeliveryChallan.FKToState)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.Pincode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input id="Pincode" asp-for="DeliveryChallan.Pincode" class="form-control" />
+                </div>
+                
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.FKModeofTransport" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.DeliveryChallan.FKModeofTransport" asp-items="Model.FKModeofTransport.ToSelectListItem(Model.DeliveryChallan.FKModeofTransport)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.VehicleNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="DeliveryChallan.VehicleNo" class="form-control" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="DeliveryChallan.Remarks" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="DeliveryChallan.Remarks" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-4">
+                            <input id="Save" type="submit" class="btn btn-info form-control" value="Save & New Trn" name="Save" />
+                        </div>
+                        <div class="col-4">
+                            <input id="SaveDtl" type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" formmethod="post" formaction="Create" name="Save" />
+                        </div>
+                        <div class="col-4">
+                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>-->
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        $('#DeliveryChallanDt').attr('min', minDate);
+        $('#DeliveryChallanDt').attr('max', maxDate);
+    });
+
+    function updatelocationList() {
+        var lookUpMasterSelected = document.getElementById("ddlUnitlist").value;
+        $.getJSON("/MasterTablePages/UnitMaster/GetUnitsLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updatelocationList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    $(document).ready(function () {
+        updatelocationList();
+    });
+
+    $("#ddlUnitlist").on("change", function () {
+        updatelocationList();
+    });
+
+    $("#ToUnitName").on("change", function () {
+        showInputs();
+    });
+
+    function showInputs() {
+        if ($('#ToUnitName').val() != '') {
+            //document.getElementById("Address").hidden = false;
+            //document.getElementById("Area").hidden = false;
+            //document.getElementById("FKToState").hidden = false;
+            //document.getElementById("Pincode").hidden = false;
+            //document.getElementById("GSTNo").hidden = false;
+            document.getElementById("Address").hidden = false;
+            document.getElementById("AreaCityAndPincode").hidden = false;
+            document.getElementById("StatePincode").hidden = false;
+            
+        } else {
+            //document.getElementById("Address").hidden = true;
+            //document.getElementById("Area").hidden = true;
+            //document.getElementById("FKToState").hidden = true;
+            //document.getElementById("Pincode").hidden = true;
+            //document.getElementById("GSTNo").hidden = true;
+            document.getElementById("Address").hidden = true;
+            document.getElementById("AreaCityAndPincode").hidden = true;
+            document.getElementById("StatePincode").hidden = true;
+        }
+    }
+</script>

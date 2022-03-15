@@ -1,0 +1,118 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.InwardDetailViewModel
+@using OptimizerBeta3.Models.TransactionTables
+
+@{
+    ViewData["Title"] = "InwardDetailCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var Inward = (Inward)TempData["Inward"];
+    var PODetails = (List<MaterialPurchaseOrderDetails>)ViewBag.MatInwardDtls;
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrapMateria.css" />
+<script src="https://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.6.2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Inward Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Inward No</label>
+            </div>
+            <div class="col-3">
+                @Inward.InwardNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Inward Date</label>
+            </div>
+            <div class="col-3">
+                @Inward.InwardDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Pending PO's List</h3>
+<div>
+    @if (PODetails.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th> @Html.DisplayName("Id") </th>
+                <th> @Html.DisplayName("PurchaseOrderNo") </th>
+                <th> @Html.DisplayName("Material") </th>
+                <th> @Html.DisplayName("UOM") </th>
+                <th> @Html.DisplayName("Quantity") </th>
+                <th> @Html.DisplayName("ReceivedQuantity") </th>
+                <th> @Html.DisplayName("Rate") </th>
+                <th>
+                    <label>Actions</label>
+                </th>
+            </tr>
+
+            @foreach (var item in PODetails)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(m => item.Id) </td>
+                    <td> @Html.DisplayFor(m => item.PurchaseOrderNo) </td>
+                    <td> @Html.DisplayFor(m => item.Material) </td>
+                    <td> @Html.DisplayFor(m => item.UOM) </td>
+                    <td> @Html.DisplayFor(m => item.Quantity) </td>
+                    <td> @Html.DisplayFor(m => item.ReceivedQuantity) </td>
+                    <td> @Html.DisplayFor(m => item.Rate) </td>
+
+                    <td style="width:150px">
+
+                        <div class="btn-group" role="group">
+                            @if (item.ReceivedQuantity == 0)
+                            {
+
+
+                                @using (Html.BeginForm("InwDtlsCompleteSave", "MaterialInward", FormMethod.Post))
+                                {
+                                    TempData["InwardId"] = @Inward.Id;
+                                    TempData["PODId"] = item.Id;
+                                    <br />
+                                    <div class="form-group row">
+                                        <div class="col-3">
+                                            @*<input type="submit" value="Proceed" class="btn btn-primary" />*@
+                                            <a class="btn btn-success text-white" asp-action="InwDtlsCompleteSave" asp-route-Id="@item.Id">
+                                                <i class="fas fa-save"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+                            <a class="btn btn-primary text-white" asp-action="InwDtlsCreate" asp-route-Id="@item.Id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </div>
+
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Purchase Order's exists.....</p>
+    }
+</div>
+
+
+<h3>Inward Details</h3>
+

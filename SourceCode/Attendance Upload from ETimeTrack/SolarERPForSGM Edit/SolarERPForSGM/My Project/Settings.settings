@@ -1,0 +1,54 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="AHGroup" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=AHSERVER;Initial Catalog=AHGroup;Persist Security Info=True;User ID=ERP;Password=KHLIerp1234&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=AHSERVER;Initial Catalog=AHGroup;Persist Security Info=True;User ID=ERP;Password=KHLIerp1234</Value>
+    </Setting>
+    <Setting Name="eTimeTrackV1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=KHLI-ERPADMIN;Initial Catalog=eTimeTrackv1;Persist Security Info=True;User ID=sa;Password=KHLIerp1234&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=KHLI-ERPADMIN;Initial Catalog=eTimeTrackv1;Persist Security Info=True;User ID=sa;Password=KHLIerp1234</Value>
+    </Setting>
+    <Setting Name="AHGroupBkpup" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=KHLI-ERPSYS;Initial Catalog=AHGroup;User ID=sa;Password=KHLIerp1234;Load Balance Timeout=1000000&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=KHLI-ERPSYS;Initial Catalog=AHGroup;User ID=sa;Password=KHLIerp1234;Load Balance Timeout=1000000</Value>
+    </Setting>
+    <Setting Name="AHGroupAudit" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=AHSERVER;Initial Catalog=AHGroupHRAudit;Persist Security Info=True;User ID=ERP;Password=KHLIerp1234&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=AHSERVER;Initial Catalog=AHGroupHRAudit;Persist Security Info=True;User ID=ERP;Password=KHLIerp1234</Value>
+    </Setting>
+    <Setting Name="SSPLAHGroup" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=SSPLSERVER;Initial Catalog=AHGroup_SSPL;User ID=erp;Password=KHLIerp1234&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=SSPLSERVER;Initial Catalog=AHGroup_SSPL;User ID=erp;Password=KHLIerp1234</Value>
+    </Setting>
+    <Setting Name="SSPLHR" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=SSPLSERVER;Initial Catalog=SSPLHR;Persist Security Info=True;User ID=erp;Password=KHLIerp1234&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=SSPLSERVER;Initial Catalog=SSPLHR;Persist Security Info=True;User ID=erp;Password=KHLIerp1234</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

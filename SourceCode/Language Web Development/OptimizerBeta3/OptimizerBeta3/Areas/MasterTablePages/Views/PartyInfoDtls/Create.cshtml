@@ -1,0 +1,236 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.PartyInfoDtlsViewModel
+@using OptimizerBeta3.Extensions
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Party Info for Creating Unit's</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Code</label>
+            </div>
+            <div class="col-3">
+                @TempData["PICode"]
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Party Type</label>
+            </div>
+            <div class="col-3">
+                @TempData["PIGST"]
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Name</label>
+            </div>
+            <div class="col-3">
+                <input id="PICompanyName" value="@TempData["PICompanyName"]" readonly />
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Address</label>
+            </div>
+            <div class="col-3">
+                @TempData["PIAddress"]
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Party Details - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+@if (@TempData["ErrorMessage"] != null)
+{
+    <div class="border-danger" style="background-color:lightsalmon">
+        <h1 class="text-center">
+            <span style="color: red;">
+                @Html.Raw("<pre>" + Html.Encode(@TempData["ErrorMessage"].ToString()) + "</pre>")
+            </span>
+        </h1>
+    </div>
+
+}
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.FKUnitType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.PartyInfoDtls.FKUnitType" asp-items="Model.FKUnitType.ToSelectListItem(Model.PartyInfoDtls.FKUnitType)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="PartyInfoDtls.Code" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <span asp-validation-for="PartyInfoDtls.Code" class="text-danger"></span>
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.ShortName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="PartyInfoDtls.ShortName" id="ShortName" class="form-control" oninput="GenerateCompanyName()" />
+                </div>
+                <span asp-validation-for="PartyInfoDtls.ShortName" class="text-danger text-info"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.CompanyName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6" style="background-color:  lightpink">
+                    <input asp-for="PartyInfoDtls.CompanyName" id="CompanyName" class="form-control" style="background-color:  lightpink" oninput="EnableDaysorDiscount()" />
+                </div>
+                <span asp-validation-for="PartyInfoDtls.CompanyName" class="text-danger"></span>
+
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.ContactPersonName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="PartyInfoDtls.ContactPersonName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.Address1" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="PartyInfoDtls.Address1" class="form-control" />
+                </div>
+                <span asp-validation-for="PartyInfoDtls.Address1" class="text-danger"></span>
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.Address2" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="PartyInfoDtls.Address2" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.FKArea" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.PartyInfoDtls.FKArea" asp-items="Model.FKArea.ToSelectListItem(Model.PartyInfoDtls.FKArea)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.FKCity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.PartyInfoDtls.FKCity" id="FKCity" asp-items="Model.FKCity.ToSelectListItem(Model.PartyInfoDtls.FKCity)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.FKPincode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.PartyInfoDtls.FKPincode" id="FKPincode" asp-items="Model.FKPincode.ToSelectListItem(Model.PartyInfoDtls.FKPincode)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.FKState" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.PartyInfoDtls.FKState" asp-items="Model.FKState.ToSelectListStateName(Model.PartyInfoDtls.FKState)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="PartyInfoDtls.FKCountry" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.PartyInfoDtls.FKCountry" asp-items="Model.FKCountry.ToSelectListItem(Model.PartyInfoDtls.FKCountry)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="PartyInfoDtls.ContactNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="PartyInfoDtls.ContactNo" class="form-control" />
+                </div>
+                <span asp-validation-for="PartyInfoDtls.ContactNo" class="text-danger text-info"></span>
+                <div class="col-sm-1">
+                    <label asp-for="PartyInfoDtls.MailId" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="PartyInfoDtls.MailId" class="form-control" />
+                </div>
+                <span asp-validation-for="PartyInfoDtls.MailId" class="text-danger text-info"></span>
+                <div class="col-sm-1">
+                    <label asp-for="PartyInfoDtls.PANNumber" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="PartyInfoDtls.PANNumber" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="PartyInfoDtls.FKPartyInfo" readonly class="form-control" value="@TempData["PIId"]" type="hidden" />
+            <input asp-for="PartyInfoDtls.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="PartyInfoDtls.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="PartyInfoDtls.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PartyInfoDtls.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="PartyInfoDtls.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PartyInfoDtls.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="PartyInfoDtls.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PartyInfoDtls.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-info form-control" value="Create" />
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="PartyDtlsIndex" asp-route-id="@TempData["PIId"]">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    function GenerateCompanyName() {
+        var sShortName = ($('#ShortName').val()).toString().toUpperCase();
+        var sCompanyName = ($('#PICompanyName').val()).toString().toUpperCase();
+        var sUnitName = sCompanyName + " [" + sShortName + "]";
+        $('#CompanyName').val(sUnitName);
+
+    }
+
+</script>

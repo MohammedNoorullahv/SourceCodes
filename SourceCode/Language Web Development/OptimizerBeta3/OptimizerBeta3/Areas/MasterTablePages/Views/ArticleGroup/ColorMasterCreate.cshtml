@@ -1,0 +1,131 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.ColorMasterViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Color Master - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="FKColour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.colorMaster.FKColour" id="FKArea" asp-items="Model.FKColour.ToSelectListItem(Model.colorMaster.FKColour)" class="form-control"></select>
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="colorMaster.ColourCode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="colorMaster.ColourCode" class="form-control" style="background-color:  lightpink" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="colorMaster.ColourName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="colorMaster.ColourName" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="colorMaster.ColourName" class="text-danger"></span>
+
+                <div class="col-3">
+                    <label asp-for="colorMaster.CustomerColourName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="colorMaster.CustomerColourName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="colorMaster.Combination" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="colorMaster.Combination" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="colorMaster.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="colorMaster.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="colorMaster.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="colorMaster.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="colorMaster.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="colorMaster.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="colorMaster.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="colorMaster.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-5 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-info form-control" value="Create" />
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="ArticleDetailCreate" class="btn btn-success form-control" asp-route-Id="@TempData["AGId"]" >Back to Article Detail Create</a>
+                            @*<a class="btn btn-success text-white  form-control" asp-action="ArticleDetailIndex" asp-route-id="@TempData["AGId"]">
+                                Back to List
+                            </a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/CompanyInfo/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

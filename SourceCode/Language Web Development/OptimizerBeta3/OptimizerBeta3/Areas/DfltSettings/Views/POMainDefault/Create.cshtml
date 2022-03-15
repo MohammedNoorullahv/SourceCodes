@@ -1,0 +1,82 @@
+﻿@model OptimizerBeta3.Models.ViewModels.GeneralTables.POMainDefaultViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Purchase Order Main Default's</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="POMainDefault.FKDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.POMainDefault.FKDeliveryTo" asp-items="Model.FKDeliveryTo.ToSelectListItem(Model.POMainDefault.FKDeliveryTo)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="POMainDefault.FKDestination" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.POMainDefault.FKDestination" asp-items="Model.FKDestination.ToSelectListItem(Model.POMainDefault.FKDestination)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="POMainDefault.FKModeofTransport" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.POMainDefault.FKModeofTransport" asp-items="Model.FKModeofTransport.ToSelectListItem(Model.POMainDefault.FKModeofTransport)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="POMainDefault.FKOrderStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.POMainDefault.FKOrderStatus" asp-items="Model.FKOrderStatus.ToSelectListItem(Model.POMainDefault.FKOrderStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+            <input asp-for="POMainDefault.DeliveryTo" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="POMainDefault.ModeofTransport" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="POMainDefault.OrderStatus" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="POMainDefault.Destination" readonly class="form-control" value="" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_CreateandBacktoListButton" />
+                    @*<div class="row">
+                            <div class="col-4">
+                                <input type="submit" id="save" class="btn btn-info form-control" value="Save" name="Save" />
+                            </div>
+                            <div class="col-4">
+                                <a class="btn btn-dark text-white  form-control" asp-action="Index">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

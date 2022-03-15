@@ -1,0 +1,97 @@
+﻿@model OptimizerBeta3.Models.GeneralTables.ComplaintLookUpMaster
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Complaints Look Up Master - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@if (@TempData["ErrorMessage"] != null)
+{
+    <div class="border-danger" style="background-color:lightsalmon">
+        <h1 class="text-center">
+            <span style="color: red;">
+                @Html.Raw("<pre>" + Html.Encode(@TempData["ErrorMessage"].ToString()) + "</pre>")
+            </span>
+        </h1>
+    </div>
+
+}
+
+<form method="post" asp-action="Create" class="border backgroudColor">
+    <div class="border backgroudWhite row">
+        <div class="col-8 border-right">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="FKCategory" class="col-form-label"></label>
+                </div>
+                <div class="col-2" style="background-color:  lightpink">
+                    <input asp-for="FKCategory" class="form-control" />
+                </div>
+                <span asp-validation-for="FKCategory" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Description" class="col-form-label">Description</label>
+                </div>
+                <div class="col-5" style="background-color:  lightpink">
+                    <input asp-for="Description" class="form-control" />
+                </div>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ShortCode" class="col-form-label">Short Code</label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="ShortCode" class="form-control" />
+                </div>
+                <span asp-validation-for="ShortCode" class="text-danger"></span>
+            </div>
+
+            <input asp-for="IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="CreatedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+            <input asp-for="ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+            <input asp-for="DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="DeletedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_CreateandBacktoListButton" />
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <br />
+            <h5 class="text-info"> FKCategory Reference :- </h5>
+            <label> 1. Category	</label> <br />
+            <label> 2. Menu Name </label><br />
+            <label> 3. Location </label><br />
+            <label> 4. Admin Name </label><br />
+            <label> 5. Status </label><br />
+            <label> 6. User Name </label><br />
+        </div>
+    </div>
+</form>

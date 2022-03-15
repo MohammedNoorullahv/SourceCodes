@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+@model OptimizerBeta3.Models.ViewModels.TransactionTables.CounterInvoiceViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">InvoiceToPerson's - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="row">
+    <div class="col-12 border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKSeason" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.InvoiceToPerson.FKSeason" asp-items="Model.FKSeason.ToSelectListItem(Model.InvoiceToPerson.FKSeason)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKTypeOfInvoice" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.InvoiceToPerson.FKTypeOfInvoice" asp-items="Model.FKTypeOfInvoice.ToSelectListItem(Model.InvoiceToPerson.FKTypeOfInvoice)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.InvoiceToPerson.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.InvoiceToPerson.FKCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <select id="ddlUnitlist" asp-for="@Model.InvoiceToPerson.FKUnit" asp-items="Model.FKUnit.ToSelectListCompanyName(Model.InvoiceToPerson.FKUnit)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKLocation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    @*<select asp-for="@Model.InvoiceToPerson.FKLocation" asp-items="Model.FKLocation.ToSelectListLocationName(Model.InvoiceToPerson.FKLocation)" class="form-control"></select>*@
+                    <select asp-for="InvoiceToPerson.FKLocation" id="updatelocationList" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKPerson" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-8">
+                    <select asp-for="@Model.InvoiceToPerson.FKPerson" asp-items="Model.FKPerson.ToSelectListPersonName(Model.InvoiceToPerson.FKPerson)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <a asp-action="NewCustomer" class="btn btn-success form-control">New Customer</a>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.IncludeDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="InvoiceToPerson.IncludeDeliveryTo" type="checkbox" id="IncludeDeliveryTo" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-7">
+                    <select asp-for="@Model.InvoiceToPerson.FKDeliveryTo" asp-items="Model.FKDeliveryTo.ToSelectListCompanyName(Model.InvoiceToPerson.FKDeliveryTo)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.InvoiceNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="InvoiceToPerson.InvoiceNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.InvoiceDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="InvoiceToPerson.InvoiceDt" id="InvoiceToPersonDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKDestination" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.InvoiceToPerson.FKDestination" asp-items="Model.FKDestination.ToSelectListItem(Model.InvoiceToPerson.FKDestination)" class="form-control"></select>
+                </div>
+            </div>
+
+  
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.Remarks" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-10">
+                    <input asp-for="InvoiceToPerson.Remarks" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="InvoiceToPerson.InvoiceTo" readonly class="form-control" value="OC" type="hidden" />
+            <input asp-for="InvoiceToPerson.Season" readonly class="form-control" value="" type="hidden" />
+            <input asp-for=" InvoiceToPerson.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="InvoiceToPerson.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="InvoiceToPerson.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="InvoiceToPerson.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="InvoiceToPerson.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="InvoiceToPerson.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="InvoiceToPerson.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="InvoiceToPerson.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-sm-6 offset-3">
+                    @*<partial name="_CreateandBacktoListButton" />*@
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input type="submit" class="btn btn-info form-control" value="Save & New Inv" name="Save" />
+                        </div>
+                        <div class="col-sm-4">
+                            @*<a asp-action="CreateMPODetail" class="btn btn-success form-control">Save & Insert Dtl</a>*@
+                            <input type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" formmethod="post" formaction="Create" name="Save" />
+                        </div>
+                        <div class="col-sm-4">
+                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        $('#InvoiceToPersonDt').attr('min', minDate);
+        $('#InvoiceToPersonDt').attr('max', maxDate);
+    });
+
+
+    function updatelocationList() {
+        var lookUpMasterSelected = document.getElementById("ddlUnitlist").value;
+        $.getJSON("/MasterTablePages/UnitMaster/GetUnitsLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updatelocationList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    $(document).ready(function () {
+        updatelocationList();
+    });
+
+    $("#ddlUnitlist").on("change", function () {
+        updatelocationList();
+    });
+</script>
+

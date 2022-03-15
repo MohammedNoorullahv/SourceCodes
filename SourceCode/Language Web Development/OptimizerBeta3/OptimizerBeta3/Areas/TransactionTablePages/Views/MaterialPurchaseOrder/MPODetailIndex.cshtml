@@ -1,0 +1,141 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.MaterialPurchaseOrderDetails>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var purchaseOrder = (OptimizerBeta3.Models.TransactionTables.MaterialPurchaseOrder)TempData["PurchaseOrder"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-9">
+                <h2 class="text-success">Accessories & Material Purchase Order Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order No</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order Date</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-7">
+            <h2 class="text-info">Accessories & Material  Purchase Order Detail - Index</h2>
+        </div>
+        <div class="col-2 text-center">
+            @if (purchaseOrder.IsEntryCompleted == false)
+            {
+                @if (purchaseOrder.PurchaseOrderDt.Date == DateTime.Now.Date)
+                {
+                    <a class="btn btn-info text-white" asp-action="MPODetailCreate" asp-route-id=@purchaseOrder.Id>
+                        <i class="fas fa-plus"></i>
+                        Create
+                    </a>
+                }
+            }
+        </div>
+        <div class="col-3 text-center">
+            <a class="btn btn-success text-white  form-control" asp-action="Index">
+                Back to Purchase Order
+            </a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    @Html.DisplayNameFor(m => m.FKMaterial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Rate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Value)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.DeliveryDate)
+                </th>
+                <th>
+                    <label>Actions</label>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.Material)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Rate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.DeliveryDate)
+                    </td>
+                    <td style="width:150px">
+                        <div class="btn-group" role="group">
+                            @if (item.OrderStatus != "Cancel")
+                            {
+                                @if (item.ReceivedQuantity <= 0)
+                                {
+                                    <a class="btn btn-primary text-white" asp-action="MPODetailEdit" asp-route-Id="@item.Id">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                }
+
+                                <a class="btn btn-success text-white" asp-action="MPODetailCancel" asp-route-Id="@item.Id">
+                                    <i class="far fa-times-circle"></i>
+                                </a>
+
+                                @if (item.ReceivedQuantity <= 0 && @purchaseOrder.PurchaseOrderDt == DateTime.Now)
+                                {
+                                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                }
+                            }
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Purchase Order Detail's exists.....</p>
+    }
+</div>
+

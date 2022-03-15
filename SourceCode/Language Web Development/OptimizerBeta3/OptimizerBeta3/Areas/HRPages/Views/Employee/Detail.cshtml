@@ -1,0 +1,311 @@
+﻿@model OptimizerBeta3.Models.ViewModels.HRTables.EmployeeViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Employee - Detail</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Detail" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FKUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-5">
+                    <select asp-for="@Model.Employee.FKUnit" asp-items="Model.FKUnit.ToSelectListCompanyName(Model.Employee.FKUnit)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-5">
+                    <input asp-for="Employee.Code" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FullName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-5">
+                    <input asp-for="Employee.FullName" readonly class="form-control text-danger" id="FullName" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FKSalutation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.Employee.FKSalutation" asp-items="Model.FKSalutation.ToSelectListItem(Model.Employee.FKSalutation)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FirstName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-7">
+                    <input asp-for="Employee.FirstName" class="form-control" id="FirstName" oninput="fullName()" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.MiddleName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Employee.MiddleName" class="form-control" id="MiddleName" oninput="fullName()" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.LastName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Employee.LastName" class="form-control" id="LastName" oninput="fullName()" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.Initials" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Employee.Initials" class="form-control" id="Initials" oninput="fullName()" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.Gender" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.Employee.FKGender" asp-items="Model.FKGender.ToSelectListItem(Model.Employee.FKGender)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Employee.FKMaritalStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Employee.FKMaritalStatus" asp-items="Model.FKMaritalStatus.ToSelectListItem(Model.Employee.FKMaritalStatus)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.HorFName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Employee.HorFName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.Address1" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-5">
+                    <input asp-for="Employee.Address1" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.Address2" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-5">
+                    <input asp-for="Employee.Address2" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FKArea" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.Employee.FKArea" asp-items="Model.FKArea.ToSelectListItem(Model.Employee.FKArea)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FKCity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.Employee.FKCity" asp-items="Model.FKCity.ToSelectListItem(Model.Employee.FKCity)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FKPincode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.Employee.FKPincode" asp-items="Model.FKPincode.ToSelectListItem(Model.Employee.FKPincode)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FKState" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.Employee.FKState" asp-items="Model.FKState.ToSelectListStateName(Model.Employee.FKState)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.MobileNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Employee.MobileNo" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="Employee.EMailId" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Employee.EMailId" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.DOB" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input id="DOB" asp-for="Employee.DOB" type="date" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Employee.FKDOBProofType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Employee.FKDOBProofType" asp-items="Model.FKDOBProofType.ToSelectListItem(Model.Employee.FKDOBProofType)" class="form-control"></select>
+                </div>
+
+                <div class="col-sm-1">
+                    <label asp-for="Employee.DOJ" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input id="DOJ" asp-for="Employee.DOJ" type="date" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FKDepartment" class="col-form-label text-info">Dept</label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.Employee.FKDepartment" asp-items="Model.FKDepartment.ToSelectListItem(Model.Employee.FKDepartment)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Employee.FKDesignation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Employee.FKDesignation" asp-items="Model.FKDesignation.ToSelectListItem(Model.Employee.FKDesignation)" class="form-control"></select>
+                </div>
+
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FKEmpCategory" class="col-form-label text-info">Category</label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.Employee.FKEmpCategory" asp-items="Model.FKEmpCategory.ToSelectListItem(Model.Employee.FKEmpCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.FKReligion" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <select asp-for="@Model.Employee.FKReligion" asp-items="Model.FKReligion.ToSelectListItem(Model.Employee.FKReligion)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Employee.FKQualification" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Employee.FKQualification" asp-items="Model.FKQualification.ToSelectListItem(Model.Employee.FKQualification)" class="form-control"></select>
+                </div>
+
+                <div class="col-sm-2">
+                    <label asp-for="Employee.NoofDependants" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Employee.NoofDependants" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.PFNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Employee.PFNo" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Employee.ESINo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Employee.ESINo" class="form-control" />
+                </div>
+
+                <div class="col-sm-1">
+                    <label asp-for="Employee.PANNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Employee.PANNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="Employee.BankAccountNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Employee.BankAccountNo" class="form-control" />
+                </div>
+
+
+                <div class="col-sm-1">
+                    <label asp-for="Employee.IsActive" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-1">
+                    <input asp-for="Employee.IsActive" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="Employee.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Employee.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_DetailandBacktoListButtonPartialView" model="@Model.Employee.Id" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 3;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        //$('#DOJ').attr('min', minDate);
+        $('#DOJ').attr('max', maxDate);
+        $('#DOB').attr('max', minDate);
+    });
+
+    function fullName() {
+        document.getElementById("FullName").value = $("#FirstName").val().toString() + " " + $("#MiddleName").val().toString() + " " + $("#LastName").val().toString() + " ." + $("#Initials").val().toString();
+    }
+
+</script>

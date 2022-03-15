@@ -1,0 +1,71 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.HSNCodeViewModel
+@using OptimizerBeta3.Extensions
+
+@{ ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">HSN Code Master - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<div class="border backgroundWhite row">
+    <div class="col-12 backgroudWhite border-right">
+        <form asp-action="Create" class="border backgroudColor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="HSNCodeMaster.HSNCode" class="col-form-label"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="HSNCodeMaster.HSNCode" class="form-control" />
+                </div>
+                <span asp-validation-for="HSNCodeMaster.HSNCode" class="text-danger"></span>
+                <div class="col-3">
+                    <label asp-for="HSNCodeMaster.Category" class="col-form-label"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="HSNCodeMaster.Category" class="form-control" />
+                </div>
+                <span asp-validation-for="HSNCodeMaster.Category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="HSNCodeMaster.FKPercentageType" class="col-form-label"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.HSNCodeMaster.FKPercentageType" asp-items="Model.FKPercentageType.ToSelectListItem(Model.HSNCodeMaster.FKPercentageType)" class="form-control"></select>
+                    @*<select asp-for="@Model.bank.FKBankName" id="FKArea" asp-items="Model.FKBankName.ToSelectListItem(Model.bank.FKBankName)" class="form-control"></select>*@
+                </div>
+                <div class="col-3">
+                    <label asp-for="HSNCodeMaster.GSTPercentage" class="col-form-label"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="HSNCodeMaster.GSTPercentage" class="form-control" />
+                </div>
+                <span asp-validation-for="HSNCodeMaster.GSTPercentage" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-5 offset-3">
+                    <partial name="_CreateAndBackToListButton" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+    
+
+    

@@ -1,0 +1,410 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+InnerOuterCartonScanning
+</name>
+</assembly>
+<members>
+<member name="T:SolarERPForSGM.dsLedger.TempLedgerTableDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsLedger.TempLedgerTableRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsLedger.TempLedgerTableRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.dsLedger">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:SolarERPForSGM.dsLedgerTableAdapters.TempLedgerTableTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:SolarERPForSGM.dsLedgerTableAdapters.TableAdapterManager.UpdateUpdatedRows(SolarERPForSGM.dsLedger,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsLedgerTableAdapters.TableAdapterManager.UpdateInsertedRows(SolarERPForSGM.dsLedger,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsLedgerTableAdapters.TableAdapterManager.UpdateDeletedRows(SolarERPForSGM.dsLedger,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsLedgerTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:SolarERPForSGM.dsLedgerTableAdapters.TableAdapterManager.UpdateAll(SolarERPForSGM.dsLedger)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:SolarERPForSGM.dsLedgerTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:SolarERPForSGM.dsLedgerTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:SolarERPForSGM.dsLedgerTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="T:SolarERPForSGM.dsLocation.LocationDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsLocation.LocationRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsLocation.LocationRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.dsLocation">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:SolarERPForSGM.dsLocationTableAdapters.LocationTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:SolarERPForSGM.dsLocationTableAdapters.TableAdapterManager.UpdateUpdatedRows(SolarERPForSGM.dsLocation,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsLocationTableAdapters.TableAdapterManager.UpdateInsertedRows(SolarERPForSGM.dsLocation,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsLocationTableAdapters.TableAdapterManager.UpdateDeletedRows(SolarERPForSGM.dsLocation,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsLocationTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:SolarERPForSGM.dsLocationTableAdapters.TableAdapterManager.UpdateAll(SolarERPForSGM.dsLocation)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:SolarERPForSGM.dsLocationTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:SolarERPForSGM.dsLocationTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:SolarERPForSGM.dsLocationTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="T:SolarERPForSGM.dsMaterials.MaterialsDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsMaterials.MaterialsRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsMaterials.MaterialsRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.dsMaterials">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:SolarERPForSGM.dsMaterialsTableAdapters.MaterialsTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:SolarERPForSGM.dsMaterialsTableAdapters.TableAdapterManager.UpdateUpdatedRows(SolarERPForSGM.dsMaterials,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsMaterialsTableAdapters.TableAdapterManager.UpdateInsertedRows(SolarERPForSGM.dsMaterials,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsMaterialsTableAdapters.TableAdapterManager.UpdateDeletedRows(SolarERPForSGM.dsMaterials,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsMaterialsTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:SolarERPForSGM.dsMaterialsTableAdapters.TableAdapterManager.UpdateAll(SolarERPForSGM.dsMaterials)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:SolarERPForSGM.dsMaterialsTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:SolarERPForSGM.dsMaterialsTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:SolarERPForSGM.dsMaterialsTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="M:SolarERPForSGM.frmKHLIOuterAndInnerScanning.SetDefaults">
+	<summary>
+ Method to initialize serial port
+ values to standard defaults
+ </summary>
+</member><member name="M:SolarERPForSGM.frmKHLIOuterAndInnerScanning.LoadValues">
+	<summary>
+ methos to load our serial
+ port option values
+ </summary>
+</member><member name="M:SolarERPForSGM.frmKHLIOuterAndInnerScanning.SetControlState">
+	<summary>
+ method to set the state of controls
+ when the form first loads
+ </summary>
+</member><member name="M:SolarERPForSGM.frmSARACOuterAndInnerScanning.SetDefaults">
+	<summary>
+ Method to initialize serial port
+ values to standard defaults
+ </summary>
+</member><member name="M:SolarERPForSGM.frmSARACOuterAndInnerScanning.LoadValues">
+	<summary>
+ methos to load our serial
+ port option values
+ </summary>
+</member><member name="M:SolarERPForSGM.frmSARACOuterAndInnerScanning.SetControlState">
+	<summary>
+ method to set the state of controls
+ when the form first loads
+ </summary>
+</member><member name="T:SolarERPForSGM.AHGroupDataSet.OuterCartonToImportDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.AHGroupDataSet.OuterCartonToImportRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.AHGroupDataSet.OuterCartonToImportRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.AHGroupDataSet">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:SolarERPForSGM.AHGroupDataSetTableAdapters.OuterCartonToImportTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:SolarERPForSGM.AHGroupDataSetTableAdapters.TableAdapterManager.UpdateUpdatedRows(SolarERPForSGM.AHGroupDataSet,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.AHGroupDataSetTableAdapters.TableAdapterManager.UpdateInsertedRows(SolarERPForSGM.AHGroupDataSet,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.AHGroupDataSetTableAdapters.TableAdapterManager.UpdateDeletedRows(SolarERPForSGM.AHGroupDataSet,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:SolarERPForSGM.AHGroupDataSetTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:SolarERPForSGM.AHGroupDataSetTableAdapters.TableAdapterManager.UpdateAll(SolarERPForSGM.AHGroupDataSet)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:SolarERPForSGM.AHGroupDataSetTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:SolarERPForSGM.AHGroupDataSetTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:SolarERPForSGM.AHGroupDataSetTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="T:SolarERPForSGM.dsSize.MaterialIssuesDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSize.MaterialIssuesRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSize.MaterialIssuesRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.dsSize">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSizeTableAdapters.MaterialIssuesTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:SolarERPForSGM.dsSizeTableAdapters.TableAdapterManager.UpdateUpdatedRows(SolarERPForSGM.dsSize,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsSizeTableAdapters.TableAdapterManager.UpdateInsertedRows(SolarERPForSGM.dsSize,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsSizeTableAdapters.TableAdapterManager.UpdateDeletedRows(SolarERPForSGM.dsSize,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsSizeTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:SolarERPForSGM.dsSizeTableAdapters.TableAdapterManager.UpdateAll(SolarERPForSGM.dsSize)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSizeTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:SolarERPForSGM.dsSizeTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:SolarERPForSGM.dsSizeTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="T:SolarERPForSGM.CommManager.TransmissionType">
+	<summary>
+ enumeration to hold our transmission types
+ </summary>
+</member><member name="T:SolarERPForSGM.CommManager.MessageType">
+	<summary>
+ enumeration to hold our message types
+ </summary>
+</member><member name="P:SolarERPForSGM.CommManager.BaudRate">
+	<summary>
+ Property to hold the BaudRate
+ of our manager class
+ </summary>
+</member><member name="P:SolarERPForSGM.CommManager.Parity">
+	<summary>
+ property to hold the Parity
+ of our manager class
+ </summary>
+</member><member name="P:SolarERPForSGM.CommManager.StopBits">
+	<summary>
+ property to hold the StopBits
+ of our manager class
+ </summary>
+</member><member name="P:SolarERPForSGM.CommManager.DataBits">
+	<summary>
+ property to hold the DataBits
+ of our manager class
+ </summary>
+</member><member name="P:SolarERPForSGM.CommManager.PortName">
+	<summary>
+ property to hold the PortName
+ of our manager class
+ </summary>
+</member><member name="P:SolarERPForSGM.CommManager.CurrentTransmissionType">
+	<summary>
+ property to hold our TransmissionType
+ of our manager class
+ </summary>
+</member><member name="P:SolarERPForSGM.CommManager.DisplayWindow">
+	<summary>
+ property to hold our display window
+ value
+ </summary>
+</member><member name="P:SolarERPForSGM.CommManager.Message">
+	<summary>
+ Property to hold the message being sent
+ through the serial port
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="P:SolarERPForSGM.CommManager.Type">
+	<summary>
+ Message to hold the transmission type
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:SolarERPForSGM.CommManager.#ctor(System.String,System.String,System.String,System.String,System.String,System.Windows.Forms.RichTextBox)">
+	<summary>
+ Constructor to set the properties of our Manager Class
+ </summary>
+	<param name="baud">Desired BaudRate</param>
+	<param name="par">Desired Parity</param>
+	<param name="sBits">Desired StopBits</param>
+	<param name="dBits">Desired DataBits</param>
+	<param name="name">Desired PortName</param>
+</member><member name="M:SolarERPForSGM.CommManager.#ctor">
+	<summary>
+ Comstructor to set the properties of our
+ serial port communicator to nothing
+ </summary>
+</member><member name="M:SolarERPForSGM.CommManager.HexToByte(System.String)">
+	<summary>
+ method to convert hex string into a byte array
+ </summary>
+	<param name="msg">string to convert</param>
+	<returns>a byte array</returns>
+</member><member name="M:SolarERPForSGM.CommManager.ByteToHex(System.Byte[])">
+	<summary>
+ method to convert a byte array into a hex string
+ </summary>
+	<param name="comByte">byte array to convert</param>
+	<returns>a hex string</returns>
+</member><member name="M:SolarERPForSGM.CommManager.DisplayData(SolarERPForSGM.CommManager.MessageType,System.String)">
+	<summary>
+ Method to display the data to and
+ from the port on the screen
+ </summary>
+	<remarks></remarks>
+</member><member name="M:SolarERPForSGM.CommManager.comPort_DataReceived(System.Object,System.IO.Ports.SerialDataReceivedEventArgs)">
+	<summary>
+ method that will be called when theres data waiting in the buffer
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+</member><member name="P:SolarERPForSGM.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:SolarERPForSGM.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:SolarERPForSGM.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>

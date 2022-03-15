@@ -1,0 +1,127 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.InvoiceToPersonDetail>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var invoice = (OptimizerBeta3.Models.TransactionTables.InvoiceToPerson)TempData["Invoice"];
+}
+
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Invoice Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Invoice No</label>
+            </div>
+            <div class="col-3">
+                @invoice.InvoiceNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Invoice Date</label>
+            </div>
+            <div class="col-3">
+                @invoice.InvoiceDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-4">
+            <h2 class="text-info">Invoice Detail's - Index</h2>
+        </div>
+        <div class="col-4 text-center">
+            @*@if (@inward.ArrivedQuantity < @inward.DocumentQuantity)
+                {*@ <!--//}-->
+            <a class="btn btn-info text-white" asp-action="InvoiceDetailCreate" asp-route-id=@invoice.Id>
+                <i class="fas fa-plus"></i>
+                Create
+            </a>
+
+        </div>
+        <div class="col-4 text-center">
+            <a class="btn btn-success text-white  form-control" asp-action="Index">
+                Back to Invoice
+            </a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @*@if (Model.Count() > 0)*@
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    @*@Html.DisplayNameFor(m => m.FKSource)*@
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(m => m.FKParty)*@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.InvoiceNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.InvoiceDt)
+                </th>
+                <th>
+                    <label>Actions</label>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @*@Html.DisplayFor(m => item.FKSource)*@
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(m => item.FKParty)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.InvoiceNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.InvoiceDt)
+                    </td>
+                    <td style="width:150px">
+                        @if (item.IsEntryCompleted == false)
+                        {
+                            <div class="btn-group" role="group">
+                                @*@if (item.ReceivedQuantity <= 0)
+                                    {*@
+                                <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                }
+
+
+                                @*<a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@item.Id">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>*@
+                            </div>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Purchase Order's exists.....</p>
+    }
+</div>
+

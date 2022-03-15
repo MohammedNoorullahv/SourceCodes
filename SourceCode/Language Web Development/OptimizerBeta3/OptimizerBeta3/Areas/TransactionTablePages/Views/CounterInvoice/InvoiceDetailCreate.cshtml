@@ -1,0 +1,147 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.InvoiceToPersonDetail>
+@{
+    ViewData["Title"] = "InvoiceDetailCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var invoice = (OptimizerBeta3.Models.TransactionTables.InvoiceToPerson)TempData["Invoice"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Invoice Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Invoice No</label>
+            </div>
+            <div class="col-3">
+                @invoice.InvoiceNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Invoice Date</label>
+            </div>
+            <div class="col-3">
+                @invoice.InvoiceDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    @using (Html.BeginForm("InvoiceDetailCreate", "CounterInvoice", FormMethod.Post))
+    {
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Stock No / EAN Code</label>
+            </div>
+            <div class="col-2">
+                <input id="EANCode" name="EANCode" type="text" autofocus="autofocus" />
+                <input id="FKInvoice" name="FKInvoice" readonly value="@invoice.Id" type="hidden" />
+            </div>
+            <div class="col-1">
+                <input id="submit1" type="submit" value="Insert" />
+            </div>
+        </div>
+    }
+</div>
+
+<h3>Invoice Details</h3>
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped border">
+        <tr class="table-secondary">
+            <th>
+                @Html.DisplayNameFor(m => m.EANCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.StockNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Value)
+            </th>
+            <th>
+                <label>Actions</label>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.EANCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.StockNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Value)
+                </td>
+
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger text-white" asp-action="Cancel" asp-route-Id="@item.Id">
+                            <i class="far fa-times-circle"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p> No Stock Transfer Details exists.....</p>
+}
+
+@using (Html.BeginForm("InsertInvoiceDetail", "CounterInvoice", FormMethod.Post))
+{
+    <div class="border backgroudColor row">
+        <div class="col-12 backgroudWhite border-right">
+            <div class="form-group row">
+                <input id="FKInvoice" name="FKInvoice" readonly value="@invoice.Id" type="hidden" />
+                <div class="col-3 offset-1">
+                    @*<input id="submit1" class="btn btn-success text-white type="submit" value="Save & Proceed" />*@
+                    <a class="btn btn-success text-white  form-control" asp-action="InsertInvoiceDetail" asp-route-Id="@invoice.Id">
+                        Save & Proceed
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a class="btn btn-primary text-white  form-control" asp-action="InvoiceDetailIndex" asp-route-Id="@invoice.Id">
+                        Back to Inv Dtl Index
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

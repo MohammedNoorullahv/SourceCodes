@@ -1,0 +1,148 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.LGPurchaseOrderMain>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+@{
+    var purchaseOrder = (OptimizerBeta3.Models.TransactionTables.LGPurchaseOrder)TempData["LGPurchaseOrder"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Purchase Order Info [Leather Good's]</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order No</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order Date</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">PO Main [Leather Good's] - Index</h2>
+        </div>
+        <div class="col-3 text-center">
+            @if (Convert.ToInt32(@purchaseOrder.MainEnteredQuantity) < @purchaseOrder.TotalOrderQuantity)
+            {
+                <a class="btn btn-info text-white" asp-action="POMainCreate" asp-route-id=@purchaseOrder.Id>
+                    <i class="fas fa-plus"></i>
+                    Create
+                </a>
+            }
+        </div>
+        <div class="col-3 text-center">
+            <a class="btn btn-success text-white  form-control" asp-action="Index">
+                Back to Purchase Order
+            </a>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>
+                    @Html.DisplayNameFor(m => m.PurchaseOrderNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.OrderReferenceNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.LeatherGoodsGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.TotalOrderQuantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.EnteredQuantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.OrderStatus)
+                </th>
+                <th>
+                    <label>Actions</label>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.PurchaseOrderNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.OrderReferenceNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.LeatherGoodsGroup)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.TotalOrderQuantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.EnteredQuantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.OrderStatus)
+                    </td>
+                    <td>
+                        <a class="btn btn-warning text-black" asp-action="PODetailIndex" asp-route-id="@item.Id">
+                            P.O Dtl
+                        </a>
+                    </td>
+                    <td style="width:150px">
+
+                        <div class="btn-group" role="group">
+                            @if (item.OrderStatus != "Cancel")
+                            {
+                                @if (item.ReceivedQuantity <= 0)
+                                {
+                                    <a class="btn btn-primary text-white" asp-action="POMainEdit" asp-route-Id="@item.Id">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                }
+
+                                <a class="btn btn-success text-white" asp-action="POMainCancel" asp-route-Id="@item.Id">
+                                    <i class="far fa-times-circle"></i>
+                                </a>
+                            }
+                            <a class="btn btn-info text-white" asp-action="POMainDetail" asp-route-Id="@item.Id">
+                                <i class="fas fa-list-alt"></i>
+                            </a>
+                        </div>
+
+
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Purchase Order's exists.....</p>
+    }
+</div>
+

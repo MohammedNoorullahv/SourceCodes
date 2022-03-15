@@ -1,0 +1,73 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.Offers>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Offer's List For Ranger Offer Dtls - Index</h2>
+        </div>
+    </div>
+    <div></div>
+    <br />
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.OfferName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.FromDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ToDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.IsActive)
+                    </th>
+                    <th><label>Actions</label></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.OfferName)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.FromDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.ToDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.IsActive)
+                </td>
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary text-white" asp-action="OfferDtlsIndex" asp-route-id="@item.Id">
+                            <i class="fas fa-plus"></i>
+                            Add / Edit Range's
+                        </a>
+                    </div>
+                </td>
+            </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p> No Party Info exists.....</p>
+        }
+    </div>
+</div>
+
+
+
+

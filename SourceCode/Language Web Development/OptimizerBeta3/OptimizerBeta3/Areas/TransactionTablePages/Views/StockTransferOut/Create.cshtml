@@ -1,0 +1,272 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.StockTransferViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Stock Transfer Out - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.FKSeason" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.StockTransfer.FKSeason" asp-items="Model.FKSeason.ToSelectListItem(Model.StockTransfer.FKSeason)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.FKOutwardType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.StockTransfer.FKOutwardType" asp-items="Model.FKOutwardType.ToSelectListItem(Model.StockTransfer.FKOutwardType)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.FKQuality" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.StockTransfer.FKQuality" asp-items="Model.FKQuality.ToSelectListItem(Model.StockTransfer.FKQuality)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.FKFromUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <select id="ddlUnitlist" asp-for="@Model.StockTransfer.FKFromUnit" asp-items="Model.FKFromUnit.ToSelectListCompanyName(Model.StockTransfer.FKFromUnit)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.FKFromLocation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    @*<select asp-for="@Model.StockTransfer.FKFromLocation" asp-items="Model.FKFromLocation.ToSelectListLocationName(Model.StockTransfer.FKFromLocation)" class="form-control"></select>*@
+                    <select asp-for="StockTransfer.FKFromLocation" id="updatelocationList" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.FKToUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <select id="ddlToUnitlist" asp-for="@Model.StockTransfer.FKToUnit" asp-items="Model.FKToUnit.ToSelectListCompanyName(Model.StockTransfer.FKToUnit)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.FKToLocation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    @*<select asp-for="@Model.StockTransfer.FKToLocation" asp-items="Model.FKToLocation.ToSelectListLocationName(Model.StockTransfer.FKToLocation)" class="form-control"></select>*@
+                    <select asp-for="StockTransfer.FKToLocation" id="updateTolocationList" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.STNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="StockTransfer.STNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.STDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="StockTransfer.STDt" id="StockTransferDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.TransferredQty" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="StockTransfer.TransferredQty" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.ReceivedQty" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="StockTransfer.ReceivedQty" readonly class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.NettValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="StockTransfer.NettValue" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="StockTransfer.Remarks" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="StockTransfer.Remarks" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label class="col-form-label text-info">Load File</label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="LoadFile" type="file" name="formFile" oninput="ShowUploadOption()" />
+                </div>
+
+            </div>
+
+            <input asp-for="StockTransfer.GrossValue" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="StockTransfer.GSTValues" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="StockTransfer.OtherExpensesPlus" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="StockTransfer.OtherExpensesMinus" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for=" StockTransfer.FKFromDepartment" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for=" StockTransfer.FKToDepartment" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for=" StockTransfer.FromDepartment" readonly class="form-control" value="" type="hidden" />
+            <input asp-for=" StockTransfer.ToDepartment" readonly class="form-control" value="" type="hidden" />
+            <input asp-for=" StockTransfer.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="StockTransfer.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="StockTransfer.IsAcknowledged" readonly class="form-control" value="@false" type="hidden" />
+            <input asp-for="StockTransfer.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="StockTransfer.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="StockTransfer.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="StockTransfer.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="StockTransfer.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="StockTransfer.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-8 offset-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <input id="Save" type="submit" class="btn btn-info form-control" value="Save & New Trn" hidden="hidden" name="Save" />
+                        </div>
+                        <div class="col-3">
+                            <input id="SaveDtl" type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" hidden="hidden" formmethod="post" formaction="Create" name="Save" />
+                        </div>
+                        <div class="col-3">
+                            <input id="ImpDtl" type="submit" class="btn btn-primary form-control" value="Save & Import Dtl" hidden="hidden" formmethod="post" formaction="Create" name="Save" />
+                        </div>
+                        <div class="col-3">
+                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        $('#StockTransferDt').attr('min', minDate);
+        $('#StockTransferDt').attr('max', maxDate);
+    });
+
+    function ShowUploadOption() {
+        if ($('#ddlUnitlist').val() != $('#ddlToUnitlist').val()) {
+            if ($('#LoadFile').val() != "") {
+                document.getElementById("ImpDtl").hidden = false;
+            } else {
+                document.getElementById("ImpDtl").hidden = true;
+            }
+        } else {
+            document.getElementById("ImpDtl").hidden = true;
+        }
+        
+    }
+
+    function updatelocationList() {
+        var lookUpMasterSelected = document.getElementById("ddlUnitlist").value;
+        $.getJSON("/MasterTablePages/UnitMaster/GetUnitsLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updatelocationList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    $(document).ready(function () {
+        updatelocationList();
+        updateTolocationList();
+    });
+
+    $("#ddlUnitlist").on("change", function () {
+        updatelocationList();
+        showCommandButtons();
+    });
+
+    function updateTolocationList() {
+        var lookUpMasterSelected = document.getElementById("ddlToUnitlist").value;
+        $.getJSON("/MasterTablePages/UnitMaster/GetUnitsLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updateTolocationList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    $("#ddlToUnitlist").on("change", function () {
+        updateTolocationList();
+        showCommandButtons();
+    });
+
+    function showCommandButtons() {
+        if ($('#ddlUnitlist').val() != $('#ddlToUnitlist').val()) {
+            document.getElementById("Save").hidden = false;
+            document.getElementById("SaveDtl").hidden = false;
+        } else {
+            document.getElementById("Save").hidden = true;
+            document.getElementById("SaveDtl").hidden = true;
+        }
+    }
+</script>
+
+

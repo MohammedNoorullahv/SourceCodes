@@ -1,0 +1,444 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.CounterInvoiceViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "GenerateInvoicefromEstimate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    var estimate = (OptimizerBeta3.Models.TransactionTables.Estimate)ViewBag.Estimate;
+    var estimateDetails = (List<OptimizerBeta3.Models.TransactionTables.EstimateDetail>)ViewBag.EstimateDetails;
+}
+
+
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">InvoiceToPerson's - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="BacktoEstimateDtl" class="btn btn-dark" asp-route-id="@estimate.Id" >Back 2 Estimate</a>
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="row">
+    <div class="col-12 border-right">
+        <form method="post" asp-action="GenerateInvoicefromEstimate">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="InvoiceToPerson.FKSeason" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.InvoiceToPerson.FKSeason" asp-items="Model.FKSeason.ToSelectListItem(Model.InvoiceToPerson.FKSeason)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="InvoiceToPerson.FKUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-5">
+                    @*<select id="ddlUnitlist" asp-for="@Model.InvoiceToPerson.FKUnit" asp-items="Model.FKUnit.ToSelectListCompanyName(Model.InvoiceToPerson.FKUnit)" class="form-control"></select>*@
+                    <input asp-for="InvoiceToPerson.FKUnit" value="@estimate.FKStore" class="form-control" type="hidden" />
+                    <input value="@estimate.StoreName" class="form-control" readonly />
+                    <input asp-for="InvoiceToPerson.FKEstimate" value="@estimate.Id" class="form-control" readonly type="hidden" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="InvoiceToPerson.FKLocation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    @*<select asp-for="InvoiceToPerson.FKLocation" id="updatelocationList" class="form-control"></select>*@
+                    <input asp-for="InvoiceToPerson.FKLocation" value="@estimate.FKLocation" class="form-control" type="hidden" />
+                    <input value="@estimate.LocationName" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label asp-for="InvoiceToPerson.FKTypeOfInvoice" class="col-form-label text-info">Type</label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.InvoiceToPerson.FKTypeOfInvoice" asp-items="Model.FKTypeOfInvoice.ToSelectListItem(Model.InvoiceToPerson.FKTypeOfInvoice)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="InvoiceToPerson.FKCategory" class="col-form-label text-info">Category</label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.InvoiceToPerson.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.InvoiceToPerson.FKCategory)" class="form-control"></select>
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="InvoiceToPerson.InvoiceNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="InvoiceToPerson.InvoiceNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-sm-1">
+                    <label asp-for="InvoiceToPerson.InvoiceDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="InvoiceToPerson.InvoiceDt" id="InvoiceToPersonDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                    @*<input type="date" asp-for="Estimate.EstimateDt" id="EstimateDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />*@
+                </div>
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKPerson" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-8">
+                    <select asp-for="@Model.InvoiceToPerson.FKPerson" asp-items="Model.FKPerson.ToSelectListPersonName(Model.InvoiceToPerson.FKPerson)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <a asp-action="NewCustomer" class="btn btn-success form-control">New Customer</a>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-9">
+                    <div class="form-group row">
+                        <div class="col-sm-1">
+                            <label asp-for="InvoiceToPerson.InvNettValue" class="col-form-label text-info">InvValue</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input asp-for="InvoiceToPerson.InvNettValue" id="InvNettValue" readonly value="@estimate.NettValue" class="form-control text-danger" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label asp-for="InvoiceToPerson.CashReceived" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input asp-for="InvoiceToPerson.CashReceived" id="CashReceived" class="form-control text-right" oninput="CalculateValue()" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label asp-for="InvoiceToPerson.BalCashToPay" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input asp-for="InvoiceToPerson.BalCashToPay" id="BalCashToPay" class="form-control text-right" oninput="CalculateValue()" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-1">
+                            <label asp-for="InvoiceToPerson.CardInfo" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input asp-for="InvoiceToPerson.CardInfo" id="CardInfo" class="form-control" oninput="CalculateValue()" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label asp-for="InvoiceToPerson.CardNo" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input asp-for="InvoiceToPerson.CardNo" id="CardNo" class="form-control" oninput="CalculateValue()" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label asp-for="InvoiceToPerson.CardValue" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input asp-for="InvoiceToPerson.CardValue" id="CardValue" class="form-control text-right" oninput="CalculateValue()" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-1">
+                            <label asp-for="InvoiceToPerson.UPIInfo" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input asp-for="InvoiceToPerson.UPIInfo" id="UPIInfo" class="form-control" oninput="CalculateValue()" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label asp-for="InvoiceToPerson.UPITranNo" class="col-form-label text-info">Tran#</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input asp-for="InvoiceToPerson.UPITranNo" id="UPITranNo" class="form-control" oninput="CalculateValue()" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label asp-for="InvoiceToPerson.UPIValue" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input asp-for="InvoiceToPerson.UPIValue" id="UPIValue" class="form-control text-right" oninput="CalculateValue()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group row">
+                        <div class="col-sm-9">
+                            <label asp-for="InvoiceToPerson.FKSalesPerson" class="col-form-label text-info"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-9">
+                            <select asp-for="@Model.InvoiceToPerson.FKSalesPerson" asp-items="Model.FKSalesPerson.ToSelectListEmployeeName(Model.InvoiceToPerson.FKSalesPerson)" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-9">
+                            <input id="GenerateInvoice" type="submit" class="btn btn-info form-control" value="Generate Invoice" name="Save" hidden="hidden" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @*<div class="col-sm-9">
+                            <input type="submit" class="btn btn-dark form-control" value="Back 2 Estimate" name="Save" />
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.FKDestination" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.InvoiceToPerson.FKDestination" asp-items="Model.FKDestination.ToSelectListItem(Model.InvoiceToPerson.FKDestination)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="InvoiceToPerson.Remarks" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-10">
+                    <input asp-for="InvoiceToPerson.Remarks" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="InvoiceToPerson.IncludeDeliveryTo" value="@false" class="form-control" type="hidden" />
+            <input asp-for="InvoiceToPerson.FKDeliveryTo" value="0" class="form-control" type="hidden" />
+            <input asp-for="InvoiceToPerson.InvoiceTo" readonly class="form-control" value="SC" type="hidden" />
+            <input asp-for="InvoiceToPerson.Season" readonly class="form-control" value="" type="hidden" />
+            <input asp-for=" InvoiceToPerson.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="InvoiceToPerson.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="InvoiceToPerson.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="InvoiceToPerson.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="InvoiceToPerson.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="InvoiceToPerson.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="InvoiceToPerson.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="InvoiceToPerson.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <!--<div class="form-group row">
+                <div class="col-sm-6 offset-3">-->
+            @*<partial name="_CreateandBacktoListButton" />*@
+            <!--<div class="row">
+                <div class="col-sm-4">
+                    <input type="submit" class="btn btn-info form-control" value="Save & New Inv" name="Save" />
+                </div>
+                <div class="col-sm-4">-->
+            @*<a asp-action="CreateMPODetail" class="btn btn-success form-control">Save & Insert Dtl</a>*@
+            <!--<input type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" formmethod="post" formaction="Create" name="Save" />
+                        </div>
+                        <div class="col-sm-4">
+                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (estimateDetails.Count() > 0)
+    {
+        <table class="table table-striped table-hover table-bordered">
+            <tr class="table-primary text-info">
+                @*<th> @Html.DisplayNameFor(m => m.EANCode)</th>
+                    <th> @Html.DisplayNameFor(m => m.StockNo)</th>*@
+                <th> @Html.DisplayName("Description") </th>
+                <th> @Html.DisplayName("Quantity") </th>
+                <th> @Html.DisplayName("MRP") </th>
+                <th> @Html.DisplayName("DiscountPercentage") </th>
+                <th> @Html.DisplayName("DiscountValue") </th>
+                <th> @Html.DisplayName("Rate") </th>
+                <th> @Html.DisplayName("GrossValue") </th>
+                <th> @Html.DisplayName("GSTTotalValue") </th>
+                <th> @Html.DisplayName("ItemNettValue") </th>"
+            </tr>
+
+            @foreach (var item in estimateDetails)
+            {
+                <tr>
+                    @*<td> @Html.DisplayFor(m => item.EANCode) </td>
+                        <td> @Html.DisplayFor(m => item.StockNo) </td>*@
+                    <td> @Html.DisplayFor(m => item.Description) </td>
+                    <td> @Html.DisplayFor(m => item.Quantity) </td>
+                    <td> @Html.DisplayFor(m => item.MRP) </td>
+                    <td> @Html.DisplayFor(m => item.DiscountPercentagePWise) </td>
+                    <td> @Html.DisplayFor(m => item.DiscountValuePWise) </td>
+                    <td> @Html.DisplayFor(m => item.Rate) </td>
+                    <td> @Html.DisplayFor(m => item.GrossValue) </td>
+                    <td> @Html.DisplayFor(m => item.GSTTotalValue) </td>
+                    <td> @Html.DisplayFor(m => item.ItemNettValue) </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Delivery Challan's exists.....</p>
+    }
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+
+        var dtToday = new Date();
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + month + '-' + day;
+        $('#InvoiceToPersonDt').attr('min', minDate);
+        $('#InvoiceToPersonDt').attr('max', maxDate);
+    });
+
+    function CalculateValue() {
+        var sIsCorrect = "N";
+        var sCashEntryCorrect = "N";
+        var sCardEntryCorrect = "N";
+        var sUPIEntryCorrect = "N";
+        var sCardNo = parseFloat($("#CardNo").val());
+        var sUpiTranNo = parseFloat($("#UPITranNo").val());
+
+        var nInvNettValueValue = parseFloat($("#InvNettValue").val());
+        var nEnteredValue;
+        nEnteredValue = parseFloat($("#CashReceived").val()) + parseFloat($("#CardValue").val()) + parseFloat($("#UPIValue").val());
+
+        if (nEnteredValue > 0) {
+            document.getElementById("BalCashToPay").value = nEnteredValue - nInvNettValueValue;
+        }
+
+        if (parseFloat($("#CashReceived").val()) >= nInvNettValueValue) {
+            sCashEntryCorrect = "Y";
+            document.getElementById("CardInfo").value = "";
+            document.getElementById("CardValue").value = 0;
+            document.getElementById("CardNo").value = 0;
+            document.getElementById("UPIInfo").value = "";
+            document.getElementById("UPIValue").value = 0;
+            document.getElementById("UPITranNo").value = 0;
+            document.getElementById("CardValue").disabled = true;
+            document.getElementById("UPIValue").disabled = true;
+            sCashEntryCorrect = "Y";
+            sCardEntryCorrect = "Y";
+            sUPIEntryCorrect = "Y";
+            document.getElementById("GenerateInvoice").hidden = false;
+        }
+        else {
+            if (parseInt($("#BalCashToPay").val()) >= 0) {
+                sCashEntryCorrect = "Y";
+                sCardEntryCorrect = "Y";
+                sUPIEntryCorrect = "Y";
+                if (parseInt($("#CardValue").val()) > 0) {
+                    if (parseInt(sCardNo.toString().length) >= 4) {
+                        sCardEntryCorrect = "Y";
+                    } else {
+                        sCardEntryCorrect = "N";
+                    }
+                }
+                alert("sCashEntryCorrect = " + sCashEntryCorrect + " | sCardEntryCorrect = " + sCardEntryCorrect + " | sUPIEntryCorrect = " + sUPIEntryCorrect);
+                if (parseInt($("#UPIValue").val()) > 0) {
+                    if (parseInt(sUpiTranNo.toString().length) >= 5) {
+                        sUPIEntryCorrect = "Y";
+                    } else {
+                        sUPIEntryCorrect = "N";
+                    }
+                }
+            } else {
+                sCashEntryCorrect = "N";
+            }
+            
+
+            document.getElementById("GenerateInvoice").hidden = true;
+            document.getElementById("CardValue").disabled = false;
+            document.getElementById("UPIValue").disabled = false;
+            
+            if (parseFloat($("#CardValue").val()) >= nInvNettValueValue) {
+                document.getElementById("UPIInfo").value = "";
+                document.getElementById("UPIValue").value = 0;
+                document.getElementById("UPITranNo").value = 0;
+                document.getElementById("CashReceived").value = 0;
+                document.getElementById("CashReceived").disabled = true;
+                document.getElementById("UPIValue").disabled = true;
+                if (parseInt($("#CardNo").val()) > 0) {
+                    if (parseInt(sCardNo.toString().length) >= 4) {
+                        sCardEntryCorrect = "Y";
+                        document.getElementById("GenerateInvoice").hidden = false;
+                    } else {
+                        sCardEntryCorrect = "N";
+                    }
+                }
+                else {
+                    sCardEntryCorrect = "N";
+                }
+                sCashEntryCorrect = "Y";
+                sUPIEntryCorrect = "Y";
+            }
+            else {
+                if (parseInt($("#CardNo").val()) > 0) {
+                    if (parseInt(sCardNo.toString().length) >= 4) {
+                        sCardEntryCorrect = "Y";
+                        document.getElementById("GenerateInvoice").hidden = false;
+                    } else {
+                        sCardEntryCorrect = "N";
+                    }
+                }
+                document.getElementById("GenerateInvoice").hidden = true;
+                document.getElementById("CashReceived").disabled = false;
+                document.getElementById("UPIValue").disabled = false;
+                
+                if (parseFloat($("#UPIValue").val()) >= nInvNettValueValue) {
+                    document.getElementById("CardInfo").value = "";
+                    document.getElementById("CardNo").value = 0;
+                    document.getElementById("CardValue").value = 0;
+                    document.getElementById("CashReceived").value = 0;
+                    document.getElementById("CashReceived").disabled = true;
+                    document.getElementById("CardValue").disabled = true;
+                    if (parseInt($("#UPITranNo").val()) > 0) {
+                        if (parseInt(sUpiTranNo.toString().length) >= 5) {
+                            sUPIEntryCorrect = "Y";
+                            document.getElementById("GenerateInvoice").hidden = false;
+                        } else {
+                            sUPIEntryCorrect = "N";
+                        }
+                    }
+                    else {
+                        sUPIEntryCorrect = "N";
+                    }
+                    sCashEntryCorrect = "Y";
+                    sCardEntryCorrect = "Y";
+                } else {
+                    if (parseInt($("#UPITranNo").val()) > 0) {
+                        if (parseInt(sUpiTranNo.toString().length) >= 5) {
+                            sUPIEntryCorrect = "Y";
+                            document.getElementById("GenerateInvoice").hidden = false;
+                        } else {
+                            sUPIEntryCorrect = "N";
+                        }
+                    }
+                }
+            }
+        }
+
+        if (sCashEntryCorrect == "Y" && sCardEntryCorrect == "Y" && sUPIEntryCorrect == "Y") {
+            document.getElementById("GenerateInvoice").hidden = false;
+        }
+        else {
+            document.getElementById("GenerateInvoice").hidden = true;
+        }
+    }
+</script>

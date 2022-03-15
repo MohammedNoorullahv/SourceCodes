@@ -1,0 +1,110 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.StockTransferDetail>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var stocktransfer = (OptimizerBeta3.Models.TransactionTables.StockTransfer)TempData["StockTransfer"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Stock Transfer Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Stock Transfer No</label>
+            </div>
+            <div class="col-3">
+                @stocktransfer.STNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Stock Transfer Date</label>
+            </div>
+            <div class="col-3">
+                @stocktransfer.STDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Stock Transfer Detail [ Out ] - Index</h2>
+        </div>
+        <div class="col-3 text-center">
+            @*<a class="btn btn-info text-white" asp-action="STDetailsCreate" asp-route-id="@stocktransfer.Id">
+            <i class="fas fa-plus"></i>
+            Create
+        </a>*@
+            @if (Convert.ToBoolean(stocktransfer.IsEntryCompleted) == false)
+            {
+                <a class="btn btn-info text-white" asp-action="CreateTransferDetailForScanning" asp-route-id="@stocktransfer.Id">
+                    <i class="fas fa-plus"></i>
+                    Create
+                </a>
+            }
+
+        </div>
+        <div class="col-3 text-center">
+            <a class="btn btn-success text-white  form-control" asp-action="Index">
+                Back to Stock Transfer
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    @if (Model.Count() > 0)
+    {
+    <table class="table table-success table-striped table-hover table-bordered">
+        <tr class="table-success text-info text-center">
+            <th> @Html.DisplayNameFor(m => m.STNo) </th>
+            <th> @Html.DisplayNameFor(m => m.STDt) </th>
+            <th> @Html.DisplayNameFor(m => m.Description) </th>
+            <th> @Html.DisplayNameFor(m => m.DispatchedQuantity) </th>
+            <th> @Html.DisplayNameFor(m => m.ReceivedQuantity) </th>
+            <th> <label>Actions</label> </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @Html.DisplayFor(m => item.STNo) </td>
+                <td> @Html.DisplayFor(m => item.STDt) </td>
+                <td> @Html.DisplayFor(m => item.Description) </td>
+                <td> @Html.DisplayFor(m => item.DispatchedQuantity) </td>
+                <td> @Html.DisplayFor(m => item.ReceivedQuantity) td>
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+
+
+                        <a class="btn btn-danger text-white" asp-action="Cancel" asp-route-Id="@item.Id">
+                            <i class="far fa-times-circle"></i>
+                        </a>
+
+                    </div>
+
+
+                </td>
+            </tr>
+        }
+    </table>
+    }
+    else
+    {
+        <p> No Stock Transfer exists.....</p>
+    }
+</div>
+
+

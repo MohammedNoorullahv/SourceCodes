@@ -1,0 +1,379 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.OfferViewModel
+@using OptimizerBeta3.Extensions
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        $('#FromDate').attr('min', minDate);
+        $('#ToDate').attr('min', maxDate);
+
+    });
+
+        function enable_chkbox(id) {
+            //if (id != "ApplicableForItem" && document.getElementById("ApplicableForInvoice").checked) {
+            //    document.getElementById("ApplicableForItem").disabled = true;
+            //} else if (id != "ApplicableForInvoice" && document.getElementById("ApplicableForItem").checked) {
+            //    document.getElementById("ApplicableForInvoice").disabled = true;
+            //} else {
+            //    document.getElementById("ApplicableForInvoice").disabled = false;
+            //    document.getElementById("ApplicableForItem").disabled = false;
+            //}
+            if (id = "ApplicableForItem" && document.getElementById("ApplicableForItem").checked) {
+                document.getElementById("ApplicableForItem").disabled = true;
+                document.getElementById("ApplicableForItem").checked = false;
+            } else {
+                document.getElementById("ApplicableForInvoice").disabled = false;
+                document.getElementById("ApplicableForItem").disabled = true;
+                document.getElementById("ApplicableForInvoice").checked = true;
+            }
+
+        }
+
+        function enable_chkboxInvoice(id) {
+            if (id = "ApplicableForInvoice" && document.getElementById("ApplicableForInvoice").checked) {
+                document.getElementById("ApplicableForInvoice").disabled = true;
+                document.getElementById("ApplicableForInvoice").checked = false;
+            } else {
+                document.getElementById("ApplicableForItem").disabled = false;
+                document.getElementById("ApplicableForInvoice").disabled = true;
+                document.getElementById("ApplicableForItem").checked = true;
+            }
+        }
+
+        function displayRangeSlNo(id) {
+            if (id = "IsRangeOffer" && document.getElementById("IsRangeOffer").checked) {
+                $("#RangeSlNo").val(@TempData["RangeSlNo"])
+            } else {
+                $("#RangeSlNo").val(0)
+            }
+    }
+
+    function enable_validation() {
+
+        var isPC = document.getElementById("IsProductCompliment").checked;
+
+        if ($("#BuyPair").val() < 0) {
+            alert("Buy Pair Cannot be below Zero");
+            document.getElementById("save").hidden = true;
+        } else {
+            if ($("#BuyPair").val() == 0) {
+                if ($("#OfferPair").val() > 0) {
+                    alert("Offer Pair cannot be entered when Buy Pair is Zero");
+                    document.getElementById("save").hidden = true;
+                } else if (isPC == true ) {
+                    if ($("#MinimumBillValue").val() == 0 ) {
+                        alert("For Compliment Gift Either Buy Pair Or Minimum Bill Value Must be Entered");
+                        document.getElementById("save").hidden = true;
+                    }
+                } else {
+                    if ($("#DiscountPercentage").val() > 0 && $("#DiscountValue").val() > 0) {
+                        alert("Discount Percentage & Discount Value Cannot be entered for a Single Offer");
+                        document.getElementById("save").hidden = true;
+                    } else {
+                        document.getElementById("save").hidden = false;
+                    }
+                }
+            } else {
+                if (isPC == false && $("#DiscountPercentage").val() + $("#DiscountValue").val() + $("#OfferPair").val() == 0) {
+                    document.getElementById("save").hidden = true;
+                } else {
+                    if ($("#DiscountPercentage").val() > 0) {
+                        if ($("#OfferPair").val() > 0) {
+                            alert("Discount Percentage & Offer Pair Cannot be entered for a Single Offer");
+                            document.getElementById("save").hidden = true;
+                        } else {
+                            if (isPC == true) {
+                                alert("Discount Percentage & Compliment Offer Cannot be entered for a Single Offer")
+                                document.getElementById("save").hidden = true;
+                            } else {
+                                document.getElementById("save").hidden = false;
+                            }
+                        }
+                    } else {
+                        if ($("#DiscountValue").val() > 0) {
+                            if ($("#OfferPair").val() > 0) {
+                                alert("Discount Value & Offer Pair Cannot be entered for a Single Offer");
+                                document.getElementById("save").hidden = true;
+                            } else {
+                                if (isPC == true) {
+                                    alert("Discount Value & Compliment Offer Cannot be entered for a Single Offer")
+                                    document.getElementById("save").hidden = true;
+                                } else {
+                                    document.getElementById("save").hidden = false;
+                                }
+                            }
+                        } else {
+                            if ($("#OfferPair").val() > 0 && isPC == true) {
+                                alert("Offer Pair & Compliment Cannot be entered for a Single Offer");
+                                document.getElementById("save").hidden = true;
+                            } else {
+                                document.getElementById("save").hidden = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function UpdateTools() {
+        var e = document.getElementById("FKOfferCategory");
+        var sOfferCategory = e.options[e.selectedIndex].text;
+        if (sOfferCategory == "Percentage") {
+            document.getElementById("DiscountPercentage").disabled = false;
+            document.getElementById("DiscountValue").disabled = true;
+            $("#DiscountValue").val(0)
+            document.getElementById("OfferPair").disabled = true;
+            $("#OfferPair").val(0)
+            document.getElementById("IsProductCompliment").disabled = true;
+            document.getElementById("IsProductCompliment").checked = false;
+        } else if (sOfferCategory == "Value") {
+            document.getElementById("DiscountPercentage").disabled = true;
+            $("#DiscountPercentage").val(0)
+            document.getElementById("DiscountValue").disabled = false;
+            document.getElementById("OfferPair").disabled = true;
+            $("#OfferPair").val(0)
+            document.getElementById("IsProductCompliment").disabled = true;
+            document.getElementById("IsProductCompliment").checked = false;
+        } else if (sOfferCategory == "Pairs") {
+            document.getElementById("DiscountPercentage").disabled = true;
+            $("#DiscountPercentage").val(0)
+            document.getElementById("DiscountValue").disabled = true;
+            $("#DiscountValue").val(0)
+            document.getElementById("OfferPair").disabled = false;
+            document.getElementById("IsProductCompliment").disabled = true;
+            document.getElementById("IsProductCompliment").checked = false;
+        } else if (sOfferCategory == "Compliment") {
+            document.getElementById("DiscountPercentage").disabled = true;
+            $("#DiscountPercentage").val(0)
+            document.getElementById("DiscountValue").disabled = true;
+            $("#DiscountValue").val(0)
+            document.getElementById("OfferPair").disabled = true;
+            $("#OfferPair").val(0)
+            document.getElementById("IsProductCompliment").disabled = false;
+        }
+    }
+</script>
+
+
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Offers - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@if (@TempData["ErrorMessage"] != null)
+{
+    <div class="border-danger" style="background-color:lightsalmon">
+        <h1 class="text-center">
+            <span style="color: red;">
+                @Html.Raw("<pre>" + Html.Encode(@TempData["ErrorMessage"].ToString()) + "</pre>")
+            </span>
+        </h1>
+    </div>
+
+}
+
+<form method="post" asp-action="Create" class="border backgroudColor">
+    <div class="border backgroudWhite">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label asp-for="Offers.FKOfferType" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <select asp-for="@Model.Offers.FKOfferType" id="FKMaterial" asp-items="Model.FKOfferType.ToSelectListItem(Model.Offers.FKOfferType)" class="form-control"></select>
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.FKOffer" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <select asp-for="@Model.Offers.FKOffer" id="FKMaterial" asp-items="Model.FKOffer.ToSelectListItem(Model.Offers.FKOffer)" class="form-control"></select>
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.FKOfferCategory" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <select asp-for="@Model.Offers.FKOfferCategory" id="FKOfferCategory" asp-items="Model.FKOfferCategory.ToSelectListItem(Model.Offers.FKOfferCategory)" class="form-control" onchange="UpdateTools()"></select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label asp-for="Offers.CouponCode" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="Offers.CouponCode" class="form-control" style="background-color:  lightpink" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.FromDate" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <input type="date" asp-for="Offers.FromDate" id="FromDate" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.ToDate" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <input type="date" asp-for="Offers.ToDate" id="ToDate" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label asp-for="Offers.IsExtendable" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-1">
+                <input asp-for="Offers.IsExtendable" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.IsAnniverseryBased" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-1">
+                <input asp-for="Offers.IsAnniverseryBased" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.ApplicableForItem" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-1">
+                <input type="checkbox" asp-for="Offers.ApplicableForItem" id="ApplicableForItem" checked="checked" Onchange="enable_chkbox(this.id)" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.ApplicableForInvoice" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-1">
+                <input type="checkbox" asp-for="Offers.ApplicableForInvoice" id="ApplicableForInvoice" disabled="disabled" Onchange="enable_chkboxInvoice(this.id)" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @*<div class="col-sm-2">
+                    <label asp-for="Offers.IsRangeOffer" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input type="checkbox" asp-for="Offers.IsRangeOffer" id="IsRangeOffer" onchange="displayRangeSlNo()" class="form-control" />
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Offers.RangeSlNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input type="text" asp-for="Offers.RangeSlNo" id="RangeSlNo" disabled="disabled" class="form-control text-danger" />
+                </div>*@
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label asp-for="Offers.DiscountPercentage" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="Offers.DiscountPercentage" id="DiscountPercentage" class="form-control" oninput="enable_validation()" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.DiscountValue" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="Offers.DiscountValue" id="DiscountValue" class="form-control" disabled="disabled" oninput="enable_validation()" />
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-sm-2">
+                <label asp-for="Offers.BuyPair" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="Offers.BuyPair" id="BuyPair" class="form-control" oninput="enable_validation()" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.OfferPair" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="Offers.OfferPair" id="OfferPair" class="form-control" disabled="disabled" oninput="enable_validation()" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.IsProductCompliment" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="Offers.IsProductCompliment" type="checkbox" id="IsProductCompliment" disabled="disabled" class="form-control" onchange="enable_validation()" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label asp-for="Offers.MinimumBillValue" class="col-form-label text-info">Min Bill Value</label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="Offers.MinimumBillValue" id="MinimumBillValue" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.MaximumDiscountValue" class="col-form-label text-info">Max Disc Value</label>
+            </div>
+            <div class="col-sm-2">
+                <input asp-for="Offers.MaximumDiscountValue" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                <label asp-for="Offers.IsVenueBased" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" asp-for="Offers.IsVenueBased" id="IsVenueBased" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label asp-for="Offers.IsActive" class="col-form-label text-info"></label>
+            </div>
+            <div class="col-1" style="background-color:  lightpink">
+                <input asp-for="Offers.IsActive" readonly class="form-control" value="@true" style="background-color:  lightpink" />
+            </div>
+        </div>
+
+        <input asp-for="Offers.OfferId" readonly value="" type="hidden" />
+        <input asp-for="Offers.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+        <input asp-for="Offers.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+        <input asp-for="Offers.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+        <input asp-for="Offers.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+        <input asp-for="Offers.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+        <input asp-for="Offers.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+        <input asp-for="Offers.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+
+        <div class="form-group row">
+            <div class="col-5 offset-2" id="save">
+                <partial name="_CreateandBacktoListButton" />
+            </div>
+        </div>
+    </div>
+</form>
+

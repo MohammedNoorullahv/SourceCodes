@@ -1,0 +1,263 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.LGPurchaseOrderViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Purchase Order - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.FKTypeOfOrder" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrder.FKTypeOfOrder" asp-items="Model.FKTypeOfOrder.ToSelectListItem(Model.LGPurchaseOrder.FKTypeOfOrder)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.FKSeason" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrder.FKSeason" asp-items="Model.FKSeason.ToSelectListItem(Model.LGPurchaseOrder.FKSeason)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.FKSource" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrder.FKSource" asp-items="Model.FKSource.ToSelectListItem(Model.LGPurchaseOrder.FKSource)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrder.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.LGPurchaseOrder.FKCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.FKUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <select asp-for="@Model.LGPurchaseOrder.FKUnit" asp-items="Model.FKUnit.ToSelectListCompanyName(Model.LGPurchaseOrder.FKUnit)" class="form-control"></select>
+                </div>
+                @*<div class="col-3">
+                        <label asp-for="LGPurchaseOrder.FKDepartment" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-3">
+                        <select asp-for="@Model.LGPurchaseOrder.FKDepartment"  asp-items="Model.FKDepartment.ToSelectListItem(Model.LGPurchaseOrder.FKDepartment)" class="form-control"></select>
+                    </div>*@
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.FKParty" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <select asp-for="@Model.LGPurchaseOrder.FKParty" asp-items="Model.FKParty.ToSelectListCompanyName(Model.LGPurchaseOrder.FKParty)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.PurchaseOrderNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="LGPurchaseOrder.PurchaseOrderNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.PurchaseOrderDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="date" asp-for="LGPurchaseOrder.PurchaseOrderDt" id="LGPurchaseOrderDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="LGPurchaseOrder.FKCurrency" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <select asp-for="@Model.LGPurchaseOrder.FKCurrency" asp-items="Model.FKCurrency.ToSelectListItem(Model.LGPurchaseOrder.FKCurrency)" class="form-control"></select>
+                </div>
+                <div class="col-2">
+                    <label asp-for="LGPurchaseOrder.TotalOrderQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="LGPurchaseOrder.TotalOrderQuantity" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="LGPurchaseOrder.MainEnteredQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="LGPurchaseOrder.MainEnteredQuantity" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-1">
+                </div>
+                <div class="col-2">
+                    <label asp-for="LGPurchaseOrder.FKPaymentTerms" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <select asp-for="@Model.LGPurchaseOrder.FKPaymentTerms" asp-items="Model.FKPaymentTerms.ToSelectListItem(Model.LGPurchaseOrder.FKPaymentTerms)" class="form-control"></select>
+                </div>
+                @*<div class="col-3">
+                        <label asp-for="LGPurchaseOrder.FKModeofTransport" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-3">
+                        <select asp-for="@Model.LGPurchaseOrder.FKModeofTransport" asp-items="Model.FKModeofTransport.ToSelectListItem(Model.LGPurchaseOrder.FKModeofTransport)" class="form-control"></select>
+                    </div>*@
+            </div>
+
+            <div class="form-group row">
+                @*<div class="col-3">
+                        <label asp-for="LGPurchaseOrder.FKDeliveryTo" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-9">
+                        <select asp-for="@Model.LGPurchaseOrder.FKDeliveryTo" asp-items="Model.FKDeliveryTo.ToSelectListCompanyName(Model.LGPurchaseOrder.FKDeliveryTo)" class="form-control"></select>
+                    </div>*@
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="LGPurchaseOrder.POValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="LGPurchaseOrder.POValue" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="LGPurchaseOrder.ExchangeRate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="LGPurchaseOrder.ExchangeRate" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="LGPurchaseOrder.POValueinINR" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="LGPurchaseOrder.POValueinINR" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.Remarks" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="LGPurchaseOrder.Remarks" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrder.FKOrderStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrder.FKOrderStatus" asp-items="Model.FKOrderStatus.ToSelectListItem(Model.LGPurchaseOrder.FKOrderStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+
+            <input asp-for="LGPurchaseOrder.TotalOrderQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="LGPurchaseOrder.MainEnteredQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="LGPurchaseOrder.ReceivedQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="LGPurchaseOrder.CancelledQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="LGPurchaseOrder.BalanceQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="LGPurchaseOrder.IsPOManualClosed" readonly class="form-control" value="@false" type="hidden" />
+            <input asp-for="LGPurchaseOrder.Currency" readonly class="form-control" value="" type="hidden" />
+            @*<input asp-for="LGPurchaseOrder.DeliveryTo" readonly class="form-control" value="" type="hidden" />*@
+            @*<input asp-for="LGPurchaseOrder.ModeofTransport" readonly class="form-control" value="" type="hidden" />*@
+            <input asp-for="LGPurchaseOrder.OrderStatus" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrder.PaymentTerms" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrder.Season" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrder.Source" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrder.SupplierName" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrder.TypeofOrder" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrder.UnitName" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrder.FLAM" readonly class="form-control" value="L" type="hidden" />
+
+            <input asp-for=" LGPurchaseOrder.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for=" LGPurchaseOrder.IsArticleStockGenerated" readonly class="form-control" value="@false" type="hidden" />
+            <input asp-for="LGPurchaseOrder.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrder.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="LGPurchaseOrder.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="LGPurchaseOrder.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="LGPurchaseOrder.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="LGPurchaseOrder.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="LGPurchaseOrder.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    @*<partial name="_CreateandBacktoListButton" />*@
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="submit" class="btn btn-info form-control" value="Save & New Po" name="Save" />
+                        </div>
+                        <div class="col-4">
+                            <input type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" formmethod="post" formaction="Create" name="Save" />
+                        </div>
+                        <div class="col-4">
+                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        $('#LGPurchaseOrderDt').attr('min', minDate);
+        $('#LGPurchaseOrderDt').attr('max', maxDate);
+        //$('#LGPurchaseOrderDt').val(dtToday);
+    });
+</script>
+

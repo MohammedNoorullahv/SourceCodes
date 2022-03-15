@@ -1,0 +1,92 @@
+﻿@model OptimizerBeta3.Models.TransactionTables.DeliveryChallan
+@{
+    ViewData["Title"] = "GenerateDC";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var dtls = (List<OptimizerBeta3.Models.TransactionTables.DeliveryChallanDetail>)ViewBag.DCDetails;
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="text-success">Delivery Challan Info</h2>
+            </div>
+            <div class="col-sm-6 text-right">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-primary text-white" asp-action="DCEdit" asp-route-Id="@Model.Id">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="btn btn-info text-black" asp-action="DCPrint" asp-route-id="@Model.Id">
+                        <i class="fa fa-print" aria-hidden="true"></i>
+                    </a>
+                    <a asp-action="Index" class="btn btn-success form-control">Back to Invoice</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="col-form-label text-danger">Delivery Challan No</label>
+            </div>
+            <div class="col-sm-4">
+                <input value="@Model.DCNo" class="form-control text-dark" />
+            </div>
+            <div class="col-sm-2">
+                <label class="col-form-label text-danger">Delivery Challan Dt</label>
+            </div>
+            <div class="col-sm-4">
+                <input value="@Model.DCDt.ToString("dd-MMM-yyyy")" class="form-control text-dark" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="col-form-label text-danger">From</label>
+            </div>
+            <div class="col-sm-4">
+                <input value="@Model.FromUnitName" class="form-control text-dark" />
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">To</label>
+            </div>
+            <div class="col-4">
+                <input value="@Model.ToUnitName" class="form-control text-dark" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    @if (dtls.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info text-center">
+                <th> <label>Description</label> </th>
+                <th> <label>Colour</label> </th>
+                <th> <label>Size</label> </th>
+                <th> <label>Quantity</label> </th>
+                <th> <label>Rate</label> </th>
+                <th> <label>Value</label> </th>
+            </tr>
+
+            @foreach (var item in dtls)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(m => item.Description) </td>
+                    <td> @Html.DisplayFor(m => item.Colour) </td>
+                    <td> @Html.DisplayFor(m => item.Size) </td>
+                    <td> @Html.DisplayFor(m => item.Quantity) </td>
+                    <td> @Html.DisplayFor(m => item.Rate) </td>
+                    <td> @Html.DisplayFor(m => item.Value) </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Delivery Challan's exists.....</p>
+    }
+</div>

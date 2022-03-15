@@ -1,0 +1,189 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.FilterViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@{
+        var tbllist = (List<@ViewBag.TableNames>);
+    }*@
+
+
+
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Filter - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Filter.ControllerName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="Filter.ControllerName" class="form-control" />
+                </div>
+                <span asp-validation-for="Filter.ControllerName" class="text-danger"></span>
+                <div class="col-3">
+                    <label asp-for="Filter.ActionMethod" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="Filter.ActionMethod" class="form-control" />
+                </div>
+                <span asp-validation-for="Filter.ActionMethod" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Filter.TableName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="Filter.TableName" asp-items="new SelectList((List<string>)ViewBag.TableNames)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Filter.FKLookUpCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.Filter.FKLookUpCategory" id="ddlCategorylist" asp-items="Model.FKLookUpCategoryId.ToSelectListItem(Model.Filter.FKLookUpCategory)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="Filter.FKLookUpMaster" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="Filter.FKLookUpMaster" id="updatelookUpMasterList" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Filter.ConditionIn" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="Filter.ConditionIn" type="checkbox" id="ConditionIn" checked="checked" Onchange="enable_ConditionIn(this.id)" class="form-control" />
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-3">
+                    <label asp-for="Filter.ConditionNotIn" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="Filter.ConditionNotIn" type="checkbox" id="ConditionNotIn" Onchange="enable_ConditionNotIn(this.id)" class="form-control" />
+                </div>
+                <div class="col-2">
+                </div>
+            </div>
+
+            <input asp-for="Filter.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="Filter.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Filter.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Filter.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="Filter.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Filter.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="Filter.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Filter.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_CreateandBacktoListButton" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    function enable_ConditionIn(id) {
+        if (id = "ConditionIn" && document.getElementById("ConditionIn").checked) {
+            document.getElementById("ConditionIn").disabled = true;
+            document.getElementById("ConditionIn").checked = false;
+        } else {
+            document.getElementById("ConditionNotIn").disabled = false;
+            document.getElementById("ConditionIn").disabled = true;
+            document.getElementById("ConditionNotIn").checked = true;
+        }
+
+    }
+
+    function enable_ConditionNotIn(id) {
+        if (id = "ConditionNotIn" && document.getElementById("ConditionNotIn").checked) {
+            document.getElementById("ConditionNotIn").disabled = true;
+            document.getElementById("ConditionNotIn").checked = false;
+        } else {
+            document.getElementById("ConditionIn").disabled = false;
+            document.getElementById("ConditionNotIn").disabled = true;
+            document.getElementById("ConditionIn").checked = true;
+        }
+    }
+
+    function updatelookUpMasterList() {
+        var lookUpMasterSelected = document.getElementById("ddlCategorylist").value;
+        $.getJSON("/MasterTablePages/LookUpMaster/GetLookUpMaster/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updatelookUpMasterList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+        }
+
+    $(document).ready(function () {
+        updatelookUpMasterList();
+    });
+
+    $("#ddlCategorylist").on("change", function () {
+        updatelookUpMasterList();
+    });
+
+    //$(document).ready(function () {
+    //    $("#ddlCategorylist").change(function () {
+    //        var lookUpMasterSelected = document.getElementById("ddlCategorylist").value;
+    //        $.getJSON("/MasterTablePages/LookUpMaster/GetLookUpMaster/" + lookUpMasterSelected,
+    //            function (data) {
+    //                var select = $("#updatelookUpMasterList");
+    //                select.empty();
+    //                //select.append($('<option/>', {
+    //                //    //value: 0,
+    //                //    //text: "Select LookUpMaster"
+    //                //}));
+    //                $.each(data, function (index, itemData) {
+    //                    select.append($('<option/>', {
+    //                        value: itemData.value,
+    //                        text: itemData.text
+    //                    }));
+    //                });
+    //            });
+    //    });
+    //});
+
+    
+</script>
+
+
+}

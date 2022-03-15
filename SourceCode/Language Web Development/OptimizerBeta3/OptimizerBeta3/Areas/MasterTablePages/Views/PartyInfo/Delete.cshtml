@@ -1,0 +1,221 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.PartyInfoViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Party Info - Delete</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Edit">
+            <input type="hidden" asp-for="partyInfo.Id" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.partyInfo.FKCategory" id="FKArea" asp-items="Model.FKCategory.ToSelectListItem(Model.partyInfo.FKCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.Code" class="form-control" />
+                </div>
+                <span asp-validation-for="partyInfo.Code" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.CompanyName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.CompanyName" class="form-control" />
+                </div>
+                <span asp-validation-for="partyInfo.CompanyName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.ShortName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.ShortName" class="form-control" />
+                </div>
+                <span asp-validation-for="partyInfo.ShortName" class="text-danger text-info"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.Address1" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.Address1" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.Address2" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.Address2" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.FKArea" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.partyInfo.FKArea" id="FKArea" asp-items="Model.FKArea.ToSelectListItem(Model.partyInfo.FKArea)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.FKCity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.partyInfo.FKCity" id="FKCity" asp-items="Model.FKCity.ToSelectListItem(Model.partyInfo.FKCity)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.FKPincode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.partyInfo.FKPincode" id="FKPincode" asp-items="Model.FKPincode.ToSelectListItem(Model.partyInfo.FKPincode)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.FKState" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.partyInfo.FKState" id="FKArea" asp-items="Model.FKState.ToSelectListStateName(Model.partyInfo.FKState)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.FKCountry" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="@Model.partyInfo.FKCountry" id="FKArea" asp-items="Model.FKCountry.ToSelectListItem(Model.partyInfo.FKCountry)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.ContactPersonName" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.ContactPersonName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.ContactNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.ContactNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.MailId" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.MailId" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.PANNumber" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.PANNumber" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="partyInfo.GSTNumber" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="partyInfo.GSTNumber" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="partyInfo.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="partyInfo.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_DeleteandBacktoListButtonPartialView" model="Model.partyInfo.Id" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/partyInfo/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}

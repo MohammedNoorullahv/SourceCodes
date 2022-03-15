@@ -1,0 +1,67 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.HRTables.Employee>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (@TempData["ErrorMessage"] != null)
+{
+    <div class="border-danger" style="background-color:lightsalmon">
+        <h1 class="text-center">
+            <span style="color: red;">
+                @Html.Raw("<pre>" + Html.Encode(@TempData["ErrorMessage"].ToString()) + "</pre>")
+            </span>
+        </h1>
+    </div>
+
+}
+
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Emplooyee - Index</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+
+</div>
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info text-center">
+                <th> @Html.DisplayNameFor(m => m.FullName) </th>
+                <th> @Html.DisplayNameFor(m => m.FullName) </th>
+                <th> @Html.DisplayNameFor(m => m.FKDepartment) </th>
+                <th> @Html.DisplayNameFor(m => m.FKDesignation) </th>
+                <th> @Html.DisplayNameFor(m => m.FKEmpCategory) </th>
+                <th> @Html.DisplayNameFor(m => m.DOJ) </th>
+                <th> <label class="text-center">Actions</label> </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(m => item.FullName) </td>
+                    <td> @Html.DisplayFor(m => item.FullName) </td>
+                    <td> @Html.DisplayFor(m => item.FKDepartment) </td>
+                    <td> @Html.DisplayFor(m => item.FKDesignation) </td>
+                    <td> @Html.DisplayFor(m => item.FKEmpCategory) </td>
+                    <td>
+                        @item.DOJ.ToString("dd-MMM-yyyy")
+                        <partial name="_TableButtonPartial" model="item.Id" />
+                    </td>
+
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Employee's exists.....</p>
+    }
+</div>
+

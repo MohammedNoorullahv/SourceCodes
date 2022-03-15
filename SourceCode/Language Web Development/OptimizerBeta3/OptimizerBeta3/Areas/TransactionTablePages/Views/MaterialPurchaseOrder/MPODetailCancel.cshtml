@@ -1,0 +1,139 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.MaterialPurchaseOrderDetailViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Cancel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+
+@{
+    var purchaseOrder = (OptimizerBeta3.Models.TransactionTables.MaterialPurchaseOrder)TempData["PurchaseOrder"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Purchase Order Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order No</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order Date</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Materials Purchase Order Detail - Cancel</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="MPODetailCancel">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrderDetail.OrderReferenceNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="MaterialPurchaseOrderDetail.OrderReferenceNo" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrderDetail.FKMaterial" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="MaterialPurchaseOrderDetail.Material" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="MaterialPurchaseOrderDetail.Quantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2 text-right">
+                    <input asp-for="MaterialPurchaseOrderDetail.Quantity" id="Quantity" oninput="calculateValue()" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="MaterialPurchaseOrderDetail.Rate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2 text-right">
+                    <input asp-for="MaterialPurchaseOrderDetail.Rate" id="Rate" oninput="calculateValue()" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="MaterialPurchaseOrderDetail.Value" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2 text-right">
+                    <input asp-for="MaterialPurchaseOrderDetail.Value" id="Value" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrderDetail.DeliveryDate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="date" asp-for="MaterialPurchaseOrderDetail.DeliveryDate" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrderDetail.IsPartDeliveryAllowed" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input type="checkbox" asp-for="MaterialPurchaseOrderDetail.IsPartDeliveryAllowed" class="form-control" />
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrderDetail.FKOrderStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialPurchaseOrderDetail.FKOrderStatus" asp-items="Model.FKOrderStatus.ToSelectListItem(Model.MaterialPurchaseOrderDetail.FKOrderStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+            <input asp-for="MaterialPurchaseOrderDetail.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="MaterialPurchaseOrderDetail.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="submit" class="btn btn-danger form-control" asp-route-id="@Model.MaterialPurchaseOrderDetail.Id" value="Cancel" />
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-dark text-white  form-control" asp-action="MPODetailIndex" asp-route-id="@purchaseOrder.Id">
+                                <i class="fas fa-plus"></i>
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

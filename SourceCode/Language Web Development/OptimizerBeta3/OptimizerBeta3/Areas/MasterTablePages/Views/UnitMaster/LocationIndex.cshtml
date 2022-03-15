@@ -1,0 +1,123 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.Locations>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var unitInfo = (OptimizerBeta3.Models.MasterTables.UnitMaster)TempData["UnitInfo"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Unit Master for Creating Locations's</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Code</label>
+            </div>
+            <div class="col-3">
+                @unitInfo.Code;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Company Name</label>
+            </div>
+            <div class="col-3">
+                @unitInfo.CompanyName;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Address</label>
+            </div>
+            <div class="col-3">
+                @unitInfo.Address1;
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-4">
+            <h2 class="text-info">Location's - Index</h2>
+        </div>
+        <div class="col-4 text-center">
+            <a class="btn btn-info text-white" asp-action="LocationCreate" asp-route-id=@unitInfo.Id>
+                <i class="fas fa-plus"></i>
+                Create
+            </a>
+        </div>
+        <div class="col-4 text-center">
+            <a class="btn btn-success text-white  form-control" asp-action="UnitIndex" asp-route-id=@unitInfo.Id>
+                Back to Unit Master
+            </a>
+        </div>
+    </div>
+    <div></div>
+    <br />
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.FKUnitDtls)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.FKLocationType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.LocationName)
+                    </th>
+                    <th><label>Actions</label></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.FKUnitDtls)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.FKLocationType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.LocationName)
+                        </td>
+                        <td style="width:150px">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary text-white" asp-action="LocationEdit" asp-route-Id="@item.Id">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                <a class="btn btn-success text-white" asp-action="LocationDetail" asp-route-Id="@item.Id">
+                                    <i class="fas fa-list-alt"></i>
+                                </a>
+
+                                <a class="btn btn-danger text-white" asp-action="LocationDelete" asp-route-Id="@item.Id">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p> No Locations exists.....</p>
+        }
+    </div>
+</div>
+
+

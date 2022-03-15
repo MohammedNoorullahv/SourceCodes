@@ -1,0 +1,63 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.MdlStateMaster>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">State Master - Index</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+    <div></div>
+    <br />
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.StateCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.StateName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ShortName)
+                    </th>
+                    <th><label>Actions</label></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.StateCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.StateName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.ShortName)
+                        </td>
+                        <td style="width:150px">
+                            <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p> No Stats exists.....</p>
+        }
+    </div>
+</div>

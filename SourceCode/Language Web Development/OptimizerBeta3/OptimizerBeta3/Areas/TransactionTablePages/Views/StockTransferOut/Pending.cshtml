@@ -1,0 +1,90 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.StockTransfer>
+@{
+    ViewData["Title"] = "Pending";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Stock Transfer [ In ] - Pending</h2>
+        </div>
+    </div>
+    <div>
+        <form asp-action="PendingFilter" asp-controller="StockTransferOut">
+            <div class="row">
+                <div class="col-2">
+                    <h3 class="text-success">From Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="fromDate" name="fromDate" value="@(((DateTime)ViewBag.FromDate).Date.ToString("yyyy-MM-dd"))" />
+                </div>
+                <div class="col-2">
+                    <h3 class="text-success">To Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="toDate" name="toDate" value="@(((DateTime)ViewBag.ToDate).Date.ToString("yyyy-MM-dd"))" />
+
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-2 text-right">
+                    <input type="submit" value="&nbsp; &nbsp; &nbsp; Refresh &nbsp;&nbsp; &nbsp; &nbsp;" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info text-center">
+                <th> @Html.DisplayNameFor(m => m.STNo) </th>
+                <th> @Html.DisplayNameFor(m => m.STDt) </th>
+                <th> @Html.DisplayNameFor(m => m.FromUnitName) </th>
+                <th> @Html.DisplayNameFor(m => m.FromLocation) </th>
+                <th> @Html.DisplayNameFor(m => m.ToUnitName) </th>
+                <th> @Html.DisplayNameFor(m => m.ToLocation) </th>
+                <th> <label>Actions</label> </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td> @Html.DisplayFor(m => item.STNo) </td>
+            <td> @item.STDt.ToString("dd-MMM-yyyy")  </td>
+            <td> @Html.DisplayFor(m => item.FromUnitName) </td>
+            <td> @Html.DisplayFor(m => item.FromLocation) </td>
+            <td> @Html.DisplayFor(m => item.ToUnitName) </td>
+            <td> @Html.DisplayFor(m => item.ToLocation) </td>
+            <td style="width:150px">
+                <div class="btn-group" role="group">
+                    @if (item.IsAcknowledged == false)
+                    {
+                        <a class="btn btn-success text-black" asp-action="STDetailsAcknowledge" asp-route-id="@item.Id">
+                            Acknowledge
+                        </a>
+                    }
+                    <a class="btn btn-danger text-white" asp-action="Cancel" asp-route-Id="@item.Id">
+                        <i class="far fa-times-circle"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Stock Transfer exists.....</p>
+    }
+</div>
+
+
+
+

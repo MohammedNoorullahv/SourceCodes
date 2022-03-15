@@ -1,0 +1,101 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.InvoiceToPerson>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Invoice's - Index</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+    <div>
+        <form asp-action="IndexFilter" asp-controller="Inward">
+            <div class="row">
+                <div class="col-2">
+                    <h3 class="text-success">From Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="fromDate" name="fromDate" value="@(((DateTime)ViewBag.FromDate).Date.ToString("yyyy-MM-dd"))" />
+                </div>
+                <div class="col-2">
+                    <h3 class="text-success">To Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="toDate" name="toDate" value="@(((DateTime)ViewBag.ToDate).Date.ToString("yyyy-MM-dd"))" />
+
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-2 text-right">
+                    <input type="submit" value="&nbsp; &nbsp; &nbsp; Refresh &nbsp;&nbsp; &nbsp; &nbsp;" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<div>
+    @*@if (Model.Count() > 0)*@
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info">
+                <th> @Html.DisplayNameFor(m => m.TypeofInvoice) </th>
+                <th> @Html.DisplayNameFor(m => m.Season) </th>
+                <th> @Html.DisplayNameFor(m => m.Location) </th>
+                <th> @Html.DisplayNameFor(m => m.PersonName) </th>
+                <th> @Html.DisplayNameFor(m => m.InvoiceNo) </th>
+                <th> @Html.DisplayNameFor(m => m.InvoiceDt) </th>
+                <th> @Html.DisplayNameFor(m => m.Quantity) </th>
+                <th class="text-center"> <label>Actions</label> </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(m => item.TypeofInvoice) </td>
+                    <td> @Html.DisplayFor(m => item.Season) </td>
+                    <td> @Html.DisplayFor(m => item.Location) </td>
+                    <td> @Html.DisplayFor(m => item.PersonName) </td>
+                    <td> @Html.DisplayFor(m => item.InvoiceNo) </td>
+                    <td> @item.InvoiceDt.ToString("dd-MMM-yyyy")  </td>
+                    <td> @Html.DisplayFor(m => item.Quantity) </td>
+                    <td>
+
+                        <a class="btn btn-warning text-black" asp-action="InvoiceDetailIndex" asp-route-id="@item.Id">
+                            Dtl
+                        </a>
+                        @if (item.IsEntryCompleted == false)
+                        {
+                            <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        }
+
+                        @*<a class="btn btn-outline-warning text-black" asp-action="CreateInvoiceDetailForDataFetching" asp-route-id="@item.Id">
+                                Upload Data
+                            </a>
+                            <a class="btn btn-outline-warning text-black" asp-action="LoadFromNotepad" asp-route-id="@item.Id">
+                                From Notepad
+                            </a>*@
+                    </td>
+
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Invoice exists.....</p>
+    }
+</div>
+

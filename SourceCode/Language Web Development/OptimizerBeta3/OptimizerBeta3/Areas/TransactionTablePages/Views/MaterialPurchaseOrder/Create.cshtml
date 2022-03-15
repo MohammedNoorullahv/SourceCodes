@@ -1,0 +1,291 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.MaterialPurchaseOrderViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+
+@{
+    var purchaseOrder = (OptimizerBeta3.Models.TransactionTables.MaterialPurchaseOrder)TempData["LastPO"];
+}
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Materials Purchase Order - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+<input id="lpodt" value="@purchaseOrder.PurchaseOrderDt"/>
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="MaterialPurchaseOrder.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.MaterialPurchaseOrder.FKCategory)" class="form-control"></select>
+                </div>
+                <div class="col-2">
+                    <label asp-for="MaterialPurchaseOrder.FKTypeOfOrder" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKTypeOfOrder" asp-items="Model.FKTypeOfOrder.ToSelectListItem(Model.MaterialPurchaseOrder.FKTypeOfOrder)" class="form-control"></select>
+                </div>
+                <div class="col-2">
+                    <label asp-for="MaterialPurchaseOrder.FKPOType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKPOType" asp-items="Model.FKPOType.ToSelectListItem(Model.MaterialPurchaseOrder.FKPOType)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKSeason" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKSeason" asp-items="Model.FKSeason.ToSelectListItem(Model.MaterialPurchaseOrder.FKSeason)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKSource" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKSource" asp-items="Model.FKSource.ToSelectListItem(Model.MaterialPurchaseOrder.FKSource)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKUnit" asp-items="Model.FKUnit.ToSelectListCompanyName(Model.MaterialPurchaseOrder.FKUnit)" class="form-control"></select>
+                </div>
+                @*<div class="col-3">
+                        <label asp-for="MaterialPurchaseOrder.FKDepartment" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-3">
+                        <select asp-for="@Model.MaterialPurchaseOrder.FKDepartment"  asp-items="Model.FKDepartment.ToSelectListItem(Model.MaterialPurchaseOrder.FKDepartment)" class="form-control"></select>
+                    </div>*@
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKParty" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKParty" asp-items="Model.FKParty.ToSelectListCompanyName(Model.MaterialPurchaseOrder.FKParty)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKDepartment" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKDepartment" asp-items="Model.FKDepartment.ToSelectListItem(Model.MaterialPurchaseOrder.FKDepartment)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKCurrency" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKCurrency" asp-items="Model.FKCurrency.ToSelectListItem(Model.MaterialPurchaseOrder.FKCurrency)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.PurchaseOrderNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="MaterialPurchaseOrder.PurchaseOrderNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.PurchaseOrderDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="date" asp-for="MaterialPurchaseOrder.PurchaseOrderDt" id="PurchaseOrderDt" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKPaymentTerms" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKPaymentTerms" asp-items="Model.FKPaymentTerms.ToSelectListItem(Model.MaterialPurchaseOrder.FKPaymentTerms)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKModeofTransport" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKModeofTransport" asp-items="Model.FKModeofTransport.ToSelectListItem(Model.MaterialPurchaseOrder.FKModeofTransport)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-9">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKDeliveryTo" asp-items="Model.FKDeliveryTo.ToSelectListCompanyName(Model.MaterialPurchaseOrder.FKDeliveryTo)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="MaterialPurchaseOrder.POValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="MaterialPurchaseOrder.POValue" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="MaterialPurchaseOrder.ExchangeRate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="MaterialPurchaseOrder.ExchangeRate" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="MaterialPurchaseOrder.POValueinINR" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="MaterialPurchaseOrder.POValueinINR" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.Remarks" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="MaterialPurchaseOrder.Remarks" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="MaterialPurchaseOrder.FKOrderStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.MaterialPurchaseOrder.FKOrderStatus" asp-items="Model.FKOrderStatus.ToSelectListItem(Model.MaterialPurchaseOrder.FKOrderStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+
+            <input asp-for="MaterialPurchaseOrder.TotalOrderQty" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.RecievedQty" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.CancelledQty" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.BalanceQty" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.IsPOManualClosed" readonly class="form-control" value="@false" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.Currency" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.DeliveryTo" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.Department" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.ModeofTransport" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.OrderStatus" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.POType" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.PaymentTerms" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.Season" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.Source" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.SupplierName" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.TypeofOrder" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.UnitName" readonly class="form-control" value="" type="hidden" />
+
+            <input asp-for=" MaterialPurchaseOrder.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="MaterialPurchaseOrder.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    @*<partial name="_CreateandBacktoListButton" />*@
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="submit" class="btn btn-info form-control" value="Save & New Po" name="Save" />
+                        </div>
+                        <div class="col-4">
+                            <input type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" formmethod="post" formaction="Create" name="Save" />
+                        </div>
+
+                        @*<div class="col-4">
+                                <input type="submit" class="btn btn-info form-control" value="Save & New Po" name="Save" />
+                            </div>
+                            <div class="col-4">
+                                <input type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" formmethod="post" formaction="Create" name="Save" />
+                            </div>*@
+
+                        <div class="col-4">
+                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var day1 = '@purchaseOrder.PurchaseOrderDt.Day'
+        var month1 = '@purchaseOrder.PurchaseOrderDt.Month'
+        var year1 = '@purchaseOrder.PurchaseOrderDt.Year'
+
+        var month = dtToday.getMonth() + 1;
+        var year = dtToday.getFullYear();
+        var day = dtToday.getDate();
+        
+        if (month1 < month) {
+            day1 = (day - (day - 1)).toString();
+        } 
+        //alert('Day =' + day1);
+        //alert('Month =' + month);
+        //alert('Year =' + year);
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var nextday = dtToday.getDate() + 1;
+        //if (day >= 28)
+        //    month = dtToday.getMonth() + 2;
+        
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        if (day1 < 10)
+            day1 = '0' + day1.toString();
+
+        var minDate = year + '-' + month + '-' + day1;
+        var maxDate = year + '-' + month + '-' + nextday;
+        $('#PurchaseOrderDt').attr('min', minDate);
+        $('#PurchaseOrderDt').attr('max', maxDate);
+        //$('#PurchaseOrderDt').val(dtToday);
+    });
+</script>
+

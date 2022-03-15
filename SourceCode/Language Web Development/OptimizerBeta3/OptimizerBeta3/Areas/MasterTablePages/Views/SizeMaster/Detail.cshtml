@@ -1,0 +1,264 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.SizeMasterViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Size Master - Detail</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Detail">
+            <input type="hidden" asp-for="SizeMaster.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.FKSizeCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.SizeMaster.FKSizeCategory" id="FKCity" asp-items="Model.FKSizeCategory.ToSelectListItem(Model.SizeMaster.FKSizeCategory)" class="form-control"></select>
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.FKSizeFor" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.SizeMaster.FKSizeFor" id="FKCity" asp-items="Model.FKSizeFor.ToSelectListItem(Model.SizeMaster.FKSizeFor)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Code" class="form-control" />
+                </div>
+                <span asp-validation-for="SizeMaster.Size01" class="text-danger"></span>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.IsHalfSize" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.IsHalfSize" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Description" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="SizeMaster.Description" class="form-control" />
+                </div>
+                <span asp-validation-for="SizeMaster.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size01" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size01" class="form-control" />
+                </div>
+                <span asp-validation-for="SizeMaster.Size01" class="text-danger"></span>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size02" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size02" class="form-control" />
+                </div>
+                <span asp-validation-for="SizeMaster.Size02" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size03" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size03" class="form-control" />
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size04" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size04" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size05" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size05" class="form-control" />
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size06" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size06" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size07" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size07" class="form-control" />
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size08" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size08" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size09" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size09" class="form-control" />
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size10" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size10" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size11" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size11" class="form-control" />
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size12" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size12" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size13" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size13" class="form-control" />
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size14" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size14" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size15" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size15" class="form-control" />
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size16" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size16" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size17" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size17" class="form-control" />
+                </div>
+
+                <div class="col-3">
+                    <label asp-for="SizeMaster.Size18" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMaster.Size18" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="SizeMaster.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="SizeMaster.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_DetailandBacktoListButtonPartialView" model="Model.SizeMaster.Id" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            getLookUpMst();
+        })
+
+          function getLookUpMst() {
+            var url = '@Url.Content("~/")' + "Admin/CompanyInfo/GetLookUpMst";
+            var ddlSource = '#LkUpHdrId';
+            $.getJSON(url, { id: $(ddlsoruce).val() }, function (data) {
+                var items = '';
+                $('#FKArea').empty();
+                $.each(data, function (i, Area) {
+                    items += "<option value='" + Area.value + "'>" + Area.text + "</option>";
+                });
+
+                $('#FKArea').html(items);
+            })
+        }
+
+
+
+    </script>
+
+
+}
+
+

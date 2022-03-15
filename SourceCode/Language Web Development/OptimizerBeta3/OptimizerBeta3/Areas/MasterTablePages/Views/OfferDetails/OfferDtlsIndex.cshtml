@@ -1,0 +1,114 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.OfferDetails>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Offer for Creating Range Offers</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label class="col-form-label text-danger">Offer Name</label>
+            </div>
+            <div class="col-2">
+                @TempData["OfferName"]
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">From Date</label>
+            </div>
+            <div class="col-2">
+                @TempData["FromDate"]
+            </div>
+            <div class="col-2">
+                <label class="col-form-label text-danger">To Date</label>
+            </div>
+            <div class="col-2">
+                @TempData["ToDate"]
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-4">
+            <h2 class="text-info">Range Offer's - Index</h2>
+        </div>
+        <div class="col-4 text-center">
+            <a class="btn btn-info text-white" asp-action="Create" asp-route-id=@TempData["OfferId"]>
+                <i class="fas fa-plus"></i>
+                Create
+            </a>
+        </div>
+        <div class="col-4 text-center">
+            <a class="btn btn-success text-white  form-control" asp-action="Index">
+                Back to Party Master
+            </a>
+        </div>
+    </div>
+    <div></div>
+    <br />
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.FKAnniverseryInfo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.RangeSubSlNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.DiscountPercentage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ValueFrom)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ValueTo)
+                    </th>
+                    <th><label>Actions</label></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.FKAnniverseryInfo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.RangeSubSlNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.DiscountPercentage)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.ValueFrom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.ValueTo)
+                        </td>
+                        <td style="width:150px">
+                            @if (item.IsLastRange == true)
+                            {
+                                <partial name="_TableButtonPartial" model="item.Id" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p> No Range Offer's exists.....</p>
+        }
+    </div>
+</div>
+
+

@@ -1,0 +1,142 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.StockTransferDetail>
+@{
+    ViewData["Title"] = "STDetailsCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var stocktransfer = (OptimizerBeta3.Models.TransactionTables.StockTransfer)TempData["StockTransfer"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Stock Transfer Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Stock Transfer No</label>
+            </div>
+            <div class="col-3">
+                @stocktransfer.STNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Stock Transfer Date</label>
+            </div>
+            <div class="col-3">
+                @stocktransfer.STDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    @using (Html.BeginForm("STDetailsCreateSingle", "StockTransferOut", FormMethod.Post))
+    {
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Stock No / EAN Code</label>
+            </div>
+            <div class="col-2">
+                <input id="EANCode" name="EANCode" type="text" autofocus="autofocus" />
+            </div>
+            <div class="col-1">
+                <input id="submit1" type="submit" value="Insert" />
+            </div>
+        </div>
+    }
+</div>
+
+<h3>Stock Transfer Details</h3>
+@if (Model.Count() > 0)
+{
+    <table class="table table-striped border">
+        <tr class="table-secondary">
+            <th>
+                @Html.DisplayNameFor(m => m.EANCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.StockNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DispatchedQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Value)
+            </th>
+            <th>
+                <label>Actions</label>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.EANCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.StockNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.DispatchedQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Value)
+                </td>
+                
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger text-white" asp-action="Cancel" asp-route-Id="@item.Id">
+                            <i class="far fa-times-circle"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p> No Stock Transfer Details exists.....</p>
+}
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        @*<form method="post" asp-action="CreateInvoiceDetail">*@
+        <div class="form-group row">
+            <div class="col-3">
+                @*<input type="submit" value="Proceed With Correct Barcodes" class="btn btn-success" />*@
+                <a class="btn btn-success text-white  form-control" asp-action="InsertStockTransferDetail" asp-route-Id="@stocktransfer.Id">
+                    Save & Proceed
+                </a>
+                @*InsertInvoiceDetail*@
+            </div>
+            <div class="col-3">
+                <a class="btn btn-primary text-white  form-control" asp-action="CreateInvoiceDetailForReScanning" asp-route-Id="@stocktransfer.Id">
+                    Back to Index
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,82 @@
+﻿@model OptimizerBeta3.Models.MasterTables.PaymentOption
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Payment Option - Delete</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<form method="post" asp-action="Delete" class="border backgroudColor">
+    <div class="border backgroudWhite">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Code" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="Code" class="form-control" />
+            </div>
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Description" class="col-form-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="Description" class="form-control" />
+            </div>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="CardNoMinLength" class="col-form-label"></label>
+            </div>
+            <div class="col-2">
+                <input asp-for="CardNoMinLength" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="IsNameCompulsory" class="col-form-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="IsNameCompulsory" class="form-control" />
+            </div>
+            <div class="col-3">
+                <label asp-for="IsExpiryDateCompulsory" class="col-form-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="IsExpiryDateCompulsory" class="form-control" />
+            </div>
+        </div>
+
+        <input asp-for="ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+        <input asp-for="ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_DeleteandBacktoListButtonPartialView" model="Model.Id" />
+            </div>
+        </div>
+    </div>
+</form>

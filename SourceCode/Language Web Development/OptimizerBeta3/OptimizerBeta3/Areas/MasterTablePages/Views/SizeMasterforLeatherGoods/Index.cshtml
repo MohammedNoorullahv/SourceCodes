@@ -1,0 +1,65 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.SizeMasterforLeatherGoods>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Size Master for Leather Goods - Index</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+    <div></div>
+    <br />
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.ShortDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Measurement)
+                    </th>
+                    <th class="text-center"><label>Actions</label></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.ShortDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Measurement)
+                        </td>
+                        <td style="width:150px" class="text-center">
+                            <partial name="_TableButtonPartial" model="item.Id" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p> No Size Master for Leather Goods exists.....</p>
+        }
+    </div>
+</div>

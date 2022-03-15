@@ -1,0 +1,351 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.DeliveryChallanDetailViewModel
+@using OptimizerBeta3.Models.TransactionTables
+@using OptimizerBeta3.Extensions
+@{
+    ViewData["Title"] = "DCDetailsCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var deliverychallan = (DeliveryChallan)TempData["DeliveryChallan"];
+    var DCDetails = (List<DeliveryChallanDetail>)ViewBag.DCDtls;
+    TempData["DCId"] = @deliverychallan.Id;
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="text-success">Stock Transfer Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col-form-label text-danger">Stock Transfer No</label>
+            </div>
+            <div class="col-sm-3">
+                @deliverychallan.DCNo;
+            </div>
+            <div class="col-sm-3">
+                <label class="col-form-label text-danger">Stock Transfer Date</label>
+            </div>
+            <div class="col-sm-3">
+                @deliverychallan.DCDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Delivery Challan Details</h3>
+@if (DCDetails.Count() > 0)
+{
+    <table class="table table-striped border">
+        <tr class="table-secondary">
+            <th>
+                @Html.DisplayNameFor(m => m.DeliveryChallanDetail.DCNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DeliveryChallanDetail.DCDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DeliveryChallanDetail.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DeliveryChallanDetail.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DeliveryChallanDetail.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DeliveryChallanDetail.Value)
+            </th>
+            <th>
+                <label>Actions</label>
+            </th>
+        </tr>
+
+        @foreach (var item in DCDetails)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.DCNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.DCDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Value)
+                </td>
+
+                <td style="width:150px">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger text-white" asp-action="Cancel" asp-route-Id="@item.Id">
+                            <i class="far fa-times-circle"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p> No Delivey Challan Details exists.....</p>
+}
+
+<div>
+    @using (Html.BeginForm("DCDetailsCreate", "DeliveryChallan", FormMethod.Post))
+    {
+
+        <div class="border backgroudColor row">
+            <div class="col-12 backgroudWhite border-right">
+                @*<form method="post" asp-action="EditTempInwardDetail">*@
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="DeliveryChallanDetail.Description" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input asp-for="DeliveryChallanDetail.Description" class="form-control" autofocus="autofocus" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="DeliveryChallanDetail.Colour" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="DeliveryChallanDetail.Colour" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="DeliveryChallanDetail.Size" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="DeliveryChallanDetail.Size" class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="DeliveryChallanDetail.FKUOM" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select asp-for="@Model.DeliveryChallanDetail.FKUOM" id="FKArea" asp-items="@Model.FKUOM.ToSelectListItem(@Model.DeliveryChallanDetail.FKUOM)" class="form-control"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="DeliveryChallanDetail.FKHSNCode" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select asp-for="@Model.DeliveryChallanDetail.FKHSNCode" id="FKHSNCode" asp-items="@Model.FKHSNCode.ToSelectListHSNCode(@Model.DeliveryChallanDetail.FKHSNCode)" class="form-control" onchange="CalculateValue()"></select>
+                    </div>
+                </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.Quantity" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="Quantity" asp-for="DeliveryChallanDetail.Quantity" oninput="CalculateValue()" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.Rate" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="Rate" asp-for="DeliveryChallanDetail.Rate" oninput="CalculateValue()" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.Value" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="Value" asp-for="DeliveryChallanDetail.Value" readonly class="form-control text-danger" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.DiscountPercentage" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="DiscountPercentage" asp-for="DeliveryChallanDetail.DiscountPercentage" oninput="CalculateValue()" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.DiscountValue" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="DiscountValue" asp-for="DeliveryChallanDetail.DiscountValue" readonly class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.GrossValue" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="GrossValue" asp-for="DeliveryChallanDetail.GrossValue" readonly class="form-control text-danger" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.SGSTPercentage" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="SGSTPercentage" asp-for="DeliveryChallanDetail.SGSTPercentage" oninput="CalculateValue()" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.SGSTValue" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="SGSTValue" asp-for="DeliveryChallanDetail.SGSTValue" readonly class="form-control text-danger" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.CGSTPercentage" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="CGSTPercentage" asp-for="DeliveryChallanDetail.CGSTPercentage" oninput="CalculateValue()" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.CGSTValue" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="CGSTValue" asp-for="DeliveryChallanDetail.CGSTValue" readonly class="form-control text-danger" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.IGSTPercentage" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="IGSTPercentage" asp-for="DeliveryChallanDetail.IGSTPercentage" oninput="CalculateValue()" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.IGSTValue" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="IGSTValue" asp-for="DeliveryChallanDetail.IGSTValue" readonly class="form-control text-danger" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.GSTTotalValue" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="GSTTotalValue" asp-for="DeliveryChallanDetail.GSTTotalValue" readonly class="form-control text-danger" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.OthersValuePlus" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="OthersValuePlus" asp-for="DeliveryChallanDetail.OthersValuePlus" oninput="CalculateValue()" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <label asp-for="DeliveryChallanDetail.ItemNettValue" class="col-form-label text-info"></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="ItemNettValue" asp-for="DeliveryChallanDetail.ItemNettValue" class="form-control text-danger" />
+                        </div>
+                    </div>
+
+                    <input asp-for="DeliveryChallanDetail.FKDcNo" readonly class="form-control" value="@deliverychallan.Id" type="hidden" />
+                    <input asp-for="DeliveryChallanDetail.DCNo" readonly class="form-control" value="@deliverychallan.DCNo" type="hidden" />
+                    <input asp-for="DeliveryChallanDetail.DCDate" readonly class="form-control" value="@deliverychallan.DCDt" type="hidden" />
+
+                    <input asp-for="DeliveryChallanDetail.IsActive" readonly class="form-control" value="@true" type="hidden" />
+                    <input asp-for="DeliveryChallanDetail.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+                    <input asp-for="DeliveryChallanDetail.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+                    <input asp-for="DeliveryChallanDetail.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-6 offset-3">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <input type="submit" class="btn btn-info form-control" id="save" value="Save & Continue" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <a class="btn btn-dark text-white  form-control" asp-action="DCDetailsIndex" as >
+                                        Back to List
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*</form>*@
+                </div>
+            </div>
+    }
+</div>
+
+
+<script type="text/javascript">
+
+    function CalculateValue() {
+        
+        var sGSTPercentage = $("#FKHSNCode option:selected").text();
+        var nstringLength =  parseInt(sGSTPercentage.length);
+        var nGSTPercentage = parseFloat(sGSTPercentage.substring((parseInt(nstringLength) - 5),nstringLength));
+        
+        var nValueinINR = parseFloat($("#Quantity").val()) * parseFloat($("#Rate").val());
+        document.getElementById("Value").value = parseFloat(nValueinINR);
+        if ($('#DiscountPercentage').val() > 0) {
+            var nDiscountValue = parseFloat(nValueinINR) * parseFloat($("#DiscountPercentage").val()) / 100;
+            document.getElementById("DiscountValue").value = nDiscountValue;
+        } else {
+            nDiscountValue = $('#DiscountValue').val()
+        }
+        var nGrossValue = parseFloat(nValueinINR) - parseFloat(nDiscountValue);
+        document.getElementById("GrossValue").value = parseFloat(nGrossValue);
+        var nSGSTValue = parseFloat(nGrossValue) * parseFloat($("#SGSTPercentage").val()) / 100;
+        var nCGSTValue = parseFloat(nGrossValue) * parseFloat($("#CGSTPercentage").val()) / 100;
+        var nIGSTValue = parseFloat(nGrossValue) * parseFloat($("#IGSTPercentage").val()) / 100;
+        var nGSTTotalValue = parseFloat(nSGSTValue) + parseFloat(nCGSTValue) + parseFloat(nIGSTValue);
+
+        document.getElementById("SGSTValue").value = parseFloat(nSGSTValue);
+        document.getElementById("CGSTValue").value = parseFloat(nCGSTValue);
+        document.getElementById("IGSTValue").value = parseFloat(nIGSTValue);
+        document.getElementById("GSTTotalValue").value = parseFloat(nGSTTotalValue);
+
+        var nItemNettValue = parseFloat(nGrossValue) + parseFloat(nGSTTotalValue) + parseFloat($("#OthersValuePlus").val())
+        document.getElementById("ItemNettValue").value = parseFloat(nItemNettValue);
+
+        if ($('#IGSTPercentage').val() > 0) {
+            if (parseFloat($("#SGSTPercentage").val()) + parseFloat($("#CGSTPercentage").val()) > 0) {
+                alert("When IGST Percentage Exist, SGST & CGST Percentage Should not exist")
+                document.getElementById("save").hidden = true;
+            } else {
+                document.getElementById("save").hidden = false;
+            }
+        } else {
+            if (parseFloat($("#SGSTPercentage").val()) > 0 && parseFloat($("#CGSTPercentage").val()) > 0) {
+                if (parseFloat($("#SGSTPercentage").val()) != parseFloat($("#CGSTPercentage").val())) {
+                    alert("SGST & CGST Percentage Should be Same")
+                    document.getElementById("save").hidden = true;
+                } else {
+                    document.getElementById("save").hidden = false;
+                }
+            }
+        }
+
+        if (parseFloat(nGSTPercentage) != (parseFloat($("#SGSTPercentage").val()) + parseFloat($("#CGSTPercentage").val()) + parseFloat($("#IGSTPercentage").val()))) {
+            document.getElementById("save").hidden = true;
+        } else {
+            document.getElementById("save").hidden = false;
+        }
+    }
+
+</script>
+
+

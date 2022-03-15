@@ -1,0 +1,300 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.SizeAssortmentViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var sizeMaster = (OptimizerBeta3.Models.MasterTables.SizeMaster)TempData["SizeMaster"];
+}
+
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Size Master for Creating Assortment's</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Size Category</label>
+            </div>
+            <div class="col-3">
+                @sizeMaster.FKSizeCategory;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Size For</label>
+            </div>
+            <div class="col-3">
+                @sizeMaster.FKSizeFor;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Code</label>
+            </div>
+            <div class="col-3">
+                @sizeMaster.Code;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Description</label>
+            </div>
+            <div class="col-3">
+                @sizeMaster.Description;
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Size Assortment - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="SizeAssortmentCreate">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="form-group row">
+                <div class="col-1">
+                    <label asp-for="SizeAssortment.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="SizeAssortment.Code" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="SizeAssortment.Code" class="text-danger"></span>
+                <div class="col-2">
+                    <label asp-for="SizeAssortment.Description" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="SizeAssortment.Description" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="SizeAssortment.Description" class="text-danger"></span>
+                <div class="col-2">
+                    <label asp-for="SizeAssortment.TotalQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1" style="background-color:  lightpink">
+                    <input asp-for="SizeAssortment.TotalQuantity" class="form-control" id="TotalQuantity" style="background-color:  lightpink" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <span asp-validation-for="SizeAssortment.TotalQuantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size01" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity01" class="form-control" id="Quantity01" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size02" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity02" class="form-control" id="Quantity02" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size03" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity03" class="form-control" id="Quantity03" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size04" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity04" class="form-control" id="Quantity04" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size05" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity05" class="form-control" id="Quantity05" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size06" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity06" class="form-control" id="Quantity06" oninput="CompareAssortmentQuantity()" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size07" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity07" class="form-control" id="Quantity07" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size08" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity08" class="form-control" id="Quantity08" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size09" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity09" class="form-control" id="Quantity09" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size10" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity10" class="form-control" id="Quantity10" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size11" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity11" class="form-control" id="Quantity11" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size12" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity12" class="form-control" id="Quantity12" oninput="CompareAssortmentQuantity()" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size13" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity13" class="form-control" id="Quantity13" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size14" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity14" class="form-control" id="Quantity14" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size15" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity15" class="form-control" id="Quantity15" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size16" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity16" class="form-control" id="Quantity16" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size17" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity17" class="form-control" id="Quantity17" oninput="CompareAssortmentQuantity()" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="@sizeMaster.Size18" readonly disabled="disabled" class="form-control text-center text-info" style="background-color:  lightgray" />
+                </div>
+                <div class="col-1">
+                    <input asp-for="SizeAssortment.Quantity18" class="form-control" id="Quantity18" oninput="CompareAssortmentQuantity()" />
+                </div>
+            </div>
+
+
+            <input asp-for="SizeAssortment.FKSizeMaster" readonly class="form-control" value="@sizeMaster.Id" type="hidden" />
+            <input asp-for="SizeAssortment.Size01" readonly class="form-control" value="@sizeMaster.Size01" type="hidden" />
+            <input asp-for="SizeAssortment.Size02" readonly class="form-control" value="@sizeMaster.Size02" type="hidden" />
+            <input asp-for="SizeAssortment.Size03" readonly class="form-control" value="@sizeMaster.Size03" type="hidden" />
+            <input asp-for="SizeAssortment.Size04" readonly class="form-control" value="@sizeMaster.Size04" type="hidden" />
+            <input asp-for="SizeAssortment.Size05" readonly class="form-control" value="@sizeMaster.Size05" type="hidden" />
+            <input asp-for="SizeAssortment.Size06" readonly class="form-control" value="@sizeMaster.Size06" type="hidden" />
+            <input asp-for="SizeAssortment.Size07" readonly class="form-control" value="@sizeMaster.Size07" type="hidden" />
+            <input asp-for="SizeAssortment.Size08" readonly class="form-control" value="@sizeMaster.Size08" type="hidden" />
+            <input asp-for="SizeAssortment.Size09" readonly class="form-control" value="@sizeMaster.Size09" type="hidden" />
+            <input asp-for="SizeAssortment.Size10" readonly class="form-control" value="@sizeMaster.Size10" type="hidden" />
+            <input asp-for="SizeAssortment.Size11" readonly class="form-control" value="@sizeMaster.Size11" type="hidden" />
+            <input asp-for="SizeAssortment.Size12" readonly class="form-control" value="@sizeMaster.Size12" type="hidden" />
+            <input asp-for="SizeAssortment.Size13" readonly class="form-control" value="@sizeMaster.Size13" type="hidden" />
+            <input asp-for="SizeAssortment.Size14" readonly class="form-control" value="@sizeMaster.Size14" type="hidden" />
+            <input asp-for="SizeAssortment.Size15" readonly class="form-control" value="@sizeMaster.Size15" type="hidden" />
+            <input asp-for="SizeAssortment.Size16" readonly class="form-control" value="@sizeMaster.Size16" type="hidden" />
+            <input asp-for="SizeAssortment.Size17" readonly class="form-control" value="@sizeMaster.Size17" type="hidden" />
+            <input asp-for="SizeAssortment.Size18" readonly class="form-control" value="@sizeMaster.Size18" type="hidden" />
+
+            <input asp-for="SizeAssortment.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="SizeAssortment.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="SizeAssortment.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="SizeAssortment.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="SizeAssortment.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="SizeAssortment.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="SizeAssortment.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="SizeAssortment.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    @*<partial name="_CreateandBacktoListButton" />*@
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" id="save" hidden="hidden" class="btn btn-info form-control" value="Create" />
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="SizeAssortmentIndex" asp-route-id="@sizeMaster.Id">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+
+    function CompareAssortmentQuantity() {
+
+        var nSizeSumQty = (parseInt(document.getElementById("Quantity01").value) || 0) + (parseInt(document.getElementById("Quantity02").value) || 0)
+            + (parseInt(document.getElementById("Quantity03").value) || 0) + (parseInt(document.getElementById("Quantity04").value) || 0)
+            + (parseInt(document.getElementById("Quantity05").value) || 0) + (parseInt(document.getElementById("Quantity06").value) || 0)
+            + (parseInt(document.getElementById("Quantity07").value) || 0) + (parseInt(document.getElementById("Quantity08").value) || 0)
+            + (parseInt(document.getElementById("Quantity09").value) || 0) + (parseInt(document.getElementById("Quantity10").value) || 0)
+            + (parseInt(document.getElementById("Quantity11").value) || 0) + (parseInt(document.getElementById("Quantity12").value) || 0)
+            + (parseInt(document.getElementById("Quantity13").value) || 0) + (parseInt(document.getElementById("Quantity14").value) || 0)
+            + (parseInt(document.getElementById("Quantity15").value) || 0) + (parseInt(document.getElementById("Quantity16").value) || 0)
+            + (parseInt(document.getElementById("Quantity17").value) || 0) + (parseInt(document.getElementById("Quantity18").value) || 0);
+
+        var nTotalQty = parseInt($("#TotalQuantity").val());
+        
+        if (nTotalQty == 0 || $("#TotalQuantity").val() == "") {
+            $('#save').prop('hidden', true);
+        }
+        else {
+            $('#save').prop('hidden', false);
+        }
+
+        if (nTotalQty != nSizeSumQty) {
+            $('#save').prop('hidden', true);
+        }
+        else {
+            $('#save').prop('hidden', false);
+        }
+
+    }
+</script>
+
+
+

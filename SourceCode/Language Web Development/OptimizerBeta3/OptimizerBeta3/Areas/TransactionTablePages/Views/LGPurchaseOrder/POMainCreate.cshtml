@@ -1,0 +1,220 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.LGPurchaseOrderMainViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    var purchaseOrder = (OptimizerBeta3.Models.TransactionTables.LGPurchaseOrder)TempData["LGPurchaseOrder"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Purchase Order Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order No</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order Date</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderDt;
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Purchase Order Main - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="POMainCreate">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.PurchaseOrderMainNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="LGPurchaseOrderMain.PurchaseOrderMainNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.OrderReferenceNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="LGPurchaseOrderMain.OrderReferenceNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.LeatherGoodsGroup" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrderMain.FKLeatherGoodsGroup" asp-items="Model.GetLeatherGoodsGroup.ToSelectListArticleName(Model.LGPurchaseOrderMain.FKLeatherGoodsGroup)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.TotalOrderQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="LGPurchaseOrderMain.TotalOrderQuantity" id="TotalOrderQuantity" oninput="generateOrderValue()" class="form-control" />
+                    <input value="@purchaseOrder.TotalOrderQuantity" readonly id="POMainTotalOrderQuantity" type="hidden"/>
+                    <input value="@purchaseOrder.MainEnteredQuantity" readonly id="POMainEnteredQuantity" type="hidden"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.DeliveryDate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="date" asp-for="LGPurchaseOrderMain.DeliveryDate" id="DeliveryDate" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.IsPartDeliveryAllowed" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="checkbox" asp-for="LGPurchaseOrderMain.IsPartDeliveryAllowed" checked="checked" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.FKDestination" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrderMain.FKDestination" asp-items="Model.FKDestination.ToSelectListItem(Model.LGPurchaseOrderMain.FKDestination)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.FKDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrderMain.FKDeliveryTo" asp-items="Model.FKDeliveryTo.ToSelectListItem(Model.LGPurchaseOrderMain.FKDeliveryTo)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.FKModeofTransport" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrderMain.FKModeofTransport" asp-items="Model.FKModeofTransport.ToSelectListItem(Model.LGPurchaseOrderMain.FKModeofTransport)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LGPurchaseOrderMain.FKOrderStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LGPurchaseOrderMain.FKOrderStatus" asp-items="Model.FKOrderStatus.ToSelectListItem(Model.LGPurchaseOrderMain.FKOrderStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+
+            <input asp-for="LGPurchaseOrderMain.ReceivedQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.CancelledQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.BalanceQuantity" readonly class="form-control" value="0" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.DeliveryTo" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.ModeofTransport" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.OrderStatus" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.PurchaseOrderNo" readonly class="form-control" value="@purchaseOrder.PurchaseOrderNo" type="hidden"/>
+            <input asp-for="LGPurchaseOrderMain.FKPurchaseOrder" readonly class="form-control" value="@purchaseOrder.Id" type="hidden" />
+
+            <input asp-for=" LGPurchaseOrderMain.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="LGPurchaseOrderMain.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <input asp-for="Id" readonly class="form-control" value="@purchaseOrder.Id" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    @*<partial name="_CreateandBacktoListButton" />*@
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="submit" id="save" class="btn btn-info form-control" value="Save & Continue" name="Save" />
+                        </div>
+                        <div class="col-4">
+                            <input type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" formmethod="post" formaction="POMainCreate" name="Save" />
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-dark text-white  form-control" asp-action="POMainIndex" asp-route-id="@purchaseOrder.Id">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        $('#DeliveryDate').attr('min', minDate);
+        $('#DeliveryDate').attr('max', maxDate);
+    });
+
+    function generateOrderValue() {
+
+        var nTotalQty = $("#TotalOrderQuantity").val();
+        var nBalQty = (parseInt(document.getElementById("POMainTotalOrderQuantity").value) || 0) - (parseInt(document.getElementById("POMainEnteredQuantity").value) || 0);
+
+        if (nTotalQty > nBalQty) {
+            $('#save').prop('hidden', true);
+            alert("Entered Quantity exceeds Total Order Quantity")
+        }
+        else {
+            $('#save').prop('hidden', false);
+        }
+
+    }
+</script>
+

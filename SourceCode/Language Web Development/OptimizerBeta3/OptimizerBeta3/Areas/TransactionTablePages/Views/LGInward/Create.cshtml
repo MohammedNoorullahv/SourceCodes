@@ -1,0 +1,339 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.InwardViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Inward's - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Inward.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.Inward.FKCategory)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKSeason" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Inward.FKSeason" asp-items="Model.FKSeason.ToSelectListItem(Model.Inward.FKSeason)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKPOType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Inward.FKPOType" asp-items="Model.FKPOType.ToSelectListItem(Model.Inward.FKPOType)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKDepartment" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Inward.FKDepartment" asp-items="Model.FKDepartment.ToSelectListItem(Model.Inward.FKDepartment)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKSource" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Inward.FKSource" asp-items="Model.FKSource.ToSelectListItem(Model.Inward.FKSource)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKCurrency" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Inward.FKCurrency" asp-items="Model.FKCurrency.ToSelectListItem(Model.Inward.FKCurrency)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <select id="ddlUnitlist" asp-for="@Model.Inward.FKUnit" asp-items="Model.FKUnit.ToSelectListCompanyName(Model.Inward.FKUnit)" class="form-control"></select>
+                    @*<select asp-for="@Model.Filter.FKLookUpCategory" id="ddlCategorylist" asp-items="Model.FKLookUpCategoryId.ToSelectListItem(Model.Filter.FKLookUpCategory)" class="form-control"></select>*@
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKLocation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    @*<select asp-for="@Model.Inward.FKLocation" asp-items="Model.FKLocation.ToSelectListLocationName(Model.Inward.FKLocation)" class="form-control"></select>*@
+                    <select asp-for="Inward.FKLocation" id="updatelocationList" class="form-control"></select>
+                    @*<select asp-for="Filter.FKLookUpMaster" id="updatelookUpMasterList" class="form-control"></select>*@
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKParty" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    <select asp-for="@Model.Inward.FKParty" asp-items="Model.FKParty.ToSelectListCompanyName(Model.Inward.FKParty)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.InwardNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.InwardNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.InwardDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="Inward.InwardDt" id="InwardDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.FKDocumentType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Inward.FKDocumentType" asp-items="Model.FKDocumentType.ToSelectListItem(Model.Inward.FKDocumentType)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.SupplierDocumentNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.SupplierDocumentNo" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.SupplierDocumentDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="Inward.SupplierDocumentDt" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.DocumentQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.DocumentQuantity" class="form-control" />
+                </div>
+                <span asp-validation-for="Inward.DocumentQuantity" class="text-danger"></span>
+
+                <div class="col-sm-2">
+                    <label asp-for="Inward.ArrivedQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.ArrivedQuantity" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.ExchangeRate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.ExchangeRate" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.InvoiceGrossValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.InvoiceGrossValue" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.GSTValues" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.GSTValues" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.OtherExpensesPlus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.OtherExpensesPlus" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.OtherExpensesMinus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.OtherExpensesMinus" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.InvoiceNettValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.InvoiceNettValue" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.InvoiceDtlValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.InvoiceDtlValue" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Inward.DifferenceValue" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Inward.DifferenceValue" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.Remarks" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Inward.Remarks" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Inward.IsEntryCompleted" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="Inward.IsEntryCompleted" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label class="col-form-label text-info">Load File</label>
+                </div>
+                <div class="col-sm-4">
+                    <input id="LoadFile" type="file" name="formFile" oninput="ShowUploadOption()" />
+                </div>
+
+            </div>
+
+            <input asp-for="Inward.Season" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Inward.Source" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Inward.SupplierName" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Inward.UnitName" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Inward.Currency" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Inward.Department" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Inward.DocumentType" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Inward.POType" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Inward.FLAM" readonly class="form-control" value="F" type="hidden" />
+
+            <input asp-for=" Inward.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="Inward.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="Inward.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Inward.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="Inward.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Inward.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="Inward.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="Inward.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-8 offset-3">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input type="submit" class="btn btn-info form-control" value="Save & New Po" name="Save" />
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" formmethod="post" formaction="Create" name="Save" />
+                        </div>
+                        <div class="col-sm-3">
+                            <input id="ImpDtl" type="submit" class="btn btn-primary form-control" value="Save & Import Dtl" hidden="hidden" formmethod="post" formaction="Create" name="Save" />
+                        </div>
+                        <div class="col-sm-3">
+                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        $('#InwardDt').attr('min', minDate);
+        $('#InwardDt').attr('max', maxDate);
+    });
+
+    function ShowUploadOption() {
+        if ($('#LoadFile').val() != "") {
+            document.getElementById("ImpDtl").hidden = false;
+        } else {
+            document.getElementById("ImpDtl").hidden = true;
+        }
+    }
+
+    function updatelocationList() {
+        var lookUpMasterSelected = document.getElementById("ddlUnitlist").value;
+        $.getJSON("/MasterTablePages/UnitMaster/GetUnitsLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updatelocationList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    $(document).ready(function () {
+        updatelocationList();
+    });
+
+    $("#ddlUnitlist").on("change", function () {
+        updatelocationList();
+    });
+</script>
+
+
+
+
+

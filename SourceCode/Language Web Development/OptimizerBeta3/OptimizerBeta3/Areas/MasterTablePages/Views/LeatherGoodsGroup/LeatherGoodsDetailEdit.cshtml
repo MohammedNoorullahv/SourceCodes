@@ -1,0 +1,241 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.LeatherGoodsDetailViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var lgGroup = (OptimizerBeta3.Models.MasterTables.LeatherGoodsGroup)TempData["LeatherGoods"];
+}
+
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Leather Goods Group for Creating Leather Goods Details</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Article No</label>
+            </div>
+            <div class="col-3">
+                @lgGroup.ArticleNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Article Name</label>
+            </div>
+            <div class="col-3">
+                @lgGroup.ArticleName;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Description</label>
+            </div>
+            <div class="col-9">
+                @lgGroup.Description;
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Leather Goods Detail - Edit</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="LeatherGoodsDetailEdit" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.FKEntryType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LeatherGoodsDetail.FKEntryType" asp-items="Model.FKEntryType.ToSelectListItem(Model.LeatherGoodsDetail.FKEntryType)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LeatherGoodsDetail.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.LeatherGoodsDetail.FKCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.FKLeather" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LeatherGoodsDetail.FKLeather" asp-items="Model.FKLeather.ToSelectListItem(Model.LeatherGoodsDetail.FKLeather)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.FKColour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LeatherGoodsDetail.FKColour" asp-items="Model.FKColour.ToSelectListColourName(Model.LeatherGoodsDetail.FKColour)" class="form-control"></select>
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="LeatherGoodsDetail.Type" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="LeatherGoodsDetail.Type" class="form-control" />
+                </div>
+                <span asp-validation-for="LeatherGoodsDetail.Type" class="text-danger"></span>
+                <div class="col-2">
+                    <label asp-for="LeatherGoodsDetail.Variant" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="LeatherGoodsDetail.Variant" class="form-control" />
+                </div>
+                <span asp-validation-for="LeatherGoodsDetail.Variant" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.StockNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="LeatherGoodsDetail.StockNo" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="LeatherGoodsDetail.StockNo" class="text-danger"></span>
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.FKHSNCode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LeatherGoodsDetail.FKHSNCode" asp-items="Model.FKHSNCode.ToSelectListHSNCode(Model.LeatherGoodsDetail.FKHSNCode)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.Description" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6" style="background-color:  lightpink">
+                    <input asp-for="LeatherGoodsDetail.Description" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="LeatherGoodsDetail.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.Picture" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input type="file" name="files" multiple class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.FKFeatures" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.LeatherGoodsDetail.FKFeatures" asp-items="Model.FKFeatures.ToSelectListItem(Model.LeatherGoodsDetail.FKFeatures)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.VersionNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="LeatherGoodsDetail.VersionNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="LeatherGoodsDetail.CostPrice" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="LeatherGoodsDetail.CostPrice" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="LeatherGoodsDetail.MRP" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="LeatherGoodsDetail.MRP" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="LeatherGoodsDetail.DealerPrice" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="LeatherGoodsDetail.DealerPrice" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="LeatherGoodsDetail.ProductTax" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="LeatherGoodsDetail.ProductTax" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LeatherGoodsDetail.AdditionalInfo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="LeatherGoodsDetail.AdditionalInfo" class="form-control" />
+                </div>
+            </div>
+            <div class="col-3 offset-1">
+
+
+                @if (Model.LeatherGoodsDetail.Picture != null)
+                {
+                    {
+                        var base64 = Convert.ToBase64String(Model.LeatherGoodsDetail.Picture);
+                        var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                        <img src="@imgsrc" height="100%" width="100%" />
+                    }
+
+                }
+
+
+            </div>
+            <input asp-for="LeatherGoodsDetail.FKArticleGroup" readonly class="form-control" value="@lgGroup.Id" type="hidden" />
+            <input asp-for="LeatherGoodsDetail.ArticleNo" readonly class="form-control" value="@lgGroup.ArticleNo" type="hidden" />
+            <input asp-for="LeatherGoodsDetail.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="LeatherGoodsDetail.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-info form-control" asp-route-id="@Model.LeatherGoodsDetail.Id" value="Update" />
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="LeatherGoodsDetailIndex" asp-route-id="@lgGroup.Id">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

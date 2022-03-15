@@ -1,0 +1,130 @@
+﻿@model OptimizerBeta3.Models.TransactionTables.StockTransferDetail
+
+@{
+    ViewData["Title"] = "STDAcknowledge";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    var stocktransfer = (OptimizerBeta3.Models.TransactionTables.StockTransfer)TempData["StockTransfer"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Stock Transfer Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Stock Transfer No</label>
+            </div>
+            <div class="col-3">
+                @stocktransfer.STNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Stock Transfer Date</label>
+            </div>
+            <div class="col-3">
+                @stocktransfer.STDt;
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Invoice's - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="STDAcknowledge">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="EANCode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="EANCode" readonly class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="StockNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="StockNo"  readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Description" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="Description" readonly class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="Colour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="Colour" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Size" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="Size"  readonly class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="DispatchedQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="DispatchedQuantity" readonly class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="ReceivedQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-2">
+                    <input asp-for="ReceivedQuantity" class="form-control" />
+                </div>
+            </div>
+
+
+            <input asp-for="ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="submit" class="btn btn-info form-control" value="Save" />
+                        </div>
+                        <div class="col-4">
+                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptimizerAddOn", "OptimizerAddOn\OptimizerAddOn.csproj", "{BDFC2F43-EDB1-45E9-ABA2-901C7D68EFA4}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OptimizerAddonTrialv1", "OptimizerAddonTrialv1\OptimizerAddonTrialv1.vdproj", "{CB7ACDB8-6117-4092-90CD-F037AC8CB3A9}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OptimizerAddOnv2-03-Sep-21", "OptimizerAddOnv2-03-Sep-21\OptimizerAddOnv2-03-Sep-21.vdproj", "{74A95A35-BF1A-41EC-A2AC-2A977305A021}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "v1.0 Packing 26-10-2021", "v1.0 Packing 26-10-2021\v1.0 Packing 26-10-2021.vdproj", "{4D923FD2-F41A-4820-AADB-2CF83B597FCA}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OptimizerAddOn v3-29-Oct-21", "OptimizerAddOn v3-29-Oct-21\OptimizerAddOn v3-29-Oct-21.vdproj", "{FFC27A21-B9F5-4502-B02B-A9AF6472CAC4}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HR Upload V1.0 - 27-Dec-2021", "HR Upload V1.0 - 27-Dec-2021\HR Upload V1.0 - 27-Dec-2021.vdproj", "{4A6A1B71-7245-43F0-A70B-184CC8BC25FF}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HR Upload V2-05-Jan-2022", "HR Upload V2-05-Jan-2022\HR Upload V2-05-Jan-2022.vdproj", "{60EB1F2A-C97D-4F08-B3FA-ACAC72E8ED66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDFC2F43-EDB1-45E9-ABA2-901C7D68EFA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDFC2F43-EDB1-45E9-ABA2-901C7D68EFA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDFC2F43-EDB1-45E9-ABA2-901C7D68EFA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDFC2F43-EDB1-45E9-ABA2-901C7D68EFA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB7ACDB8-6117-4092-90CD-F037AC8CB3A9}.Debug|Any CPU.ActiveCfg = Debug
+		{CB7ACDB8-6117-4092-90CD-F037AC8CB3A9}.Release|Any CPU.ActiveCfg = Release
+		{74A95A35-BF1A-41EC-A2AC-2A977305A021}.Debug|Any CPU.ActiveCfg = Debug
+		{74A95A35-BF1A-41EC-A2AC-2A977305A021}.Release|Any CPU.ActiveCfg = Release
+		{4D923FD2-F41A-4820-AADB-2CF83B597FCA}.Debug|Any CPU.ActiveCfg = Debug
+		{4D923FD2-F41A-4820-AADB-2CF83B597FCA}.Release|Any CPU.ActiveCfg = Release
+		{FFC27A21-B9F5-4502-B02B-A9AF6472CAC4}.Debug|Any CPU.ActiveCfg = Debug
+		{FFC27A21-B9F5-4502-B02B-A9AF6472CAC4}.Release|Any CPU.ActiveCfg = Release
+		{4A6A1B71-7245-43F0-A70B-184CC8BC25FF}.Debug|Any CPU.ActiveCfg = Debug
+		{4A6A1B71-7245-43F0-A70B-184CC8BC25FF}.Release|Any CPU.ActiveCfg = Release
+		{60EB1F2A-C97D-4F08-B3FA-ACAC72E8ED66}.Debug|Any CPU.ActiveCfg = Debug
+		{60EB1F2A-C97D-4F08-B3FA-ACAC72E8ED66}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7818774A-34AB-419A-A615-51D7EE70A947}
+	EndGlobalSection
+EndGlobal

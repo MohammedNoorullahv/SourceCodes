@@ -1,0 +1,108 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.LookUpCategoryAndLookUpMstViewModel
+@using OptimizerBeta3.Extensions
+
+@{ ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Look Up Master - Detail</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<div class="border backgroundWhite row">
+    <div class="col-8 border-right">
+        <form asp-action="Detail" class="border backgroudColor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LookUpMasters.FKLookUpCategory" class="col-form-label"></label>
+                </div>
+                <div class="col-5">
+                    <select id="ddlCategorylist" asp-for="LookUpMasters.FKLookUpCategory" asp-items="Model.lookUpCategorieslist.ToSelectListItem(Model.LookUpMasters.FKLookUpCategory)" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LookUpMasters.Description" class="col-form-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="LookUpMasters.Description" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="LookUpMasters.ShortCode" class="col-form-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="LookUpMasters.ShortCode" class="form-control" />
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                <div class="col-5 offset-3">
+                    <partial name="_DetailandBacktoListButtonPartialView" model="Model.LookUpMasters.Id" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-3 offset-1">
+        @*@if (Model.LookUpMstList.Count() > 0)
+                    {
+            <p> Existing Subcategories: </p>
+
+                            <div id="SubCategoryList">
+                                <ul class="list-group"></ul>
+                            </div>}*@
+    </div>
+
+
+
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>function updateSubCategoryList() {
+            var categorySelected = document.getElementById("ddlCategorylist").value;
+
+            $list = $('#SubCategoryList');
+
+            $.ajax({
+                url: '/Admin/SubCategory/GetSubCategory/' + categorySelected,
+                type: 'GET',
+                dataType: 'text',
+                success: function (data) {
+                    results = JSON.parse(data);
+                    $list.html('');
+                    $list.append(' <ul class="list-group"> ');
+                    for (i in results) {
+                        $list.append('<li class="list-group-item">' + results[i].text + '</li>');
+                    }
+                    $list.append('</ul>');
+                }
+
+            });
+
+        }
+
+        $(document).ready(function () {
+            updateSubCategoryList();
+        });
+
+        $("#ddlCategorylist").on("change", function () {
+            updateSubCategoryList();
+        });</script>
+
+
+}

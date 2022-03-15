@@ -1,0 +1,264 @@
+﻿@model OptimizerBeta3.Models.MasterTables.AreaLookUpMaster
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    var LookUpMstList = (List<OptimizerBeta3.Models.MasterTables.AreaLookUpMaster>)ViewBag.LookUpMstList;
+    var LookUpMstList1 = (List<OptimizerBeta3.Models.MasterTables.AreaLookUpMaster>)ViewBag.LookUpMstList1;
+}
+
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Area Look Up Master - Create</h2>
+        </div>
+    </div>
+</div>
+
+@if (@TempData["ErrorMessage"] != null)
+{
+    <div class="border-danger" style="background-color:lightsalmon">
+        <h1 class="text-center">
+            <span style="color: red;">
+                @Html.Raw("<pre>" + Html.Encode(@TempData["ErrorMessage"].ToString()) + "</pre>")
+            </span>
+        </h1>
+    </div>
+}
+
+<form method="post" asp-action="Create">
+    <div class="row">
+        <div class="col-8">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Category" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="Category" asp-for="Category" class="form-control" oninput="showCommandButtons()" />
+                </div>
+                <span asp-validation-for="Category" class="text-danger"></span>
+                <div class="col-sm-3">
+                    <label asp-for="FKAreaLookUpMaster" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input id="LookUpMaster" asp-for="FKAreaLookUpMaster" class="form-control" oninput="showCommandButtons()" />
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-1">
+                    <input id="Code" asp-for="Code" class="form-control" />
+                </div>
+                <span asp-validation-for="Code" class="text-danger"></span>
+                <div class="col-3">
+                    <label asp-for="Description" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-4">
+                    <input id="Description" asp-for="Description" class="form-control" />
+                </div>
+                <span asp-validation-for="Description" class="text-danger"></span>
+
+            </div>
+
+            <input asp-for="IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="CreatedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+            <input asp-for="ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+            <input asp-for="DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="DeletedDate" readonly class="form-control" value="@DateTime.Now" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-5 offset-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <input id="Save" type="submit" class="btn btn-info form-control" value="Save & New Trn" hidden="hidden" name="Save" />
+                        </div>
+                        <div class="col-6">
+                            <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-form-label text-info">Code for Categories:-</label>
+            </div>
+
+
+            <label class="text-dark">[ CO ] - Country</label> <br />
+            <label class="text-dark">[ ST ] - State</label> <br />
+            <label class="text-dark">[ CI ] - City</label> <br />
+            <label class="text-dark">[ AR ] - Area</label> <br />
+            <label class="text-dark">[ PI ] - Pincode</label> <br />
+
+        </div>
+        <div class="col-2">
+            <br />
+            @if (LookUpMstList.Count() > 0)
+            {
+                <input id="ListInfo" name="ListInfo" class="text-center text-info" value="0" readonly="readonly" style="background-color: lightcyan; font-weight: bolder " />
+
+                <div id="updatelookUpMasterList">
+                    <ul class="list-group"></ul>
+
+                </div>}
+        </div>
+        <div class="col-2">
+            <br />
+            @if (LookUpMstList1.Count() > 0)
+            {
+                <input id="ListInfo1" name="ListInfo1" class="text-center text-danger" value="0" readonly="readonly" style="background-color: lightcyan; font-weight: bolder " />
+
+                <div id="updatelookUpMasterList1">
+                    <ul class="list-group"></ul>
+
+                </div>}
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+
+        function showCommandButtons() {
+            if ($('#Category').val() != '') {
+                if ($('#Category').val() == 'CO' || $('#Category').val() == 'ST' || $('#Category').val() == 'CI'
+                    || $('#Category').val() == 'AR' || $('#Category').val() == 'PI') {
+                    if ($('#Category').val() == 'CO') {
+                        if ($('#LookUpMaster').val() == 0) {
+                            document.getElementById("Save").hidden = false;
+                        } else {
+                            alert("For Country - Look Up Master Should Be Zero")
+                            document.getElementById("Save").hidden = true;
+                        }
+                    } else {
+                        if ($('#LookUpMaster').val() == 0) {
+                            document.getElementById("Save").hidden = true;
+                        } else {
+                            document.getElementById("Save").hidden = false;
+                        }
+                    }
+                } else {
+                    document.getElementById("Save").hidden = true;
+                }
+            } else {
+
+            }
+        }
+
+        function updatelookUpMasterList() {
+
+            if ($('#Category').val() == "CO") {
+                document.getElementById("ListInfo").value = "List of [ Countrie's ]";
+                document.getElementById("ListInfo1").value = "Entered [ Countrie's ]";
+            } else if ($('#Category').val() == "ST") {
+                document.getElementById("ListInfo").value = "List of [ Countrie's ]";
+                document.getElementById("ListInfo1").value = "Entered [ States's ]";
+            } else if ($('#Category').val() == "CI") {
+                document.getElementById("ListInfo").value = "List of [ States's ]";
+                document.getElementById("ListInfo1").value = "Entered [ Cities's ]";
+            } else if ($('#Category').val() == "AR") {
+                document.getElementById("ListInfo").value = "List of [ City's ]";
+                document.getElementById("ListInfo1").value = "Entered [ Area's ]";
+            } else if ($('#Category').val() == "PI") {
+                document.getElementById("ListInfo").value = "List of [ Area's ]";
+                document.getElementById("ListInfo1").value = "Entered [ Pincode's ]";
+            } else {
+                document.getElementById("ListInfo").value = "";
+            }
+
+
+            var lookUpMasterSelected = document.getElementById("Category").value;
+
+            $list = $('#updatelookUpMasterList');
+
+            $.ajax({
+                url: '/MasterTablePages/AreaLookUpMaster/GetLookUpMaster/' + lookUpMasterSelected,
+                type: 'GET',
+                data: { 'category': lookUpMasterSelected },
+                dataType: 'text',
+                success: function (data) {
+                    results = JSON.parse(data);
+                    $list.html('');
+                    $list.append(' <ul class="list-group"> ');
+                    for (i in results) {
+                        $list.append('<li class="list-group-item">' + results[i].text + '</li>');
+                    }
+                    $list.append('</ul>');
+                }
+            });
+
+            $list1 = $('#updatelookUpMasterList1');
+
+            $.ajax({
+                url: '/MasterTablePages/AreaLookUpMaster/GetEnteredLookUpMaster/' + lookUpMasterSelected,
+                type: 'GET',
+                data: { 'category': lookUpMasterSelected },
+                dataType: 'text',
+                success: function (data) {
+                    results = JSON.parse(data);
+                    $list1.html('');
+                    $list1.append(' <ul class="list-group"> ');
+                    for (i in results) {
+                        $list1.append('<li class="list-group-item">' + results[i].text + '</li>');
+                    }
+                    $list1.append('</ul>');
+                }
+            });
+        }
+
+        function updatelookUpMasterList1() {
+
+
+            //var lookUpMasterSelected = document.getElementById("Category").value;
+
+            //$list = $('#updatelookUpMasterList1');
+
+            //$.ajax({
+            //    url: '/MasterTablePages/AreaLookUpMaster/GetEnteredLookUpMaster/' + lookUpMasterSelected,
+            //    type: 'GET',
+            //    data: { 'category': lookUpMasterSelected },
+            //    dataType: 'text',
+            //    success: function (data) {
+            //        results = JSON.parse(data);
+            //        $list.html('');
+            //        $list.append(' <ul class="list-group"> ');
+            //        for (i in results) {
+            //            $list.append('<li class="list-group-item">' + results[i].text + '</li>');
+            //        }
+            //        $list.append('</ul>');
+            //    }
+            //});
+
+        }
+
+        $(document).ready(function () {
+            updatelookUpMasterList();
+            //updatelookUpMasterList1();
+        });
+
+        $("#Category").on("change", function () {
+            updatelookUpMasterList();
+            //updatelookUpMasterList1();
+        });
+
+    </script>
+}
+
+

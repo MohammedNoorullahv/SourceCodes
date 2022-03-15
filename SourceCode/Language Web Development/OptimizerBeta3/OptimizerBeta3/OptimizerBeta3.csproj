@@ -1,0 +1,280 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-OptimizerBeta3-E6A544EC-3D99-4B23-B7E0-D42AFF313A34</UserSecretsId>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="NPOI" Version="2.5.4" />
+    <PackageReference Include="Uno.UI" Version="3.11.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Settings\Controllers\" />
+    <Folder Include="Areas\Settings\Views\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211125061424_252.UpdateInvoice.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211125061424_252.UpdateInvoice.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211129060921_254.UpdateOffer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211129060921_254.UpdateOffer.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211129120825_257.AddOfferDtlVenueMapping.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211129120825_257.AddOfferDtlVenueMapping.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211130042040_259.AddOfferDtlStockMapping.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211130042040_259.AddOfferDtlStockMapping.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211130071018_260.AddTempOfferStockMapping.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211130071018_260.AddTempOfferStockMapping.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211130112703_261.UpdateOfferDtlStockMappking.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211130112703_261.UpdateOfferDtlStockMappking.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211130141725_263.AddTempStockForOfferMapping.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211130141725_263.AddTempStockForOfferMapping.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211202103727_266.UpdateTempOfferStockMapping.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211202103727_266.UpdateTempOfferStockMapping.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211203043919_267.UpdateEstimateDetail.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211203043919_267.UpdateEstimateDetail.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211203130143_270.UpdateEstimateDtl.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211203130143_270.UpdateEstimateDtl.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211204053006_271.UpdateTempOfferforInvoice.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211204053006_271.UpdateTempOfferforInvoice.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211206065348_273.AddTempOfferDtlforInvoice.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211206065348_273.AddTempOfferDtlforInvoice.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211207091030_274.UpdateEstimate.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211207091030_274.UpdateEstimate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211208065326_277.UpdateInvoiceToCustomer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211208065326_277.UpdateInvoiceToCustomer.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211209115941_279.UpdateInvoiceToPerson.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211209115941_279.UpdateInvoiceToPerson.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211210100221_280.UpdateEstimate.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211210100221_280.UpdateEstimate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211211084405_281.AddEmployee.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211211084405_281.AddEmployee.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211214045751_282.UpdateEmployee.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211214045751_282.UpdateEmployee.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211214121201_285.UpdateInvoiceToPerson.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211214121201_285.UpdateInvoiceToPerson.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211215092156_287.UpdateOffer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211215092156_287.UpdateOffer.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211220070944_291.UpdateEstimate.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20211220070944_291.UpdateEstimate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220105065221_295.UpdateCustomerPersonInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220105065221_295.UpdateCustomerPersonInfo.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220105092346_296.UpdateCustomerPersonInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220105092346_296.UpdateCustomerPersonInfo.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220204094528_297.AddAreaLookUpMasters.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220204094528_297.AddAreaLookUpMasters.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220211050445_298.AddAreaMaster.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220211050445_298.AddAreaMaster.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220215095226_300.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220215095226_300.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220218094130_303.UpdateArticleDetail.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220218094130_303.UpdateArticleDetail.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220221052513_305.UpdateArticleGroup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220221052513_305.UpdateArticleGroup.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220221103138_309.UpdateTempInward.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220221103138_309.UpdateTempInward.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220221112210_312.UpdateStockTransfer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220221112210_312.UpdateStockTransfer.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220221115333_313.UpdateStockTransfer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SourceGeneratorInput Remove="Data\Migrations\20220221115333_313.UpdateStockTransfer.Designer.cs" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,82 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.SizeMasterforLeatherGoodsViewModel
+@using OptimizerBeta3.Extensions
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Size Master for Leather Goods - Edit</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMasterforLeatherGoods.Code" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMasterforLeatherGoods.Code" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="SizeMasterforLeatherGoods.ShortDescription" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMasterforLeatherGoods.ShortDescription" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMasterforLeatherGoods.Description" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="SizeMasterforLeatherGoods.Description" class="form-control" />
+                </div>
+                <span asp-validation-for="SizeMasterforLeatherGoods.Description" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SizeMasterforLeatherGoods.FKMeasurement" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.SizeMasterforLeatherGoods.FKMeasurement" asp-items="Model.FKMeasurement.ToSelectListItem(Model.SizeMasterforLeatherGoods.FKMeasurement)" class="form-control"></select>
+                </div>
+            </div>
+
+            <input asp-for="SizeMasterforLeatherGoods.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="SizeMasterforLeatherGoods.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+           
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <partial name="_EditandBacktoListButtonPartialView" model="Model.SizeMasterforLeatherGoods.Id" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

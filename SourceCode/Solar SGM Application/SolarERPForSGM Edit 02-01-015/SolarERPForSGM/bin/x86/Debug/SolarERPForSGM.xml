@@ -1,0 +1,215 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+SolarERPForSGM
+</name>
+</assembly>
+<members>
+<member name="T:SolarERPForSGM.DstmpSalesorder.tmptbl_SalesOrderHeaderforSGMDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorder.tmptbl_SalesOrderDetailforSGMDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorder.tmptbl_SalesOrderHeaderforSGMRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorder.tmptbl_SalesOrderDetailforSGMRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorder.tmptbl_SalesOrderHeaderforSGMRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorder.tmptbl_SalesOrderDetailforSGMRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorder">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorderTableAdapters.tmptbl_SalesOrderHeaderforSGMTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorderTableAdapters.tmptbl_SalesOrderDetailforSGMTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpSalesorderTableAdapters.TableAdapterManager.UpdateUpdatedRows(SolarERPForSGM.DstmpSalesorder,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpSalesorderTableAdapters.TableAdapterManager.UpdateInsertedRows(SolarERPForSGM.DstmpSalesorder,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpSalesorderTableAdapters.TableAdapterManager.UpdateDeletedRows(SolarERPForSGM.DstmpSalesorder,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpSalesorderTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpSalesorderTableAdapters.TableAdapterManager.UpdateAll(SolarERPForSGM.DstmpSalesorder)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorderTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorderTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpSalesorderTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrder.tmptbl_PurchaseOrderforSGMDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrder.tmptbl_PurchaseOrderDetailsforSGMDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrder.tmptbl_PurchaseOrderforSGMRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrder.tmptbl_PurchaseOrderDetailsforSGMRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrder.tmptbl_PurchaseOrderforSGMRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrder.tmptbl_PurchaseOrderDetailsforSGMRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrder">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.tmptbl_PurchaseOrderforSGMTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.tmptbl_PurchaseOrderDetailsforSGMTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.TableAdapterManager.UpdateUpdatedRows(SolarERPForSGM.DstmpPurchaseOrder,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.TableAdapterManager.UpdateInsertedRows(SolarERPForSGM.DstmpPurchaseOrder,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.TableAdapterManager.UpdateDeletedRows(SolarERPForSGM.DstmpPurchaseOrder,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.TableAdapterManager.UpdateAll(SolarERPForSGM.DstmpPurchaseOrder)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:SolarERPForSGM.DstmpPurchaseOrderTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrder.SalesOrderDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrder.SalesOrderDetailsDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrder.SalesOrderRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrder.SalesOrderDetailsRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrder.SalesOrderRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrder.SalesOrderDetailsRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrder">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrderTableAdapters.SalesOrderTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrderTableAdapters.SalesOrderDetailsTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:SolarERPForSGM.dsSalesOrderTableAdapters.TableAdapterManager.UpdateUpdatedRows(SolarERPForSGM.dsSalesOrder,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsSalesOrderTableAdapters.TableAdapterManager.UpdateInsertedRows(SolarERPForSGM.dsSalesOrder,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsSalesOrderTableAdapters.TableAdapterManager.UpdateDeletedRows(SolarERPForSGM.dsSalesOrder,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:SolarERPForSGM.dsSalesOrderTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:SolarERPForSGM.dsSalesOrderTableAdapters.TableAdapterManager.UpdateAll(SolarERPForSGM.dsSalesOrder)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrderTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrderTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:SolarERPForSGM.dsSalesOrderTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,112 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SolarERPForSGM", "SolarERPForSGM\SolarERPForSGM.vbproj", "{62580CE7-A0B9-4C08-9BE8-209B976B4C53}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 81 25-Feb-20 - For SGM Updates", "SGM Module 81 25-Feb-20 - For SGM Updates\SGM Module 81 25-Feb-20 - For SGM Updates.vdproj", "{8AF4805D-EFA8-4546-96B8-0A694DC2EBA5}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 82 03-Mar-20 - For SGM Updates", "SGM Module 82 03-Mar-20 - For SGM Updates\SGM Module 82 03-Mar-20 - For SGM Updates.vdproj", "{1F9B7DC3-BBB8-40D2-A9FF-C0FFA0FA5DC3}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 83 13-Mar-20 - For Latest Updates", "SGM Module 83 13-Mar-20 - For Latest Updates\SGM Module 83 13-Mar-20 - For Latest Updates.vdproj", "{7BAD06FF-DD7C-4210-B149-FE3E84DEACF2}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 84 17-Jun-20 - For Product Stock", "SGM Module 84 17-Jun-20 - For Product Stock\SGM Module 84 17-Jun-20 - For Product Stock.vdproj", "{18363AAE-35C0-4B2A-A038-52AD82A7586E}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 85 18-Jun-20 - For Product Stock", "SGM Module 85 18-Jun-20 - For Product Stock\SGM Module 85 18-Jun-20 - For Product Stock.vdproj", "{D3B97900-6AF1-4911-B8E7-E50255786C0B}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 86 19-Jun-20 - For Product Stock", "SGM Module 86 19-Jun-20 - For Product Stock\SGM Module 86 19-Jun-20 - For Product Stock.vdproj", "{ED575A06-397D-4B09-AA71-2A814D3F72B5}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 87 26-Jun-20 - For Product Stock", "SGM Module 87 26-Jun-20 - For Product Stock\SGM Module 87 26-Jun-20 - For Product Stock.vdproj", "{6E3FEA5E-C405-43B6-8304-B312CAAB377A}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 88 01-JuL-20 - For Product Stock", "SGM Module 88 01-JuL-20 - For Product Stock\SGM Module 88 01-JuL-20 - For Product Stock.vdproj", "{8965494E-6099-4418-8763-D59749826A6A}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 89 27-JuL-20 - Updates", "SGM Module 89 27-JuL-20 - Updates\SGM Module 89 27-JuL-20 - Updates.vdproj", "{86F06991-2BED-4A89-A6F4-BEA991D9F868}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SGM Module 90 06-JuL-21 - Updates", "SGM Module 90 06-JuL-21 - Updates\SGM Module 90 06-JuL-21 - Updates.vdproj", "{D5E6C86F-6330-495E-B7F8-2F4F572AC61A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Debug|x64.ActiveCfg = Debug|x64
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Debug|x64.Build.0 = Debug|x64
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Debug|x86.ActiveCfg = Debug|x86
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Debug|x86.Build.0 = Debug|x86
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Release|x64.ActiveCfg = Release|x64
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Release|x64.Build.0 = Release|x64
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Release|x86.ActiveCfg = Release|x86
+		{62580CE7-A0B9-4C08-9BE8-209B976B4C53}.Release|x86.Build.0 = Release|x86
+		{8AF4805D-EFA8-4546-96B8-0A694DC2EBA5}.Debug|Any CPU.ActiveCfg = Debug
+		{8AF4805D-EFA8-4546-96B8-0A694DC2EBA5}.Debug|x64.ActiveCfg = Debug
+		{8AF4805D-EFA8-4546-96B8-0A694DC2EBA5}.Debug|x86.ActiveCfg = Debug
+		{8AF4805D-EFA8-4546-96B8-0A694DC2EBA5}.Release|Any CPU.ActiveCfg = Release
+		{8AF4805D-EFA8-4546-96B8-0A694DC2EBA5}.Release|x64.ActiveCfg = Release
+		{8AF4805D-EFA8-4546-96B8-0A694DC2EBA5}.Release|x86.ActiveCfg = Release
+		{1F9B7DC3-BBB8-40D2-A9FF-C0FFA0FA5DC3}.Debug|Any CPU.ActiveCfg = Debug
+		{1F9B7DC3-BBB8-40D2-A9FF-C0FFA0FA5DC3}.Debug|x64.ActiveCfg = Debug
+		{1F9B7DC3-BBB8-40D2-A9FF-C0FFA0FA5DC3}.Debug|x86.ActiveCfg = Debug
+		{1F9B7DC3-BBB8-40D2-A9FF-C0FFA0FA5DC3}.Release|Any CPU.ActiveCfg = Release
+		{1F9B7DC3-BBB8-40D2-A9FF-C0FFA0FA5DC3}.Release|x64.ActiveCfg = Release
+		{1F9B7DC3-BBB8-40D2-A9FF-C0FFA0FA5DC3}.Release|x86.ActiveCfg = Release
+		{7BAD06FF-DD7C-4210-B149-FE3E84DEACF2}.Debug|Any CPU.ActiveCfg = Debug
+		{7BAD06FF-DD7C-4210-B149-FE3E84DEACF2}.Debug|x64.ActiveCfg = Debug
+		{7BAD06FF-DD7C-4210-B149-FE3E84DEACF2}.Debug|x86.ActiveCfg = Debug
+		{7BAD06FF-DD7C-4210-B149-FE3E84DEACF2}.Release|Any CPU.ActiveCfg = Release
+		{7BAD06FF-DD7C-4210-B149-FE3E84DEACF2}.Release|x64.ActiveCfg = Release
+		{7BAD06FF-DD7C-4210-B149-FE3E84DEACF2}.Release|x86.ActiveCfg = Release
+		{18363AAE-35C0-4B2A-A038-52AD82A7586E}.Debug|Any CPU.ActiveCfg = Debug
+		{18363AAE-35C0-4B2A-A038-52AD82A7586E}.Debug|x64.ActiveCfg = Debug
+		{18363AAE-35C0-4B2A-A038-52AD82A7586E}.Debug|x86.ActiveCfg = Debug
+		{18363AAE-35C0-4B2A-A038-52AD82A7586E}.Release|Any CPU.ActiveCfg = Release
+		{18363AAE-35C0-4B2A-A038-52AD82A7586E}.Release|x64.ActiveCfg = Release
+		{18363AAE-35C0-4B2A-A038-52AD82A7586E}.Release|x86.ActiveCfg = Release
+		{D3B97900-6AF1-4911-B8E7-E50255786C0B}.Debug|Any CPU.ActiveCfg = Debug
+		{D3B97900-6AF1-4911-B8E7-E50255786C0B}.Debug|x64.ActiveCfg = Debug
+		{D3B97900-6AF1-4911-B8E7-E50255786C0B}.Debug|x86.ActiveCfg = Debug
+		{D3B97900-6AF1-4911-B8E7-E50255786C0B}.Release|Any CPU.ActiveCfg = Release
+		{D3B97900-6AF1-4911-B8E7-E50255786C0B}.Release|x64.ActiveCfg = Release
+		{D3B97900-6AF1-4911-B8E7-E50255786C0B}.Release|x86.ActiveCfg = Release
+		{ED575A06-397D-4B09-AA71-2A814D3F72B5}.Debug|Any CPU.ActiveCfg = Debug
+		{ED575A06-397D-4B09-AA71-2A814D3F72B5}.Debug|x64.ActiveCfg = Debug
+		{ED575A06-397D-4B09-AA71-2A814D3F72B5}.Debug|x86.ActiveCfg = Debug
+		{ED575A06-397D-4B09-AA71-2A814D3F72B5}.Release|Any CPU.ActiveCfg = Release
+		{ED575A06-397D-4B09-AA71-2A814D3F72B5}.Release|x64.ActiveCfg = Release
+		{ED575A06-397D-4B09-AA71-2A814D3F72B5}.Release|x86.ActiveCfg = Release
+		{6E3FEA5E-C405-43B6-8304-B312CAAB377A}.Debug|Any CPU.ActiveCfg = Debug
+		{6E3FEA5E-C405-43B6-8304-B312CAAB377A}.Debug|x64.ActiveCfg = Debug
+		{6E3FEA5E-C405-43B6-8304-B312CAAB377A}.Debug|x86.ActiveCfg = Debug
+		{6E3FEA5E-C405-43B6-8304-B312CAAB377A}.Release|Any CPU.ActiveCfg = Release
+		{6E3FEA5E-C405-43B6-8304-B312CAAB377A}.Release|x64.ActiveCfg = Release
+		{6E3FEA5E-C405-43B6-8304-B312CAAB377A}.Release|x86.ActiveCfg = Release
+		{8965494E-6099-4418-8763-D59749826A6A}.Debug|Any CPU.ActiveCfg = Debug
+		{8965494E-6099-4418-8763-D59749826A6A}.Debug|x64.ActiveCfg = Debug
+		{8965494E-6099-4418-8763-D59749826A6A}.Debug|x86.ActiveCfg = Debug
+		{8965494E-6099-4418-8763-D59749826A6A}.Release|Any CPU.ActiveCfg = Release
+		{8965494E-6099-4418-8763-D59749826A6A}.Release|x64.ActiveCfg = Release
+		{8965494E-6099-4418-8763-D59749826A6A}.Release|x86.ActiveCfg = Release
+		{86F06991-2BED-4A89-A6F4-BEA991D9F868}.Debug|Any CPU.ActiveCfg = Debug
+		{86F06991-2BED-4A89-A6F4-BEA991D9F868}.Debug|x64.ActiveCfg = Debug
+		{86F06991-2BED-4A89-A6F4-BEA991D9F868}.Debug|x86.ActiveCfg = Debug
+		{86F06991-2BED-4A89-A6F4-BEA991D9F868}.Release|Any CPU.ActiveCfg = Release
+		{86F06991-2BED-4A89-A6F4-BEA991D9F868}.Release|x64.ActiveCfg = Release
+		{86F06991-2BED-4A89-A6F4-BEA991D9F868}.Release|x86.ActiveCfg = Release
+		{D5E6C86F-6330-495E-B7F8-2F4F572AC61A}.Debug|Any CPU.ActiveCfg = Debug
+		{D5E6C86F-6330-495E-B7F8-2F4F572AC61A}.Debug|x64.ActiveCfg = Debug
+		{D5E6C86F-6330-495E-B7F8-2F4F572AC61A}.Debug|x86.ActiveCfg = Debug
+		{D5E6C86F-6330-495E-B7F8-2F4F572AC61A}.Release|Any CPU.ActiveCfg = Release
+		{D5E6C86F-6330-495E-B7F8-2F4F572AC61A}.Release|x64.ActiveCfg = Release
+		{D5E6C86F-6330-495E-B7F8-2F4F572AC61A}.Release|x86.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

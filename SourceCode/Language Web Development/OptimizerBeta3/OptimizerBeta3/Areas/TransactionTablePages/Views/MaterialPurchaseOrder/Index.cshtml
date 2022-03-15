@@ -1,0 +1,103 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.TransactionTables.MaterialPurchaseOrder>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-8">
+            <h2 class="text-info">Accessories & Material Purchase Order's - Index</h2>
+        </div>
+        <div class="col-4 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+    <div>
+        <form asp-action="IndexFilter" asp-controller="MaterialPurchaseOrder">
+            <div class="row">
+                <div class="col-2">
+                    <h3 class="text-success">From Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="fromDate" name="fromDate" value="@(((DateTime)ViewBag.FromDate).Date.ToString("yyyy-MM-dd"))" />
+                </div>
+                <div class="col-2">
+                    <h3 class="text-success">To Date :</h3>
+                </div>
+                <div class="col-2">
+                    <input type="date" id="toDate" name="toDate" value="@(((DateTime)ViewBag.ToDate).Date.ToString("yyyy-MM-dd"))" />
+
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-2 text-right">
+                    <input type="submit" value="&nbsp; &nbsp; &nbsp; Refresh &nbsp;&nbsp; &nbsp; &nbsp;" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info">
+                <th> @Html.DisplayNameFor(m => m.PurchaseOrderNo) </th>
+                <th> @Html.DisplayNameFor(m => m.PurchaseOrderDt) </th>
+                <th> @Html.DisplayNameFor(m => m.SupplierName) </th>
+                <th> @Html.DisplayNameFor(m => m.TypeofOrder) </th>
+                <th> @Html.DisplayNameFor(m => m.POType) </th>
+                <th> @Html.DisplayNameFor(m => m.OrderStatus) </th>
+                <th class="text-center"> <label>Actions</label> </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td> @Html.DisplayFor(m => item.PurchaseOrderNo) </td>
+            <td> @item.PurchaseOrderDt.ToString("dd-MMM-yyyy")  </td>
+            <td> @Html.DisplayFor(m => item.SupplierName) </td>
+            <td> @Html.DisplayFor(m => item.TypeofOrder) </td>
+            <td> @Html.DisplayFor(m => item.POType) </td>
+            <td> @Html.DisplayFor(m => item.OrderStatus) </td>
+            <td> @if (item.OrderStatus != "Cancel") {
+                    <a class="btn btn-warning" asp-action="MPODetailIndex" asp-route-id="@item.Id">
+                        P.O Dtl
+                    </a>
+                }
+                @if (item.OrderStatus != "Cancel")
+                {
+                    <div class="btn-group" role="group">
+                        @if (item.RecievedQty <= 0)
+                        {
+                            <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        }
+
+
+                        <a class="btn btn-success text-white" asp-action="Cancel" asp-route-Id="@item.Id">
+                            <i class="far fa-times-circle"></i>
+                        </a>
+
+                        @*<a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@item.Id">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>*@
+                    </div>
+                }
+            </td>
+
+        </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Purchase Order's exists.....</p>
+    }
+</div>
+

@@ -1,0 +1,413 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.InvoiceViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Invoice's [ Partner Stores ]  - Create</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="Create" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.FKSeason" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Invoice.FKSeason" asp-items="Model.FKSeason.ToSelectListItem(Model.Invoice.FKSeason)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.FKTypeOfInvoice" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Invoice.FKTypeOfInvoice" asp-items="Model.FKTypeOfInvoice.ToSelectListItem(Model.Invoice.FKTypeOfInvoice)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <select asp-for="@Model.Invoice.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.Invoice.FKCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.FKUnit" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <select id="ddlUnitlist" asp-for="@Model.Invoice.FKUnit" asp-items="Model.FKUnit.ToSelectListCompanyName(Model.Invoice.FKUnit)" class="form-control"></select>
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.FKLocation" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    @*<select asp-for="@Model.Invoice.FKLocation" asp-items="Model.FKLocation.ToSelectListLocationName(Model.Invoice.FKLocation)" class="form-control"></select>*@
+                    <select asp-for="Invoice.FKLocation" id="updatelocationList" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.FKParty" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <select id="ddlpartylist" asp-for="@Model.Invoice.FKParty" asp-items="Model.FKParty.ToSelectListCompanyName(Model.Invoice.FKParty)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.IncludeBillTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-1">
+                    <input asp-for="Invoice.IncludeBillTo" type="checkbox" id="IncludeBillTo" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                </div>
+                    <div class="col-sm-2">
+
+                        <label asp-for="Invoice.FKBillTo" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-6">
+                        @*<select asp-for="@Model.Invoice.FKBillTo" asp-items="Model.FKBillTo.ToSelectListCompanyName(Model.Invoice.FKBillTo)" class="form-control"></select>*@
+                        <select asp-for="Invoice.FKBillTo" id="updateBillToList" class="form-control"></select>
+                    </div>
+                </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.IncludeNotifyTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-1">
+                    <input asp-for="Invoice.IncludeNotifyTo" type="checkbox" id="IncludeNotifyTo" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.FKNotifyTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-6">
+                    @*<select asp-for="@Model.Invoice.FKNotifyTo" asp-items="Model.FKNotifyTo.ToSelectListCompanyName(Model.Invoice.FKNotifyTo)" class="form-control"></select>*@
+                    <select asp-for="Invoice.FKBillTo" id="updateNotifyToList" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.IncludeDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-1">
+                    <input asp-for="Invoice.IncludeDeliveryTo" type="checkbox" id="IncludeDeliveryTo" class="form-control" />
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.FKDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    @*<select asp-for="@Model.Invoice.FKDeliveryTo" asp-items="Model.FKDeliveryTo.ToSelectListCompanyName(Model.Invoice.FKDeliveryTo)" class="form-control"></select>*@
+                    <select asp-for="Invoice.FKBillTo" id="updateDeliveryToList" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.InvoiceNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Invoice.InvoiceNo" readonly value="[Auto]" class="form-control text-danger" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.InvoiceDt" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="date" asp-for="Invoice.InvoiceDt" id="InvoiceDt" class="form-control" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Invoice.OrderRefNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-sm-2">
+                    <input asp-for="Invoice.OrderRefNo" class="form-control" />
+                </div>
+            </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.FKDestination" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select asp-for="@Model.Invoice.FKDestination" asp-items="Model.FKDestination.ToSelectListItem(Model.Invoice.FKDestination)" class="form-control"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.FKCurrency" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select asp-for="@Model.Invoice.FKCurrency" asp-items="Model.FKCurrency.ToSelectListItem(Model.Invoice.FKCurrency)" class="form-control"></select>
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.ExchangeRate" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="Invoice.ExchangeRate" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.ItemsValue" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="Invoice.ItemsValue" readonly class="form-control" />
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.ValueinINR" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="Invoice.ValueinINR" readonly class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.GSTValues" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="Invoice.GSTValues" readonly class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.OtherExpensesPlus" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="Invoice.OtherExpensesPlus" readonly class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.OtherExpensesMinus" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="Invoice.OtherExpensesMinus" readonly class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.NettValue" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="Invoice.NettValue" readonly class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.FKPaymentTerms" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select asp-for="@Model.Invoice.FKPaymentTerms" asp-items="Model.FKPaymentTerms.ToSelectListItem(Model.Invoice.FKPaymentTerms)" class="form-control"></select>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.FKModeofTransport" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <select asp-for="@Model.Invoice.FKModeofTransport" asp-items="Model.FKModeofTransport.ToSelectListItem(Model.Invoice.FKModeofTransport)" class="form-control"></select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.IsEntryCompleted" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-1">
+                        <input asp-for="Invoice.IsEntryCompleted" class="form-control" />
+                    </div>
+                    <div class="col-1">
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.IsDispatched" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-1">
+                        <input asp-for="Invoice.IsDispatched" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label asp-for="Invoice.Remarks" class="col-form-label text-info"></label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input asp-for="Invoice.Remarks" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label class="col-form-label text-info">Load File</label>
+                    </div>
+                    <div class="col-3">
+                        <input id="LoadFile" type="file" name="formFile" oninput="ShowUploadOption()" />
+                    </div>
+
+                </div>
+
+                <input asp-for="Invoice.Season" readonly class="form-control" value="" type="hidden" />
+                <input asp-for="Invoice.InvoiceTo" readonly class="form-control" value="PS" type="hidden" />
+                <input asp-for="Invoice.IsActive" readonly class="form-control" value="@true" type="hidden" />
+                <input asp-for="Invoice.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+                <input asp-for="Invoice.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+                <input asp-for="Invoice.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+                <input asp-for="Invoice.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+                <input asp-for="Invoice.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+                <input asp-for="Invoice.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+                <input asp-for="Invoice.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+                <div class="form-group row">
+                    <div class="col-8 offset-3">
+                        <div class="row">
+                            <div class="col-3">
+                                <input type="submit" class="btn btn-info form-control" value="Save & New Inv" name="Save" />
+                            </div>
+                            <div class="col-3">
+                                <input type="submit" class="btn btn-success form-control" value="Save & Insert Dtl" formmethod="post" formaction="Create" name="Save" />
+                            </div>
+                            <div class="col-3">
+                                <input id="ImpDtl" type="submit" class="btn btn-primary form-control" value="Save & Import Dtl" hidden="hidden" formmethod="post" formaction="Create" name="Save" />
+                            </div>
+                            <div class="col-3">
+                                <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var nextmonth = dtToday.getMonth() + 2;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var minDate = year + '-' + month + '-' + day;
+        var maxDate = year + '-' + nextmonth + '-' + day;
+        $('#InvoiceDt').attr('min', minDate);
+        $('#InvoiceDt').attr('max', maxDate);
+    });
+
+    function ShowUploadOption() {
+        if ($('#LoadFile').val() != "") {
+            document.getElementById("ImpDtl").hidden = false;
+        } else {
+            document.getElementById("ImpDtl").hidden = true;
+        }
+    }
+
+    function updatelocationList() {
+        var lookUpMasterSelected = document.getElementById("ddlUnitlist").value;
+        $.getJSON("/MasterTablePages/UnitMaster/GetUnitsLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updatelocationList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    $(document).ready(function () {
+        updatelocationList();
+        updateBillToList();
+        updateNotifyToList();
+        updateDeliveryToList();
+    });
+
+    $("#ddlUnitlist").on("change", function () {
+        updatelocationList();
+    });
+
+    function updateBillToList() {
+        var lookUpMasterSelected = document.getElementById("ddlpartylist").value;
+        $.getJSON("/MasterTablePages/PartyInfoDtls/GetDeliveryLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updateBillToList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    function updateNotifyToList() {
+        var lookUpMasterSelected = document.getElementById("ddlpartylist").value;
+        $.getJSON("/MasterTablePages/PartyInfoDtls/GetDeliveryLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updateNotifyToList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    function updateDeliveryToList() {
+        var lookUpMasterSelected = document.getElementById("ddlpartylist").value;
+        $.getJSON("/MasterTablePages/PartyInfoDtls/GetDeliveryLocation/" + lookUpMasterSelected,
+            function (data) {
+                var select = $("#updateDeliveryToList");
+                select.empty();
+                $.each(data, function (index, itemData) {
+                    select.append($('<option/>', {
+                        value: itemData.value,
+                        text: itemData.text
+                    }));
+                });
+            });
+    }
+
+    $("#ddlpartylist").on("change", function () {
+        updatelocationList();
+        updateBillToList();
+        updateNotifyToList();
+        updateDeliveryToList();
+    });
+</script>
+

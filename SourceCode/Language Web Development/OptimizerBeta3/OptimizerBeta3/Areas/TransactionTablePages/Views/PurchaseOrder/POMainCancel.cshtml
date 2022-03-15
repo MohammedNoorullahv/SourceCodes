@@ -1,0 +1,171 @@
+﻿@model OptimizerBeta3.Models.ViewModels.TransactionTables.PurchaseOrderMainViewModel
+@using OptimizerBeta3.Extensions
+
+@{
+    ViewData["Title"] = "Cancel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@{
+    var purchaseOrder = (OptimizerBeta3.Models.TransactionTables.PurchaseOrder)TempData["PurchaseOrder"];
+    var purchaseOrderMain = (OptimizerBeta3.Models.TransactionTables.PurchaseOrderMain)TempData["PurchaseOrderMain"];
+}
+<br />
+<div class="border backgroudColor">
+    <div class="backgroudWhite10Px">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Purchase Order Info</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order No</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderNo;
+            </div>
+            <div class="col-3">
+                <label class="col-form-label text-danger">Purchase Order Date</label>
+            </div>
+            <div class="col-3">
+                @purchaseOrder.PurchaseOrderDt;
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Purchase Order Main - Cancel</h2>
+        </div>
+        <div class="col-6 text-right">
+        </div>
+    </div>
+    <div></div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="POMainCancel">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.PurchaseOrderMainNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.PurchaseOrderMainNo" readonly class="form-control text-danger" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.OrderReferenceNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.OrderReferenceNo" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.ArticleGroup" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.ArticleGroup" readonly class="form-control"/>
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.TotalOrderQuantity" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.TotalOrderQuantity" readonly id="TotalOrderQuantity" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.DeliveryDate" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="date" asp-for="PurchaseOrderMain.DeliveryDate" readonly id="DeliveryDate" class="form-control" />
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.IsPartDeliveryAllowed" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input type="checkbox" asp-for="PurchaseOrderMain.IsPartDeliveryAllowed" readonly class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKSizeMaster" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.SizeCode" readonly class="form-control"/>
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKDestination" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.Destination" readonly class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKDeliveryTo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.DeliveryTo" readonly class="form-control"/>
+                </div>
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKModeofTransport" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="PurchaseOrderMain.ModeofTransport" readonly class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="PurchaseOrderMain.FKOrderStatus" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.PurchaseOrderMain.FKOrderStatus" asp-items="Model.FKOrderStatus.ToSelectListItem(Model.PurchaseOrderMain.FKOrderStatus)" class="form-control"></select>
+                </div>
+            </div>
+
+            <input asp-for="PurchaseOrderMain.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="PurchaseOrderMain.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    @*<partial name="_CreateandBacktoListButton" />*@
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="submit" id="save" class="btn btn-danger form-control" value="Cancel" />
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-dark text-white  form-control" asp-action="POMainIndex" asp-route-id="@purchaseOrder.Id">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+

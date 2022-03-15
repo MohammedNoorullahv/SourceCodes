@@ -1,0 +1,40 @@
+﻿@model OptimizerBeta3.Models.TransactionTables.Invoice
+
+@{
+    ViewData["Title"] = "CreateInvoiceDetailForDataFetching";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var invoice = (OptimizerBeta3.Models.TransactionTables.Invoice)TempData["Invoice"];
+    //var error = ViewBag.ErrorMessage.ToString();
+}
+
+<h1>CreateInvoiceDetailForDataFetching</h1>
+
+@if (@TempData["ErrorMessage"] != null)
+{
+<h2>@TempData["ErrorMessage"].ToString()</h2>
+}
+
+
+<form asp-controller="Invoice" asp-action="CreateInvoiceDetailForDataFetchingPost" method="post" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="file" id="fileupload" name="formFile" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <input type="submit" name="Import" class="btn btn-primary" value="Import" accept=".png,.jpg,.jpeg,.gif"  />
+            </div>
+            <div class="col-md-4">
+                @if (invoice != null)
+                {
+                    <input type="text" name="InvoiceId" readonly value="@invoice.Id" class="form-control" />
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+

@@ -1,0 +1,259 @@
+﻿@model OptimizerBeta3.Models.ViewModels.MasterTables.ArticleDetailViewModel
+@using OptimizerBeta3.Extensions
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="border backgroudPlain">
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-success">Article Group for Creating Articles</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="col-form-label text-danger">Article No</label>
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control" readonly="readonly" value="@TempData["AGArticleNo"]" />
+            </div>
+            <div class="col-sm-2">
+                <label class="col-form-label text-danger">Article Name</label>
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control" readonly="readonly" value="@TempData["AGArticleName"]" />
+            </div>
+            <div class="col-sm-2">
+                <label class="col-form-label text-danger">Description</label>
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control" readonly="readonly" value="@TempData["AGDescription"]" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Article - Create</h2>
+        </div>
+    </div>
+    <br />
+</div>
+
+@*<partial name="_StatusMessage" model="Model.StatusMessage" />*@
+
+
+<div class="border backgroudColor row">
+    <div class="col-12 backgroudWhite border-right">
+        <form method="post" asp-action="ArticleDetailCreate" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-6"></div>
+                <div class="col-3">
+                    <a asp-action="MaterialMasterCreate" class="btn btn-success form-control">Leather Master</a>
+                </div>
+                <div class="col-3">
+                    <a asp-action="ColorMasterCreate" class="btn btn-success form-control">Color Master</a>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKEntryType" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKEntryType" asp-items="Model.FKEntryType.ToSelectListItem(Model.ArticleDetail.FKEntryType)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKCategory" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKCategory" asp-items="Model.FKCategory.ToSelectListItem(Model.ArticleDetail.FKCategory)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKLeather" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKLeather" asp-items="Model.FKLeather.ToSelectListItem(Model.ArticleDetail.FKLeather)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKColour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKColour" asp-items="Model.FKColour.ToSelectListColourName(Model.ArticleDetail.FKColour)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKLiningColour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKLiningColour" asp-items="Model.FKLiningColour.ToSelectListColourName(Model.ArticleDetail.FKLiningColour)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKSocksColour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKSocksColour" asp-items="Model.FKSocksColour.ToSelectListColourName(Model.ArticleDetail.FKSocksColour)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKSoleColour" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKSoleColour" asp-items="Model.FKSoleColour.ToSelectListColourName(Model.ArticleDetail.FKSoleColour)" class="form-control"></select>
+                </div>
+                <div class="col-2">
+                    <label asp-for="ArticleDetail.Type" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="ArticleDetail.Type" class="form-control" />
+                </div>
+                <span asp-validation-for="ArticleDetail.Type" class="text-danger"></span>
+                <div class="col-2">
+                    <label asp-for="ArticleDetail.Variant" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="ArticleDetail.Variant" class="form-control" />
+                </div>
+                <span asp-validation-for="ArticleDetail.Variant" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.StockNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3" style="background-color:  lightpink">
+                    <input asp-for="ArticleDetail.StockNo" readonly class="form-control" value="[Auto]" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="ArticleDetail.StockNo" class="text-danger"></span>
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKHSNCode" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKHSNCode" asp-items="Model.FKHSNCode.ToSelectListHSNCode(Model.ArticleDetail.FKHSNCode)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.Description" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6" style="background-color:  lightpink">
+                    <input asp-for="ArticleDetail.Description" readonly value="[Auto]" class="form-control" style="background-color:  lightpink" />
+                </div>
+                <span asp-validation-for="ArticleDetail.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.Picture" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input type="file" name="files" multiple class="form-control" />
+                </div>
+                @*<input type="file" id="projectImage" name="files" multiple class="form-control" />*@
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.FKFeatures" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <select asp-for="@Model.ArticleDetail.FKFeatures" asp-items="Model.FKFeatures.ToSelectListItem(Model.ArticleDetail.FKFeatures)" class="form-control"></select>
+                </div>
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.VersionNo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-3">
+                    <input asp-for="ArticleDetail.VersionNo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="ArticleDetail.CostPrice" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="ArticleDetail.CostPrice" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="ArticleDetail.MRP" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="ArticleDetail.MRP" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="ArticleDetail.DealerPrice" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="ArticleDetail.DealerPrice" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <label asp-for="ArticleDetail.ProductTax" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-1">
+                    <input asp-for="ArticleDetail.ProductTax" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="ArticleDetail.AdditionalInfo" class="col-form-label text-info"></label>
+                </div>
+                <div class="col-6">
+                    <input asp-for="ArticleDetail.AdditionalInfo" class="form-control" />
+                </div>
+            </div>
+
+            <input asp-for="ArticleDetail.FKArticleGroup" readonly class="form-control" value="@TempData["AGID"]" type="hidden" />
+            <input asp-for="ArticleDetail.ArticleNo" readonly class="form-control" value="@TempData["AGArticleNo"]" type="hidden" />
+            <input asp-for="ArticleDetail.IsActive" readonly class="form-control" value="@true" type="hidden" />
+            <input asp-for="ArticleDetail.EnteredSystemId" readonly class="form-control" value="" type="hidden" />
+            <input asp-for="ArticleDetail.CreatedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="ArticleDetail.CreatedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="ArticleDetail.ModifiedBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="ArticleDetail.ModifiedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+            <input asp-for="ArticleDetail.DeleteBy" readonly class="form-control" value="1" type="hidden" />
+            <input asp-for="ArticleDetail.DeletedDate" readonly class="form-control" value="@DateTime.Now" type="datetime" type="hidden" />
+
+            <div class="form-group row">
+                <div class="col-6 offset-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-info form-control" value="Create" />
+                            @*<a class="btn btn-control text-white  form-control" asp-action="ArticleDetailCreate">
+                            Save
+                        </a>*@
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-success text-white  form-control" asp-action="ArticleDetailIndex" asp-route-id="@TempData["AGId"]">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

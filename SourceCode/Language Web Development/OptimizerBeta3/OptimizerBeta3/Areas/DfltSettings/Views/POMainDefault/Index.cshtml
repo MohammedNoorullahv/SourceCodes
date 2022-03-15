@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.GeneralTables.POMainDefault>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Purchase Order Main Default's</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartialView" />
+        </div>
+    </div>
+
+</div>
+
+<br />
+
+@*PurchaseOrderNo, PurchaseOrderDate, SupplierName, TypeofOrder, POType, Source, OrderStatus*@
+
+<div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-success table-striped table-hover table-bordered">
+            <tr class="table-success text-info text-center">
+                <th> @Html.DisplayNameFor(m => m.DeliveryTo) </th>
+                <th> @Html.DisplayNameFor(m => m.Destination) </th>
+                <th> @Html.DisplayNameFor(m => m.ModeofTransport) </th>
+                <th> @Html.DisplayNameFor(m => m.OrderStatus) </th>
+                <th> <label class="text-center">Actions</label> </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(m => item.DeliveryTo) </td>
+                    <td> @Html.DisplayFor(m => item.Destination) </td>
+                    <td> @Html.DisplayFor(m => item.ModeofTransport) </td>
+                    <td>
+                        @Html.DisplayFor(m => item.OrderStatus)
+                        <partial name="_TableButtonPartial" model="item.Id" />
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p> No Purchase Order Main Default Setting exists.....</p>
+    }
+</div>
+

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<OptimizerBeta3.Models.MasterTables.CompanyInfo>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroudColor">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Company Master For Unit Master - Index</h2>
+        </div>
+        <div class="col-6 text-right">
+            @*@Html.ActionLink("Create New", "Create", "CompanyInfo", new object { }, new { @class = "fas fa-plus btn btn-info" })*@
+        </div>
+    </div>
+    <div></div>
+    <br />
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.CompanyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Address1)
+                    </th>
+                    <th><label>Actions</label></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Address1)
+                        </td>
+                        <td style="width:150px">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary text-white" asp-action="UnitIndex" asp-route-id="@item.Id">
+                                    <i class="fas fa-plus"></i>
+                                    Add / Edit Unit's'
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p> No Company Info exists.....</p>
+        }
+    </div>
+</div>
+
+
+
+
